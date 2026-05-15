@@ -164,6 +164,8 @@ class BlogPageView(View):
         lang = get_language_from_request(request)
         context = get_blog_list_data(request, lang)
         context['language'] = lang
+        categories = get_product_categories(lang)
+        context['categories'] = [serialize_product_category(c, lang) for c in categories]
         return render(request, self.template_name, context)
 
 
@@ -179,9 +181,11 @@ class BlogDetailPageView(View):
         Blog.objects.filter(pk=blog_id).update(view_count=blog.view_count + 1)
 
         contact = get_contact(lang)
+        categories = get_product_categories(lang)
         context = {
             'blog': serialize_blog(blog, lang),
             'contact': serialize_contact(contact, lang) if contact else None,
+            'categories': [serialize_product_category(c, lang) for c in categories],
             'language': lang,
             'footer_image': get_background_image('footer'),
         }
