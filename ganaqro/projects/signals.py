@@ -58,15 +58,11 @@ def invalidate_media_cache(sender, instance, **kwargs):
     if getattr(instance, 'about_id', None):
         invalidate_model_cache('About')
 
-    if instance.is_home_page_background_image:
-        invalidate_model_cache('Media')
-
 
 @receiver(post_save, sender=Motto)
 @receiver(post_delete, sender=Motto)
 def invalidate_motto_cache(sender, instance, **kwargs):
     invalidate_model_cache('Motto')
-    invalidate_model_cache('Media')
 
 
 @receiver(post_save, sender=Statistic)

@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.core.files.storage import default_storage
 import logging
 
@@ -7,6 +8,16 @@ from .partner_models import Partner
 from .about_models import About
 
 logger = logging.getLogger(__name__)
+
+
+def media_not_marked_as_background_q():
+    """Filter for content media only (exclude rows flagged as page background images)."""
+    return (
+        Q(is_home_page_background_image=False)
+        & Q(is_about_page_background_image=False)
+        & Q(is_contact_page_background_image=False)
+        & Q(is_product_page_background_image=False)
+    )
 
 
 class Media(models.Model):
@@ -34,6 +45,17 @@ class Media(models.Model):
         blank=True,
         verbose_name='Tərəfdaş'
     )
+    name = models.CharField(
+        max_length=120,
+        null=True,
+        blank=True,
+        verbose_name='Ad',
+    )
+    short_description = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name='Qısa məlumat',
+    )
     image = models.ImageField(
         upload_to='images/',
         verbose_name='Şəkil'
@@ -59,10 +81,6 @@ class Media(models.Model):
     is_product_page_background_image = models.BooleanField(
         default=False,
         verbose_name='Məhsullar səhifəsi fon şəkli'
-    )
-    is_footer_background_image = models.BooleanField(
-        default=False,
-        verbose_name='Footer fon şəkli'
     )
     created_at = models.DateTimeField(
         auto_now_add=True,

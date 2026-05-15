@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.validators import MaxLengthValidator
+from django.core.validators import MaxLengthValidator, FileExtensionValidator
 
 
 class About(models.Model):
@@ -50,6 +50,26 @@ class About(models.Model):
     description_ru = models.TextField(
         validators=[MaxLengthValidator(4000)],
         verbose_name='Text (RU)'
+    )
+    video = models.FileField(
+        upload_to='videos/about/',
+        null=True,
+        blank=True,
+        validators=[
+            FileExtensionValidator(
+                allowed_extensions=('mp4', 'webm', 'mov', 'ogg', 'mkv'),
+                message='Allowed formats: mp4, webm, mov, ogg, mkv.',
+            )
+        ],
+        verbose_name='Video',
+        help_text='Single promotional video for the About page (optional).',
+    )
+    video_poster = models.ImageField(
+        upload_to='images/about/video_posters/',
+        null=True,
+        blank=True,
+        verbose_name='Video örtüyü (poster)',
+        help_text='Cover frame shown before play (recommended — square image works best).',
     )
 
     class Meta:

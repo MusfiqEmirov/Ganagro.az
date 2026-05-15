@@ -57,7 +57,6 @@
               <i class="bi bi-chevron-down toggle-dropdown"></i>
             </a>
             <ul>
-              <li><a href="{% url 'projects:product-page' %}">{% if language == 'en' %}All Products{% elif language == 'ru' %}Все продукты{% else %}Bütün Məhsullar{% endif %}</a></li>
               {% for cat in categories %}
               <li><a href="{% url 'projects:product-page' %}?slug={{ cat.slug }}">{{ cat.name }}</a></li>
               {% endfor %}
@@ -125,7 +124,7 @@
     {% block content %}{% endblock %}
   </main>
 
-  <footer id="footer" class="footer dark-background"{% if footer_image %} style="background-image: url('{{ footer_image }}'); background-size: cover; background-position: center;"{% endif %}>
+  <footer id="footer" class="footer dark-background">
 
     <div class="footer-top">
       <div class="container">

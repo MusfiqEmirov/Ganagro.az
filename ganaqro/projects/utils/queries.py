@@ -1,7 +1,11 @@
+import html as html_lib
+
 from django.db.models import Q, Prefetch
 from django.utils import translation
+from django.templatetags.static import static
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from projects.models.media_models import media_not_marked_as_background_q
 from projects.models import (
     Product, ProductCategory, Partner, About,
     Contact, Media, Motto, Statistic, Blog,
@@ -70,7 +74,12 @@ def get_product_categories(lang='az'):
 
 def get_products(lang='az', category_slug=None, is_active=True, on_main_page=None):
     queryset = Product.objects.select_related('category').prefetch_related(
-        Prefetch('medias', queryset=Media.objects.filter(image__isnull=False))
+        Prefetch(
+            'medias',
+            queryset=Media.objects.filter(image__isnull=False).filter(
+                media_not_marked_as_background_q(),
+            ),
+        )
     )
 
     if is_active is not None:
@@ -89,7 +98,12 @@ def get_products(lang='az', category_slug=None, is_active=True, on_main_page=Non
 def get_product_by_slug(slug, lang='az'):
     try:
         return Product.objects.select_related('category').prefetch_related(
-            Prefetch('medias', queryset=Media.objects.filter(image__isnull=False))
+            Prefetch(
+                'medias',
+                queryset=Media.objects.filter(image__isnull=False).filter(
+                    media_not_marked_as_background_q(),
+                ),
+            )
         ).get(slug=slug, is_active=True)
     except Product.DoesNotExist:
         return None
@@ -102,9 +116,12 @@ def get_product_by_slug(slug, lang='az'):
 @cached_query(timeout='CACHE_TIMEOUT_LONG')
 def get_about(lang='az'):
     return About.objects.prefetch_related(
-        Prefetch('medias', queryset=Media.objects.filter(
-            Q(image__isnull=False) | Q(video__isnull=False)
-        ))
+        Prefetch(
+            'medias',
+            queryset=Media.objects.filter(
+                Q(image__isnull=False) | Q(video__isnull=False),
+            ).filter(media_not_marked_as_background_q()),
+        )
     ).first()
 
 
@@ -114,7 +131,12 @@ def get_about(lang='az'):
 
 def get_partners(lang='az', is_active=True):
     queryset = Partner.objects.prefetch_related(
-        Prefetch('medias', queryset=Media.objects.filter(image__isnull=False))
+        Prefetch(
+            'medias',
+            queryset=Media.objects.filter(image__isnull=False).filter(
+                media_not_marked_as_background_q(),
+            ),
+        )
     )
     if is_active is not None:
         queryset = queryset.filter(is_active=is_active)
@@ -141,7 +163,6 @@ def get_background_image(page_type):
         'about': 'is_about_page_background_image',
         'contact': 'is_contact_page_background_image',
         'product': 'is_product_page_background_image',
-        'footer': 'is_footer_background_image',
     }
 
     if page_type not in image_map:
@@ -163,16 +184,38 @@ def get_home_background_images(limit=6):
 
 
 # ---------------------------------------------------------------------------
-# Motto
+# Motto / hero carousel
 # ---------------------------------------------------------------------------
 
-@cached_query(timeout='CACHE_TIMEOUT_LONG')
-def get_motto(lang='az'):
-    motto = Motto.objects.first()
-    if not motto:
-        return None
+HERO_FALLBACK_IMAGE_PATHS = (
+    'assets/img/hero_1.jpg',
+    'assets/img/hero_2.jpg',
+    'assets/img/hero_3.jpg',
+)
+
+
+def get_motto_texts(lang='az'):
     text_field = get_localized_field_name('text', lang)
-    return getattr(motto, text_field, motto.text_az)
+    return [
+        getattr(m, text_field, m.text_az)
+        for m in Motto.objects.all().order_by('id')
+    ]
+
+
+def build_hero_carousel(lang):
+    motto_texts = get_motto_texts(lang)
+    n_mottos = len(motto_texts)
+    urls = list(get_home_background_images(limit=6))
+    if not urls:
+        urls = [static(p) for p in HERO_FALLBACK_IMAGE_PATHS]
+    slides = []
+    for i, url in enumerate(urls):
+        motto = motto_texts[i % n_mottos] if n_mottos else None
+        slides.append({
+            'image_url': url,
+            'motto': motto,
+        })
+    return slides
 
 
 # ---------------------------------------------------------------------------
@@ -265,10 +308,14 @@ def serialize_about(about, lang='az'):
         'id': about.id,
         'main_title': getattr(about, main_title_field, about.main_title_az),
         'second_title': getattr(about, second_title_field, about.second_title_az),
-        'description': getattr(about, desc_field, about.description_az),
+        'description': html_lib.unescape(getattr(about, desc_field, about.description_az) or ''),
+        'video': about.video.url if about.video else None,
+        'video_poster': about.video_poster.url if about.video_poster else None,
         'medias': [
             {
                 'id': media.id,
+                'name': media.name or '',
+                'short_description': media.short_description or '',
                 'image': media.image.url if media.image else None,
                 'video': media.video.url if media.video else None,
             }
@@ -401,29 +448,36 @@ def get_home_page_data(request, lang):
     categories = get_product_categories(lang)
     serialized_categories = [serialize_product_category(c, lang) for c in categories]
 
+    # Attach cover image to each category from on_main_page products (no extra DB hit)
+    cat_cover = {}
+    for p in serialized_products:
+        cid = p['category']['id']
+        if cid not in cat_cover and p['medias']:
+            cat_cover[cid] = p['medias'][0]['image']
+    for cat in serialized_categories:
+        cat['cover_image'] = cat_cover.get(cat['id'])
+
     all_partners = get_partners(lang=lang, is_active=True)
     serialized_partners = [serialize_partner(p, lang) for p in all_partners]
 
     about = get_about(lang)
     contact = get_contact(lang)
-    hero_background_images = get_home_background_images(limit=6)
-    motto = get_motto(lang)
+    about_data = serialize_about(about, lang) if about else None
+    hero_carousel = build_hero_carousel(lang)
 
     return {
         'products': serialized_products,
         'categories': serialized_categories,
         'partners': serialized_partners,
-        'about': serialize_about(about, lang) if about else None,
+        'about': about_data,
         'contact': serialize_contact(contact, lang) if contact else None,
         'filters': {
             'slug': category_slug,
             'is_active': is_active,
         },
         'background_image': get_background_image('home'),
-        'hero_background_images': hero_background_images,
-        'motto': motto,
+        'hero_carousel': hero_carousel,
         'statistics': get_statistics(),
-        'footer_image': get_background_image('footer'),
     }
 
 
@@ -470,7 +524,6 @@ def get_product_list_data(request, lang):
             'is_active': is_active,
         },
         'background_image': get_background_image('product'),
-        'footer_image': get_background_image('footer'),
     }
 
 
@@ -489,5 +542,4 @@ def get_blog_list_data(request, lang):
         'blogs': serialized_blogs,
         'contact': serialize_contact(contact, lang) if contact else None,
         'pagination': get_pagination_data(blogs_page_obj, blogs_paginator),
-        'footer_image': get_background_image('footer'),
     }
