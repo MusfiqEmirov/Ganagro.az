@@ -55,7 +55,7 @@
               </div>
 
               {% if blog.description %}
-              <p class="text-muted small mt-2">{{ blog.description|truncatewords:18 }}</p>
+              <p class="text-muted small mt-2">{{ blog.description|striptags|truncatewords:18 }}</p>
               {% endif %}
 
               <hr>

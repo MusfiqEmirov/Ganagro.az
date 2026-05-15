@@ -1,0 +1,12 @@
+{# Expects: video_url; optional: poster_url #}
+<div class="avc-wrap">
+  <video class="avc-video" preload="metadata" playsinline muted
+         {% if poster_url %}poster="{{ poster_url }}"{% endif %}>
+    <source src="{{ video_url }}">
+  </video>
+  <a href="{{ video_url }}"
+     class="glightbox pulsating-play-btn avc-play"
+     aria-label="Videonu oxut">
+    <span class="play"><i class="bi bi-play-fill"></i></span>
+  </a>
+</div>

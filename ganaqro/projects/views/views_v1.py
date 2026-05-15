@@ -34,7 +34,6 @@ class HomePageView(View):
     def get(self, request):
         lang = get_language_from_request(request)
         context = get_home_page_data(request, lang)
-        context['footer_image'] = get_background_image('footer')
         context['language'] = lang
         return render(request, self.template_name, context)
 
@@ -49,7 +48,6 @@ class ProductPageView(View):
             request.GET['slug'] = category_slug
         context = get_product_list_data(request, lang)
         context['background_image'] = get_background_image('product')
-        context['footer_image'] = get_background_image('footer')
         context['language'] = lang
         return render(request, self.template_name, context)
 
@@ -70,7 +68,6 @@ class ProductDetailPageView(View):
                 'contact': serialize_contact(contact, lang) if contact else None,
                 'language': lang,
                 'background_image': get_background_image('product'),
-                'footer_image': get_background_image('footer'),
             }
             return render(request, self.template_name, context)
 
@@ -81,7 +78,6 @@ class ProductDetailPageView(View):
             request.GET['slug'] = slug
             context = get_product_list_data(request, lang)
             context['background_image'] = get_background_image('product')
-            context['footer_image'] = get_background_image('footer')
             context['language'] = lang
             return render(request, 'products.html', context)
         except ProductCategory.DoesNotExist:
@@ -107,7 +103,6 @@ class AboutPageView(View):
             'statistics': statistics,
             'language': lang,
             'background_image': get_background_image('about'),
-            'footer_image': get_background_image('footer'),
         }
         return render(request, self.template_name, context)
 
@@ -125,7 +120,6 @@ class ContactPageView(View):
             'categories': [serialize_product_category(c, lang) for c in categories],
             'language': lang,
             'background_image': get_background_image('contact'),
-            'footer_image': get_background_image('footer'),
             'form': form,
         }
         return render(request, self.template_name, context)
@@ -151,7 +145,6 @@ class ContactPageView(View):
             'categories': [serialize_product_category(c, lang) for c in categories],
             'language': lang,
             'background_image': get_background_image('contact'),
-            'footer_image': get_background_image('footer'),
             'form': form,
         }
         return render(request, self.template_name, context)
@@ -187,6 +180,5 @@ class BlogDetailPageView(View):
             'contact': serialize_contact(contact, lang) if contact else None,
             'categories': [serialize_product_category(c, lang) for c in categories],
             'language': lang,
-            'footer_image': get_background_image('footer'),
         }
         return render(request, self.template_name, context)
