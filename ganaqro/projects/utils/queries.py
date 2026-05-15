@@ -358,6 +358,7 @@ def get_pagination_data(page_obj, paginator):
         'per_page': paginator.per_page,
         'has_next': page_obj.has_next(),
         'has_previous': page_obj.has_previous(),
+        'page_range': list(paginator.page_range),
     }
 
 
