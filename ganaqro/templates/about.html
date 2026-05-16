@@ -107,47 +107,7 @@
   </section><!-- /About Media Gallery Section -->
   {% endif %}
 
-  <!-- Statistics Section -->
-  {% if statistics %}
-  <section id="stats" class="stats section light-background">
-    <div class="container" data-aos="fade-up">
-      <div class="row gy-4 text-center">
-        {% if statistics.value_one %}
-        <div class="col-lg-3 col-md-6">
-          <div class="stats-item">
-            <span class="display-4 fw-bold">{{ statistics.value_one }}+</span>
-            <p>{% trans "Clients" %}</p>
-          </div>
-        </div>
-        {% endif %}
-        {% if statistics.value_two %}
-        <div class="col-lg-3 col-md-6">
-          <div class="stats-item">
-            <span class="display-4 fw-bold">{{ statistics.value_two }}+</span>
-            <p>{% trans "Projects" %}</p>
-          </div>
-        </div>
-        {% endif %}
-        {% if statistics.value_three %}
-        <div class="col-lg-3 col-md-6">
-          <div class="stats-item">
-            <span class="display-4 fw-bold">{{ statistics.value_three }}+</span>
-            <p>{% trans "Products" %}</p>
-          </div>
-        </div>
-        {% endif %}
-        {% if statistics.value_four %}
-        <div class="col-lg-3 col-md-6">
-          <div class="stats-item">
-            <span class="display-4 fw-bold">{{ statistics.value_four }}+</span>
-            <p>{% trans "Partners" %}</p>
-          </div>
-        </div>
-        {% endif %}
-      </div>
-    </div>
-  </section><!-- /Statistics Section -->
-  {% endif %}
+  {% include "includes/statistics_section.html" with section_id="stats" %}
 
   {% include "includes/partners_carousel.html" %}
 

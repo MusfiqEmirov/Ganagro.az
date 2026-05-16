@@ -396,15 +396,10 @@
               </p>
             </div>
             <div class="col-lg-6">
-              <form action="forms/newsletter.php" class="form-subscribe php-email-form">
+              <form class="form-subscribe" action="#" method="post" onsubmit="return false;">
                 <div class="form-group d-flex align-items-stretch">
                   <input type="email" name="email" class="form-control h-100" placeholder="Enter your e-mail">
                   <input type="submit" class="btn btn-secondary px-4" value="Subcribe">
-                </div>
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">
-                  Your subscription request has been sent. Thank you!
                 </div>
               </form>
             </div>
@@ -516,7 +511,6 @@
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>

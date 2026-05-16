@@ -26,6 +26,8 @@ from projects.utils.queries import (
     serialize_blog,
     get_other_blogs,
     get_page_motto,
+    get_faqs,
+    serialize_faq,
 )
 
 
@@ -65,7 +67,7 @@ class AboutPageView(View):
         about = get_about(lang)
         partners = get_partners(lang=lang, is_active=is_active)
         contact = get_contact(lang)
-        statistics = get_statistics()
+        statistics = get_statistics(lang)
         categories = get_product_categories(lang)
         page_heading = _('About us')
 
@@ -111,7 +113,10 @@ class ContactPageView(View):
         if form.is_valid():
             try:
                 form.save()
-                messages.success(request, _('Your message has been sent successfully.'))
+                messages.success(
+                    request,
+                    _('Thank you. We have received your message.'),
+                )
                 return redirect('projects:contact-page')
             except Exception:
                 messages.error(request, _('Something went wrong. Please try again.'))
@@ -128,6 +133,26 @@ class ContactPageView(View):
             'language': lang,
             'background_image': get_background_image('contact'),
             'form': form,
+            'page_heading': page_heading,
+            'page_motto': get_page_motto('contact', lang),
+        }
+        return render(request, self.template_name, context)
+
+
+class FAQPageView(View):
+    template_name = 'faq.html'
+
+    def get(self, request):
+        lang = get_language_from_request(request)
+        faqs = get_faqs(lang)
+        categories = get_product_categories(lang)
+        page_heading = _('Tez-tez verilən suallar')
+
+        context = {
+            'faqs': [serialize_faq(f, lang) for f in faqs],
+            'categories': [serialize_product_category(c, lang) for c in categories],
+            'language': lang,
+            'background_image': get_background_image('contact'),
             'page_heading': page_heading,
             'page_motto': get_page_motto('contact', lang),
         }

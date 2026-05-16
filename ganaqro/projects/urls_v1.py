@@ -5,6 +5,7 @@ from projects.views.views_v1 import (
     ProductPageView,
     AboutPageView,
     ContactPageView,
+    FAQPageView,
     BlogPageView,
     BlogDetailPageView,
     BlogViewCountsApiView,
@@ -33,6 +34,11 @@ urlpatterns = [
         'contact/',
         ContactPageView.as_view(),
         name='contact-page'
+    ),
+    path(
+        'faq/',
+        FAQPageView.as_view(),
+        name='faq-page'
     ),
     path(
         'blog/',

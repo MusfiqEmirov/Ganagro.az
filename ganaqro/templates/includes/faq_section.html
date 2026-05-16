@@ -1,0 +1,60 @@
+{% load i18n %}
+<section id="{{ section_id|default:'faq' }}" class="faq section faq-section{% if section_class %} {{ section_class }}{% endif %}">
+  <div class="container" data-aos="fade-up">
+    <div class="faq-section__intro text-center" data-aos="fade-up" data-aos-delay="50">
+      <h2 class="faq-section__title">{% trans "Tez-tez verilən suallar" %}</h2>
+      <p class="faq-section__lead">{% trans "Məhsul və xidmətlərimiz haqqında ən çox verilən sualların cavablarını tapın." %}</p>
+    </div>
+
+    {% if faqs %}
+    <div class="faq-section__list" data-aos="fade-up" data-aos-delay="100">
+      <div class="accordion faq-accordion" id="{{ accordion_id|default:'faqAccordion' }}">
+        {% for item in faqs %}
+        <div class="accordion-item faq-accordion__item">
+          <h3 class="accordion-header" id="faq-heading-{{ accordion_id|default:'faqAccordion' }}-{{ item.id }}">
+            <button class="accordion-button faq-accordion__button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#faq-collapse-{{ accordion_id|default:'faqAccordion' }}-{{ item.id }}"
+                    aria-expanded="false"
+                    aria-controls="faq-collapse-{{ accordion_id|default:'faqAccordion' }}-{{ item.id }}">
+              <span class="faq-accordion__index" aria-hidden="true">{{ forloop.counter }}</span>
+              <span class="faq-accordion__question">{{ item.question }}</span>
+            </button>
+          </h3>
+          <div id="faq-collapse-{{ accordion_id|default:'faqAccordion' }}-{{ item.id }}"
+               class="accordion-collapse collapse"
+               aria-labelledby="faq-heading-{{ accordion_id|default:'faqAccordion' }}-{{ item.id }}"
+               data-bs-parent="#{{ accordion_id|default:'faqAccordion' }}">
+            <div class="accordion-body faq-accordion__body">
+              <div class="faq-accordion__answer">
+                <span class="faq-accordion__bullet" aria-hidden="true"></span>
+                <div class="faq-accordion__answer-text">
+                  {{ item.answer|linebreaks }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    {% if show_view_all %}
+    <div class="text-center mt-5 pt-2" data-aos="fade-up" data-aos-delay="150">
+      <a href="{% url 'projects:faq-page' %}" class="hero-contact-btn hero-contact-btn--on-light">
+        <span class="hero-contact-btn__label">{% trans "Bütün suallar" %}</span>
+        <span class="hero-contact-btn__icon" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
+      </a>
+    </div>
+    {% endif %}
+    {% else %}
+    <div class="faq-section__empty text-center" data-aos="fade-up" data-aos-delay="100">
+      <div class="faq-section__empty-icon" aria-hidden="true">
+        <i class="bi bi-chat-left-quote"></i>
+      </div>
+      <p class="mb-0">{% trans "Hələ heç bir sual əlavə edilməyib." %}</p>
+    </div>
+    {% endif %}
+  </div>
+</section>

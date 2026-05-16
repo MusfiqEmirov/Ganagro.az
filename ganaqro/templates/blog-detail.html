@@ -17,6 +17,14 @@
         <div class="col-lg-8">
           <article class="article">
 
+            <div class="post-img">
+              {% if blog.image %}
+              <img src="{{ blog.image }}" alt="{{ blog.name }}" class="img-fluid">
+              {% else %}
+              <img src="{% static 'assets/img/blog/blog-1.jpg' %}" alt="{{ blog.name }}" class="img-fluid">
+              {% endif %}
+            </div>
+
             <div class="content blog-content">
               {{ blog.description|safe }}
             </div>

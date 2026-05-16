@@ -67,6 +67,12 @@
             </a>
           </li>
           <li>
+            <a href="{% url 'projects:faq-page' %}"
+               class="site-header__link{% if request.resolver_match.url_name == 'faq-page' %} active{% endif %}">
+              FAQ
+            </a>
+          </li>
+          <li>
             <a href="{% url 'projects:contact-page' %}"
                class="site-header__link{% if request.resolver_match.url_name == 'contact-page' %} active{% endif %}">
               {% trans "Contact" %}
@@ -160,6 +166,7 @@
               <li><a href="{% url 'projects:home-page' %}">{% trans "Home" %}</a></li>
               <li><a href="{% url 'projects:about-page' %}">{% trans "About us" %}</a></li>
               {% if categories %}<li><a href="{% url 'projects:product-page' %}?slug={{ categories.0.slug }}">{% trans "Products" %}</a></li>{% endif %}
+              <li><a href="{% url 'projects:faq-page' %}">{% trans "Sual-cavab" %}</a></li>
               <li><a href="{% url 'projects:blog-page' %}">{% trans "Blog" %}</a></li>
               <li><a href="{% url 'projects:contact-page' %}">{% trans "Contact" %}</a></li>
             </ul>

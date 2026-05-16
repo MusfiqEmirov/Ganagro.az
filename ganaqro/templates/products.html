@@ -22,8 +22,8 @@
       {% if products %}
       <div class="row g-3">
         {% for product in products %}
-        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
-          <a href="{% url 'projects:product-page' %}?slug={{ product.category.slug }}" class="home-panel-card home-panel-card--standalone">
+        <div class="col-lg-4 col-md-6" id="product-{{ product.id }}" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+          <a href="{% url 'projects:product-page' %}?slug={{ product.category.slug }}#product-{{ product.id }}" class="home-panel-card home-panel-card--standalone">
             <div class="home-panel-card__img">
               {% if product.medias %}
               <img src="{{ product.medias.0.image }}" alt="{{ product.name }}" loading="lazy">

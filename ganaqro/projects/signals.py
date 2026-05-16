@@ -13,6 +13,7 @@ from projects.models import (
     Motto,
     Statistic,
     Blog,
+    FAQ,
 )
 
 
@@ -82,3 +83,9 @@ def invalidate_appeal_contact_cache(sender, instance, **kwargs):
 @receiver(post_delete, sender=Blog)
 def invalidate_blog_cache(sender, instance, **kwargs):
     invalidate_model_cache('Blog')
+
+
+@receiver(post_save, sender=FAQ)
+@receiver(post_delete, sender=FAQ)
+def invalidate_faq_cache(sender, instance, **kwargs):
+    invalidate_model_cache('FAQ')
