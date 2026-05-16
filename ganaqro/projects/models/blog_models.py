@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.core.validators import MaxLengthValidator
 
 
@@ -42,6 +43,11 @@ class Blog(models.Model):
     date = models.DateField(
         verbose_name='Tarix'
     )
+    on_main_page = models.BooleanField(
+        default=False,
+        verbose_name='Ana səhifədə olsun',
+        help_text='Ana səhifədə ən çox 6 bloq göstərilir.',
+    )
     view_count = models.PositiveIntegerField(
         default=0,
         verbose_name='Baxış sayı'
@@ -54,6 +60,20 @@ class Blog(models.Model):
         verbose_name = 'Bloq'
         verbose_name_plural = 'Bloqlar'
         ordering = ['-date', '-created_at']
+
+    def clean(self):
+        super().clean()
+        if self.on_main_page:
+            qs = Blog.objects.filter(on_main_page=True)
+            if self.pk:
+                qs = qs.exclude(pk=self.pk)
+            if qs.count() >= 6:
+                raise ValidationError({
+                    'on_main_page': (
+                        'Ana səhifədə ən çox 6 bloq ola bilər. '
+                        'Yeni yazını əlavə etmək üçün əvvəl mövcud sıradan birini söndürün.'
+                    ),
+                })
 
     def __str__(self):
         return self.name_az

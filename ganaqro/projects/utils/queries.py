@@ -2,6 +2,7 @@ import html as html_lib
 
 from django.db.models import Q, Prefetch
 from django.utils import translation
+from django.utils.translation import gettext as _
 from django.templatetags.static import static
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -61,6 +62,13 @@ def get_localized_field_name(field_base, lang):
         return f'{field_base}_ru'
     else:
         return f'{field_base}_az'
+
+
+def _localized_with_az_fallback(instance, lang, base):
+    primary = getattr(instance, get_localized_field_name(base, lang), None) or ''
+    if str(primary).strip():
+        return primary
+    return getattr(instance, get_localized_field_name(base, 'az'), None) or ''
 
 
 # ---------------------------------------------------------------------------
@@ -135,7 +143,7 @@ def get_partners(lang='az', is_active=True):
             'medias',
             queryset=Media.objects.filter(image__isnull=False).filter(
                 media_not_marked_as_background_q(),
-            ),
+            ).order_by('id'),
         )
     )
     if is_active is not None:
@@ -163,6 +171,7 @@ def get_background_image(page_type):
         'about': 'is_about_page_background_image',
         'contact': 'is_contact_page_background_image',
         'product': 'is_product_page_background_image',
+        'blog': 'is_blog_page_background_image',
     }
 
     if page_type not in image_map:
@@ -194,11 +203,31 @@ HERO_FALLBACK_IMAGE_PATHS = (
 )
 
 
+PAGE_MOTTO_FLAGS = {
+    'about': 'is_about_page',
+    'contact': 'is_contact_page',
+    'product': 'is_product_page',
+    'blog': 'is_blog_page',
+}
+
+
+@cached_query(timeout='CACHE_TIMEOUT_LONG')
+def get_page_motto(page_key, lang='az'):
+    flag = PAGE_MOTTO_FLAGS.get(page_key)
+    if not flag:
+        return None
+    motto = Motto.objects.filter(**{flag: True}).order_by('id').first()
+    if not motto:
+        return None
+    text_field = get_localized_field_name('text', lang)
+    return getattr(motto, text_field, motto.text_az) or motto.text_az
+
+
 def get_motto_texts(lang='az'):
     text_field = get_localized_field_name('text', lang)
     return [
         getattr(m, text_field, m.text_az)
-        for m in Motto.objects.all().order_by('id')
+        for m in Motto.objects.filter(show_on_home_hero=True).order_by('id')
     ]
 
 
@@ -249,6 +278,12 @@ def get_blog_by_id(blog_id):
         return Blog.objects.get(pk=blog_id)
     except Blog.DoesNotExist:
         return None
+
+
+def get_other_blogs(blog_id, lang='az', limit=12):
+    """Other posts for detail sidebar (newest first), excluding the current post."""
+    qs = Blog.objects.exclude(pk=blog_id).order_by('-date', '-created_at')[:limit]
+    return [serialize_blog(b, lang) for b in qs]
 
 
 # ---------------------------------------------------------------------------
@@ -314,8 +349,10 @@ def serialize_about(about, lang='az'):
         'medias': [
             {
                 'id': media.id,
-                'name': media.name or '',
-                'short_description': media.short_description or '',
+                'name': _localized_with_az_fallback(media, lang, 'name'),
+                'short_description': _localized_with_az_fallback(
+                    media, lang, 'short_description'
+                ),
                 'image': media.image.url if media.image else None,
                 'video': media.video.url if media.video else None,
             }
@@ -361,6 +398,7 @@ def serialize_contact(contact, lang='az'):
         'youtube': contact.youtube,
         'linkedn': contact.linkedn,
         'tiktok': contact.tiktok,
+        'map_embed_url': (contact.map_embed_url or '').strip(),
     }
 
 
@@ -436,7 +474,7 @@ def get_home_page_data(request, lang):
         products_by_category = defaultdict(list)
         for product in all_main_page_products:
             cat_id = product.category_id
-            if len(products_by_category[cat_id]) < 9:
+            if len(products_by_category[cat_id]) < 6:
                 products_by_category[cat_id].append(product)
 
         products = []
@@ -457,6 +495,17 @@ def get_home_page_data(request, lang):
     for cat in serialized_categories:
         cat['cover_image'] = cat_cover.get(cat['id'])
 
+    # Build per-category panels for the home page split layout
+    from collections import defaultdict as _dd
+    _cat_prods = _dd(list)
+    for p in serialized_products:
+        _cat_prods[p['category']['id']].append(p)
+    category_panels = [
+        {'category': cat, 'products': _cat_prods[cat['id']][:6]}
+        for cat in serialized_categories
+        if _cat_prods.get(cat['id'])
+    ]
+
     all_partners = get_partners(lang=lang, is_active=True)
     serialized_partners = [serialize_partner(p, lang) for p in all_partners]
 
@@ -464,6 +513,11 @@ def get_home_page_data(request, lang):
     contact = get_contact(lang)
     about_data = serialize_about(about, lang) if about else None
     hero_carousel = build_hero_carousel(lang)
+
+    blog_list = list(
+        Blog.objects.filter(on_main_page=True).order_by('-date', '-created_at')[:6]
+    )
+    home_blogs = [serialize_blog(b, lang) for b in blog_list]
 
     return {
         'products': serialized_products,
@@ -478,6 +532,8 @@ def get_home_page_data(request, lang):
         'background_image': get_background_image('home'),
         'hero_carousel': hero_carousel,
         'statistics': get_statistics(),
+        'category_panels': category_panels,
+        'home_blogs': home_blogs,
     }
 
 
@@ -495,7 +551,7 @@ def get_product_list_data(request, lang):
     )
 
     if per_page_param is None:
-        per_page = products.count() or 1
+        per_page = 9
     else:
         per_page = int(per_page_param)
 
@@ -513,6 +569,10 @@ def get_product_list_data(request, lang):
 
     contact = get_contact(lang)
 
+    page_heading = selected_category['name'] if selected_category else None
+    if not page_heading:
+        page_heading = _('Products')
+
     return {
         'products': serialized_products,
         'categories': serialized_categories,
@@ -524,13 +584,15 @@ def get_product_list_data(request, lang):
             'is_active': is_active,
         },
         'background_image': get_background_image('product'),
+        'page_heading': page_heading,
+        'page_motto': get_page_motto('product', lang),
     }
 
 
 @cached_page_data(timeout='CACHE_TIMEOUT_MEDIUM')
 def get_blog_list_data(request, lang):
     page = request.GET.get('page', 1)
-    per_page = int(request.GET.get('per_page', 9))
+    per_page = 9
 
     blogs = get_blogs(lang=lang)
     blogs_page_obj, blogs_paginator = paginate_queryset(blogs, page, per_page)
@@ -538,8 +600,12 @@ def get_blog_list_data(request, lang):
 
     contact = get_contact(lang)
 
+    page_heading = _('Blog')
+
     return {
         'blogs': serialized_blogs,
         'contact': serialize_contact(contact, lang) if contact else None,
         'pagination': get_pagination_data(blogs_page_obj, blogs_paginator),
+        'page_heading': page_heading,
+        'page_motto': get_page_motto('blog', lang),
     }

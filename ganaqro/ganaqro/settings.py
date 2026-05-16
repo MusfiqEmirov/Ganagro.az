@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+
 from dotenv import load_dotenv
 
 
@@ -209,17 +210,6 @@ CACHE_TIMEOUT_LONG = 86400  # 24 hours for stable data (about, contact, backgrou
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'Custom',
-        'toolbar_Custom': [
-            ['Bold', 'Italic', 'Underline'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
-            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink'],
-            ['RemoveFormat', 'Source'],
-        ],
-        'height': 280,
-        'width': '100%',
-    },
-}
+from .ckeditor_presets import CKEDITOR_PROJECT_CONFIG  # noqa: E402 — sonda saxlanılıb ki, INSTALLED_APPS oxunsun
+
+CKEDITOR_CONFIGS = CKEDITOR_PROJECT_CONFIG

@@ -1,8 +1,9 @@
-from django.views import View
+from django.http import Http404, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.http import Http404
 from django.utils.translation import gettext as _
+from django.db.models import F
+from django.views import View
 
 from projects.models import Blog
 from projects.forms.forms_v1 import AppealContactForm
@@ -10,8 +11,6 @@ from projects.utils.queries import (
     get_language_from_request,
     get_home_page_data,
     get_product_list_data,
-    get_product_by_slug,
-    serialize_product,
     get_background_image,
     get_about,
     serialize_about,
@@ -25,6 +24,8 @@ from projects.utils.queries import (
     get_blog_list_data,
     get_blog_by_id,
     serialize_blog,
+    get_other_blogs,
+    get_page_motto,
 )
 
 
@@ -43,6 +44,9 @@ class ProductPageView(View):
 
     def get(self, request, category_slug=None):
         lang = get_language_from_request(request)
+        slug = category_slug or request.GET.get('slug')
+        if not slug:
+            return redirect('projects:home-page')
         if category_slug:
             request.GET = request.GET.copy()
             request.GET['slug'] = category_slug
@@ -50,38 +54,6 @@ class ProductPageView(View):
         context['background_image'] = get_background_image('product')
         context['language'] = lang
         return render(request, self.template_name, context)
-
-
-class ProductDetailPageView(View):
-    template_name = 'product-detail.html'
-
-    def get(self, request, slug):
-        lang = get_language_from_request(request)
-
-        product = get_product_by_slug(slug, lang)
-        if product:
-            categories = get_product_categories(lang)
-            contact = get_contact(lang)
-            context = {
-                'product': serialize_product(product, lang),
-                'categories': [serialize_product_category(c, lang) for c in categories],
-                'contact': serialize_contact(contact, lang) if contact else None,
-                'language': lang,
-                'background_image': get_background_image('product'),
-            }
-            return render(request, self.template_name, context)
-
-        from projects.models import ProductCategory
-        try:
-            category = ProductCategory.objects.get(slug=slug)
-            request.GET = request.GET.copy()
-            request.GET['slug'] = slug
-            context = get_product_list_data(request, lang)
-            context['background_image'] = get_background_image('product')
-            context['language'] = lang
-            return render(request, 'products.html', context)
-        except ProductCategory.DoesNotExist:
-            raise Http404(_("Məhsul tapılmadı"))
 
 
 class AboutPageView(View):
@@ -95,6 +67,8 @@ class AboutPageView(View):
         contact = get_contact(lang)
         statistics = get_statistics()
         categories = get_product_categories(lang)
+        page_heading = _('About us')
+
         context = {
             'about': serialize_about(about, lang) if about else None,
             'partners': [serialize_partner(p, lang) for p in partners],
@@ -103,6 +77,8 @@ class AboutPageView(View):
             'statistics': statistics,
             'language': lang,
             'background_image': get_background_image('about'),
+            'page_heading': page_heading,
+            'page_motto': get_page_motto('about', lang),
         }
         return render(request, self.template_name, context)
 
@@ -115,12 +91,16 @@ class ContactPageView(View):
         contact = get_contact(lang)
         categories = get_product_categories(lang)
         form = AppealContactForm()
+        page_heading = _('Contact')
+
         context = {
             'contact': serialize_contact(contact, lang) if contact else None,
             'categories': [serialize_product_category(c, lang) for c in categories],
             'language': lang,
             'background_image': get_background_image('contact'),
             'form': form,
+            'page_heading': page_heading,
+            'page_motto': get_page_motto('contact', lang),
         }
         return render(request, self.template_name, context)
 
@@ -131,21 +111,25 @@ class ContactPageView(View):
         if form.is_valid():
             try:
                 form.save()
-                messages.success(request, _('Mesajınız uğurla göndərildi.'))
+                messages.success(request, _('Your message has been sent successfully.'))
                 return redirect('projects:contact-page')
             except Exception:
-                messages.error(request, _('Xəta baş verdi. Zəhmət olmasa yenidən cəhd edin.'))
+                messages.error(request, _('Something went wrong. Please try again.'))
         else:
-            messages.error(request, _('Formda xəta var. Zəhmət olmasa düzəldin.'))
+            messages.error(request, _('Please correct the errors in the form.'))
 
         contact = get_contact(lang)
         categories = get_product_categories(lang)
+        page_heading = _('Contact')
+
         context = {
             'contact': serialize_contact(contact, lang) if contact else None,
             'categories': [serialize_product_category(c, lang) for c in categories],
             'language': lang,
             'background_image': get_background_image('contact'),
             'form': form,
+            'page_heading': page_heading,
+            'page_motto': get_page_motto('contact', lang),
         }
         return render(request, self.template_name, context)
 
@@ -157,6 +141,7 @@ class BlogPageView(View):
         lang = get_language_from_request(request)
         context = get_blog_list_data(request, lang)
         context['language'] = lang
+        context['background_image'] = get_background_image('blog')
         categories = get_product_categories(lang)
         context['categories'] = [serialize_product_category(c, lang) for c in categories]
         return render(request, self.template_name, context)
@@ -169,16 +154,38 @@ class BlogDetailPageView(View):
         lang = get_language_from_request(request)
         blog = get_blog_by_id(blog_id)
         if not blog:
-            raise Http404(_("Bloq tapılmadı"))
+            raise Http404(_('Blog post not found'))
 
-        Blog.objects.filter(pk=blog_id).update(view_count=blog.view_count + 1)
+        Blog.objects.filter(pk=blog_id).update(view_count=F('view_count') + 1)
+        blog.refresh_from_db()
 
-        contact = get_contact(lang)
+        blog_data = serialize_blog(blog, lang)
         categories = get_product_categories(lang)
+
         context = {
-            'blog': serialize_blog(blog, lang),
-            'contact': serialize_contact(contact, lang) if contact else None,
-            'categories': [serialize_product_category(c, lang) for c in categories],
+            'blog': blog_data,
+            'other_blogs': get_other_blogs(blog_id, lang),
             'language': lang,
+            'categories': [serialize_product_category(c, lang) for c in categories],
+            'page_heading': blog_data['name'],
+            'background_image': get_background_image('blog'),
+            'page_subtitle_blog_meta': True,
+            'page_motto': get_page_motto('blog', lang),
         }
         return render(request, self.template_name, context)
+
+
+class BlogViewCountsApiView(View):
+    """Current view_count for one or more blog posts (JSON). Refreshes UI without full reload."""
+
+    def get(self, request):
+        raw = request.GET.get('ids', '')
+        parts = [p.strip() for p in raw.split(',') if p.strip()]
+        id_list = []
+        for p in parts[:50]:
+            if p.isdigit():
+                id_list.append(int(p))
+        if not id_list:
+            return JsonResponse({})
+        rows = Blog.objects.filter(pk__in=id_list).values('id', 'view_count')
+        return JsonResponse({str(r['id']): r['view_count'] for r in rows})

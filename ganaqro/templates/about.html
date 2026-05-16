@@ -1,24 +1,12 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}Ganaqro - {% if language == 'en' %}About Us{% elif language == 'ru' %}О нас{% else %}Haqqımızda{% endif %}{% endblock %}
+{% block title %}Ganaqro · {% trans "About us" %}{% endblock %}
 {% block body_class %}about-page{% endblock %}
 
 {% block content %}
 
-  <!-- Page Title -->
-  <div class="page-title dark-background" data-aos="fade"
-       style="background-image: url('{% if background_image %}{{ background_image }}{% else %}{% static "assets/img/page-title-bg.webp" %}{% endif %}');">
-    <div class="container position-relative">
-      <h1>{% if language == 'en' %}About Us{% elif language == 'ru' %}О нас{% else %}Haqqımızda{% endif %}</h1>
-      <nav class="breadcrumbs">
-        <ol>
-          <li><a href="{% url 'projects:home-page' %}">{% if language == 'en' %}Home{% elif language == 'ru' %}Главная{% else %}Ana Səhifə{% endif %}</a></li>
-          <li class="current">{% if language == 'en' %}About{% elif language == 'ru' %}О нас{% else %}Haqqımızda{% endif %}</li>
-        </ol>
-      </nav>
-    </div>
-  </div><!-- End Page Title -->
+  {% include "includes/page_title.html" %}
 
   <!-- About Section -->
   {% if about %}
@@ -43,7 +31,7 @@
           <div class="mb-4 about-description">{{ about.description|safe }}</div>
           <p>
             <a href="{% url 'projects:contact-page' %}" class="btn-cta">
-              {% if language == 'en' %}Get in touch{% elif language == 'ru' %}Связаться{% else %}Əlaqə saxla{% endif %}
+              {% trans "Get in touch" %}
             </a>
           </p>
         </div>
@@ -56,8 +44,8 @@
   {% if about and about.medias %}
   <section id="about-gallery" class="services-2 section dark-background">
     <div class="container gallery-section-title" data-aos="fade-up">
-      <h2>{% if language == 'en' %}Our Gallery{% elif language == 'ru' %}Наша Галерея{% else %}Qaleriyamız{% endif %}</h2>
-      <p>{% if language == 'en' %}Browse our photo collection{% elif language == 'ru' %}Просмотрите нашу коллекцию фотографий{% else %}Foto kolleksiyamıza nəzər salın{% endif %}</p>
+      <h2>{% trans "Our gallery" %}</h2>
+      <p>{% trans "Browse our photo collection" %}</p>
     </div>
 
     <div class="services-carousel-wrap">
@@ -68,14 +56,14 @@
               "loop": true,
               "speed": 600,
               "autoplay": { "delay": 5000 },
-              "slidesPerView": "auto",
+              "slidesPerView": 1,
+              "centeredSlides": true,
+              "spaceBetween": 14,
               "pagination": { "el": ".swiper-pagination", "type": "bullets", "clickable": true },
               "navigation": { "nextEl": ".js-custom-next", "prevEl": ".js-custom-prev" },
               "breakpoints": {
-                "320": { "slidesPerView": 1.2, "spaceBetween": 14 },
-                "480": { "slidesPerView": 1.5, "spaceBetween": 16 },
-                "768": { "slidesPerView": 2, "spaceBetween": 30 },
-                "1200": { "slidesPerView": 3, "spaceBetween": 40 }
+                "768": { "slidesPerView": 2, "centeredSlides": false, "spaceBetween": 30 },
+                "1200": { "slidesPerView": 3, "centeredSlides": false, "spaceBetween": 40 }
               }
             }
           </script>
@@ -92,7 +80,7 @@
                   {% if media.short_description %}<span class="service-item-category">{{ media.short_description }}</span>{% endif %}
                 </div>
                 {% endif %}
-                <span class="about-gallery-link ag-trigger" data-src="{{ media.image }}" data-alt="{{ media.name|default:about.main_title }}" role="button" tabindex="0" aria-label="Open image">
+                <span class="about-gallery-link ag-trigger" data-src="{{ media.image }}" data-alt="{{ media.name|default:about.main_title }}" role="button" tabindex="0" aria-label="{% trans "Open image" %}">
                   <img src="{{ media.image }}" alt="{{ media.name|default:about.main_title }}" class="img-fluid">
                 </span>
                 <span class="gallery-card__zoom" aria-hidden="true"><i class="bi bi-eye"></i></span>
@@ -107,13 +95,13 @@
     </div>
 
     <!-- Fullscreen Modal -->
-    <div id="agModal" class="ag-modal" role="dialog" aria-modal="true" aria-label="Image viewer">
-      <button class="ag-modal__close" id="agClose" aria-label="Close">&times;</button>
-      <button class="ag-modal__prev" id="agPrev" aria-label="Previous image"><i class="bi bi-chevron-left"></i></button>
+    <div id="agModal" class="ag-modal" role="dialog" aria-modal="true" aria-label="{% trans "Image viewer" %}">
+      <button class="ag-modal__close" id="agClose" aria-label="{% trans "Close" %}">&times;</button>
+      <button class="ag-modal__prev" id="agPrev" aria-label="{% trans "Previous image" %}"><i class="bi bi-chevron-left"></i></button>
       <div class="ag-modal__img-wrap">
         <img id="agImg" class="ag-modal__img" src="" alt="">
       </div>
-      <button class="ag-modal__next" id="agNext" aria-label="Next image"><i class="bi bi-chevron-right"></i></button>
+      <button class="ag-modal__next" id="agNext" aria-label="{% trans "Next image" %}"><i class="bi bi-chevron-right"></i></button>
       <div class="ag-modal__counter" id="agCounter"></div>
     </div>
   </section><!-- /About Media Gallery Section -->
@@ -128,7 +116,7 @@
         <div class="col-lg-3 col-md-6">
           <div class="stats-item">
             <span class="display-4 fw-bold">{{ statistics.value_one }}+</span>
-            <p>{% if language == 'en' %}Clients{% elif language == 'ru' %}Клиенты{% else %}Müştərilər{% endif %}</p>
+            <p>{% trans "Clients" %}</p>
           </div>
         </div>
         {% endif %}
@@ -136,7 +124,7 @@
         <div class="col-lg-3 col-md-6">
           <div class="stats-item">
             <span class="display-4 fw-bold">{{ statistics.value_two }}+</span>
-            <p>{% if language == 'en' %}Projects{% elif language == 'ru' %}Проекты{% else %}Layihələr{% endif %}</p>
+            <p>{% trans "Projects" %}</p>
           </div>
         </div>
         {% endif %}
@@ -144,7 +132,7 @@
         <div class="col-lg-3 col-md-6">
           <div class="stats-item">
             <span class="display-4 fw-bold">{{ statistics.value_three }}+</span>
-            <p>{% if language == 'en' %}Products{% elif language == 'ru' %}Продукты{% else %}Məhsullar{% endif %}</p>
+            <p>{% trans "Products" %}</p>
           </div>
         </div>
         {% endif %}
@@ -152,7 +140,7 @@
         <div class="col-lg-3 col-md-6">
           <div class="stats-item">
             <span class="display-4 fw-bold">{{ statistics.value_four }}+</span>
-            <p>{% if language == 'en' %}Partners{% elif language == 'ru' %}Партнёры{% else %}Tərəfdaşlar{% endif %}</p>
+            <p>{% trans "Partners" %}</p>
           </div>
         </div>
         {% endif %}
@@ -161,67 +149,7 @@
   </section><!-- /Statistics Section -->
   {% endif %}
 
-  <!-- Partners Section -->
-  {% if partners %}
-  <section class="team-15 team section" id="partners">
-    <div class="container section-title" data-aos="fade-up">
-      <h2>{% if language == 'en' %}Partners{% elif language == 'ru' %}Партнёры{% else %}Tərəfdaşlar{% endif %}</h2>
-    </div>
-    <div class="content">
-      <div class="container">
-        <div class="row">
-          {% for partner in partners %}
-          <div class="col-lg-3 col-md-4 col-6 mb-4">
-            <div class="person text-center">
-              <figure>
-                {% if partner.logo %}
-                  <img src="{{ partner.logo }}" alt="{{ partner.name }}" class="img-fluid" style="max-height:200px; object-fit:contain;">
-                {% else %}
-                  <div class="bg-light d-flex align-items-center justify-content-center" style="height:150px;">
-                    <span class="fw-bold fs-5">{{ partner.name }}</span>
-                  </div>
-                {% endif %}
-                {% if partner.instagram or partner.facebook or partner.linkedn %}
-                <div class="social">
-                  {% if partner.instagram %}<a href="{{ partner.instagram }}" target="_blank"><span class="bi bi-instagram"></span></a>{% endif %}
-                  {% if partner.facebook %}<a href="{{ partner.facebook }}" target="_blank"><span class="bi bi-facebook"></span></a>{% endif %}
-                  {% if partner.linkedn %}<a href="{{ partner.linkedn }}" target="_blank"><span class="bi bi-linkedin"></span></a>{% endif %}
-                </div>
-                {% endif %}
-              </figure>
-              <div class="person-contents">
-                <h3>{{ partner.name }}</h3>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-  </section><!-- /Partners Section -->
-  {% endif %}
-
-  <!-- Contact CTA Section -->
-  {% if contact %}
-  <section id="call-to-action" class="call-to-action section light-background">
-    <div class="content">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-8">
-            <h3>{% if language == 'en' %}Get in touch with us{% elif language == 'ru' %}Свяжитесь с нами{% else %}Bizimlə əlaqə saxlayın{% endif %}</h3>
-            {% if contact.phone %}<p class="mt-2 opacity-75"><i class="bi bi-telephone me-2"></i>{{ contact.phone }}</p>{% endif %}
-            {% if contact.email %}<p class="opacity-75"><i class="bi bi-envelope me-2"></i>{{ contact.email }}</p>{% endif %}
-          </div>
-          <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
-            <a href="{% url 'projects:contact-page' %}" class="btn btn-primary btn-lg">
-              {% if language == 'en' %}Contact Us{% elif language == 'ru' %}Написать{% else %}Əlaqə{% endif %}
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section><!-- /CTA Section -->
-  {% endif %}
+  {% include "includes/partners_carousel.html" %}
 
 {% endblock %}
 

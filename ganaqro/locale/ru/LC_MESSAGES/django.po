@@ -1,0 +1,204 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ganaqro\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "About us"
+msgstr "О нас"
+
+msgid "Address"
+msgstr "Адрес"
+
+msgid "All blog posts"
+msgstr "Все записи блога"
+
+msgid "All rights reserved."
+msgstr "Все права защищены."
+
+msgid "Azerbaijani"
+msgstr "Азербайджанский"
+
+msgid "Back to blog"
+msgstr "Назад к блогу"
+
+msgid "Blog"
+msgstr "Блог"
+
+msgid "Blog pagination"
+msgstr "Пагинация блога"
+
+msgid "Blog post not found"
+msgstr "Запись блога не найдена"
+
+msgid "Browse our photo collection"
+msgstr "Просмотрите нашу фотоколлекцию"
+
+msgid "Call us"
+msgstr "Позвонить"
+
+msgid "Categories"
+msgstr "Категории"
+
+msgid "Clients"
+msgstr "Клиенты"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "Contact"
+msgstr "Контакт"
+
+msgid "Contact information is not available."
+msgstr "Контактная информация недоступна."
+
+msgid "Contact us"
+msgstr "Связаться с нами"
+
+msgid "Contact us about any question"
+msgstr "Свяжитесь с нами по любым вопросам"
+
+msgid "Email address"
+msgstr "Электронная почта"
+
+msgid "Email"
+msgstr "Эл. почта"
+
+msgid "English"
+msgstr "Английский"
+
+msgid "Explore %(category)s"
+msgstr "Смотреть: %(category)s"
+
+msgid "Follow us on social media"
+msgstr "Мы в соцсетях"
+
+msgid "Full name"
+msgstr "ФИО"
+
+msgid "Get in touch"
+msgstr "Свяжитесь с нами"
+
+msgid "Get in touch with us"
+msgstr "Свяжитесь с нами"
+
+msgid "Home"
+msgstr "Главная"
+
+msgid "Image viewer"
+msgstr "Просмотр изображений"
+
+msgid "Interested? Get in touch!"
+msgstr "Интересует? Свяжитесь!"
+
+msgid "Learn more"
+msgstr "Подробнее"
+
+msgid "Main navigation"
+msgstr "Основная навигация"
+
+msgid "Map is not configured"
+msgstr "Карта не настроена"
+
+msgid "Map"
+msgstr "Карта"
+
+msgid "Menu"
+msgstr "Меню"
+
+msgid "Mobile number"
+msgstr "Мобильный телефон"
+
+msgid "News and articles from our team"
+msgstr "Новости и статьи нашей команды"
+
+msgid "Next image"
+msgstr "Следующее изображение"
+
+msgid "No blog posts yet"
+msgstr "Записей в блоге пока нет"
+
+msgid "No other posts."
+msgstr "Других записей нет."
+
+msgid "No products found"
+msgstr "Продукты не найдены"
+
+msgid "Open image"
+msgstr "Открыть изображение"
+
+msgid "Other posts"
+msgstr "Другие записи"
+
+msgid "Our blog posts"
+msgstr "Наш блог"
+
+msgid "Our gallery"
+msgstr "Наша галерея"
+
+msgid "Partners"
+msgstr "Партнёры"
+
+msgid "Phone"
+msgstr "Телефон"
+
+msgid "Play video"
+msgstr "Воспроизвести видео"
+
+msgid "Please correct the errors in the form."
+msgstr "Исправьте ошибки в форме."
+
+msgid "Previous image"
+msgstr "Предыдущее изображение"
+
+msgid "Products pagination"
+msgstr "Пагинация продуктов"
+
+msgid "Products"
+msgstr "Продукты"
+
+msgid "Projects"
+msgstr "Проекты"
+
+msgid "Quick actions"
+msgstr "Быстрые действия"
+
+msgid "Quick links"
+msgstr "Ссылки"
+
+msgid "Read more"
+msgstr "Читать далее"
+
+msgid "Russian"
+msgstr "Русский"
+
+msgid "Send message"
+msgstr "Отправить"
+
+msgid "Something went wrong. Please try again."
+msgstr "Произошла ошибка. Попробуйте снова."
+
+msgid "Subject"
+msgstr "Тема"
+
+msgid "Views"
+msgstr "Просмотры"
+
+msgid "View all products"
+msgstr "Все продукты"
+
+msgid "views"
+msgstr "просмотров"
+
+msgid "Your full name"
+msgstr "Ваше полное имя"
+
+msgid "Your message has been sent successfully."
+msgstr "Ваше сообщение успешно отправлено."
+
+msgid "Your message"
+msgstr "Ваше сообщение"
+

@@ -10,6 +10,12 @@ class AppealContact(models.Model):
     email = models.EmailField(
         verbose_name='Email'
     )
+    phone = models.CharField(
+        max_length=40,
+        blank=True,
+        default='',
+        verbose_name='Mobil nömrə',
+    )
     subject = models.CharField(
         max_length=250,
         verbose_name='Mövzu'

@@ -17,6 +17,7 @@ def media_not_marked_as_background_q():
         & Q(is_about_page_background_image=False)
         & Q(is_contact_page_background_image=False)
         & Q(is_product_page_background_image=False)
+        & Q(is_blog_page_background_image=False)
     )
 
 
@@ -45,16 +46,38 @@ class Media(models.Model):
         blank=True,
         verbose_name='Tərəfdaş'
     )
-    name = models.CharField(
+    name_az = models.CharField(
         max_length=120,
         null=True,
         blank=True,
-        verbose_name='Ad',
+        verbose_name='Ad (AZ)',
     )
-    short_description = models.TextField(
+    name_en = models.CharField(
+        max_length=120,
         null=True,
         blank=True,
-        verbose_name='Qısa məlumat',
+        verbose_name='Ad (EN)',
+    )
+    name_ru = models.CharField(
+        max_length=120,
+        null=True,
+        blank=True,
+        verbose_name='Ad (RU)',
+    )
+    short_description_az = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name='Qısa məlumat (AZ)',
+    )
+    short_description_en = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name='Qısa məlumat (EN)',
+    )
+    short_description_ru = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name='Qısa məlumat (RU)',
     )
     image = models.ImageField(
         upload_to='images/',
@@ -82,14 +105,18 @@ class Media(models.Model):
         default=False,
         verbose_name='Məhsullar səhifəsi fon şəkli'
     )
+    is_blog_page_background_image = models.BooleanField(
+        default=False,
+        verbose_name='Bloq səhifələri fon şəkli'
+    )
     created_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name='Yaradılma tarixi'
     )
 
     class Meta:
-        verbose_name = 'Media'
-        verbose_name_plural = 'Media'
+        verbose_name = 'Səhifə fon şəkli'
+        verbose_name_plural = 'Səhifə fon şəkilləri'
 
     @property
     def webp_url(self):
