@@ -1,4 +1,4 @@
-{% load static %}
+{% load static project_tags i18n %}
 <!DOCTYPE html>
 <html lang="{{ language|default:'az' }}">
 
@@ -12,10 +12,6 @@
   <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
   <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Marcellus:wght@400&display=swap" rel="stylesheet">
-
   <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
   <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
@@ -28,82 +24,95 @@
 
 <body class="{% block body_class %}{% endblock %}">
 
-  <header id="header" class="header d-flex align-items-center position-relative">
-    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
-
-      <a href="{% url 'projects:home-page' %}" class="logo d-flex align-items-center">
-        <img src="{% static 'assets/img/logo.png' %}" alt="Ganaqro">
+  <header id="header" class="header site-header site-header--v2 d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl site-header__inner position-relative d-flex align-items-center justify-content-between">
+      <a href="{% url 'projects:home-page' %}" class="logo site-header__logo d-flex align-items-center">
+        <img src="{% static 'assets/img/logo.png' %}" alt="Ganaqro" decoding="async">
       </a>
 
-      <nav id="navmenu" class="navmenu">
-        <ul>
+      <nav id="navmenu" class="navmenu site-header__navmenu" aria-label="{% trans "Main navigation" %}">
+        <ul class="site-header__list">
           <li>
             <a href="{% url 'projects:home-page' %}"
-               {% if request.resolver_match.url_name == 'home-page' %}class="active"{% endif %}>
-              {% if language == 'en' %}Home{% elif language == 'ru' %}Главная{% else %}Ana Səhifə{% endif %}
+               class="site-header__link{% if request.resolver_match.url_name == 'home-page' %} active{% endif %}">
+              {% trans "Home" %}
             </a>
           </li>
           <li>
             <a href="{% url 'projects:about-page' %}"
-               {% if request.resolver_match.url_name == 'about-page' %}class="active"{% endif %}>
-              {% if language == 'en' %}About Us{% elif language == 'ru' %}О нас{% else %}Haqqımızda{% endif %}
+               class="site-header__link{% if request.resolver_match.url_name == 'about-page' %} active{% endif %}">
+              {% trans "About us" %}
             </a>
           </li>
           {% if categories %}
-          <li class="dropdown">
-            <a href="{% url 'projects:product-page' %}"
-               {% if request.resolver_match.url_name == 'product-page' or request.resolver_match.url_name == 'product-detail' %}class="active"{% endif %}>
-              <span>{% if language == 'en' %}Products{% elif language == 'ru' %}Продукты{% else %}Məhsullar{% endif %}</span>
-              <i class="bi bi-chevron-down toggle-dropdown"></i>
+          <li class="dropdown dropdown--nav dropdown--products">
+            <a href="#" class="products-dropdown-toggle site-header__link site-header__link--dropdown{% if request.resolver_match.url_name == 'product-page' %} active{% endif %}">
+              <span>{% trans "Products" %}</span>
+              <i class="bi bi-chevron-down toggle-dropdown" aria-hidden="true"></i>
             </a>
-            <ul>
+            <ul class="dropdown-menu-panel" role="menu">
               {% for cat in categories %}
-              <li><a href="{% url 'projects:product-page' %}?slug={{ cat.slug }}">{{ cat.name }}</a></li>
+              <li role="none">
+                <a role="menuitem" href="{% url 'projects:product-page' %}?slug={{ cat.slug }}"
+                   class="{% if request.resolver_match.url_name == 'product-page' and request.GET.slug == cat.slug %}active {% endif %}">{{ cat.name }}</a>
+              </li>
               {% endfor %}
             </ul>
-          </li>
-          {% else %}
-          <li>
-            <a href="{% url 'projects:product-page' %}"
-               {% if request.resolver_match.url_name == 'product-page' %}class="active"{% endif %}>
-              {% if language == 'en' %}Products{% elif language == 'ru' %}Продукты{% else %}Məhsullar{% endif %}
-            </a>
           </li>
           {% endif %}
           <li>
             <a href="{% url 'projects:blog-page' %}"
-               {% if request.resolver_match.url_name == 'blog-page' or request.resolver_match.url_name == 'blog-detail' %}class="active"{% endif %}>
-              {% if language == 'en' %}Blog{% elif language == 'ru' %}Блог{% else %}Bloq{% endif %}
+               class="site-header__link{% if request.resolver_match.url_name == 'blog-page' or request.resolver_match.url_name == 'blog-detail' %} active{% endif %}">
+              {% trans "Blog" %}
             </a>
           </li>
           <li>
             <a href="{% url 'projects:contact-page' %}"
-               {% if request.resolver_match.url_name == 'contact-page' %}class="active"{% endif %}>
-              {% if language == 'en' %}Contact{% elif language == 'ru' %}Контакт{% else %}Əlaqə{% endif %}
+               class="site-header__link{% if request.resolver_match.url_name == 'contact-page' %} active{% endif %}">
+              {% trans "Contact" %}
             </a>
           </li>
 
-          <li class="dropdown">
-            <a href="#">
-              <span>
-                {% if language == 'en' %}EN{% elif language == 'ru' %}RU{% else %}AZ{% endif %}
+          <li class="dropdown dropdown--nav dropdown--lang site-header__lang-wrap" role="none">
+            <a href="#" class="lang-dropdown-toggle site-header__lang-trigger" aria-expanded="false" aria-haspopup="true">
+              <span class="lang-dropdown-trigger">
+                {% get_current_language as CURRENT_LANG %}
+                {% if CURRENT_LANG == 'en' %}
+                <img class="lang-flag-img" src="{% static 'assets/img/flag-en.png' %}" alt="" width="24" height="16" decoding="async">
+                <span class="lang-label">{% trans "English" %}</span>
+                {% elif CURRENT_LANG == 'ru' %}
+                <img class="lang-flag-img" src="{% static 'assets/img/flag-ru.png' %}" alt="" width="24" height="16" decoding="async">
+                <span class="lang-label">{% trans "Russian" %}</span>
+                {% else %}
+                <img class="lang-flag-img" src="{% static 'assets/img/flag-az.png' %}" alt="" width="24" height="16" decoding="async">
+                <span class="lang-label">{% trans "Azerbaijani" %}</span>
+                {% endif %}
               </span>
-              <i class="bi bi-chevron-down toggle-dropdown"></i>
+              <i class="bi bi-chevron-down toggle-dropdown" aria-hidden="true"></i>
             </a>
-            <ul>
-              <li>
-                <a href="?lang=az"{% if language == 'az' %} class="active"{% endif %}>Azərbaycan</a>
+            <ul class="dropdown-menu-panel dropdown-menu-panel--lang" role="menu">
+              <li role="none">
+                <a role="menuitem" href="?lang=az" class="lang-menu-item{% if language == 'az' %} active{% endif %}">
+                  <img class="lang-flag-img lang-flag-img--row" src="{% static 'assets/img/flag-az.png' %}" alt="" width="26" height="18" decoding="async">
+                  <span class="lang-menu-text">{% trans "Azerbaijani" %}</span>
+                </a>
               </li>
-              <li>
-                <a href="?lang=en"{% if language == 'en' %} class="active"{% endif %}>English</a>
+              <li role="none">
+                <a role="menuitem" href="?lang=en" class="lang-menu-item{% if language == 'en' %} active{% endif %}">
+                  <img class="lang-flag-img lang-flag-img--row" src="{% static 'assets/img/flag-en.png' %}" alt="" width="26" height="18" decoding="async">
+                  <span class="lang-menu-text">{% trans "English" %}</span>
+                </a>
               </li>
-              <li>
-                <a href="?lang=ru"{% if language == 'ru' %} class="active"{% endif %}>Русский</a>
+              <li role="none">
+                <a role="menuitem" href="?lang=ru" class="lang-menu-item{% if language == 'ru' %} active{% endif %}">
+                  <img class="lang-flag-img lang-flag-img--row" src="{% static 'assets/img/flag-ru.png' %}" alt="" width="26" height="18" decoding="async">
+                  <span class="lang-menu-text">{% trans "Russian" %}</span>
+                </a>
               </li>
             </ul>
           </li>
         </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list" role="button" tabindex="0" aria-label="{% trans "Menu" %}"></i>
       </nav>
 
     </div>
@@ -115,7 +124,7 @@
       {% for message in messages %}
       <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
         {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{% trans "Close" %}"></button>
       </div>
       {% endfor %}
     </div>
@@ -136,26 +145,29 @@
             {% if contact %}
             <div class="footer-contact pt-3">
               {% if contact.address %}<p>{{ contact.address }}</p>{% endif %}
-              {% if contact.phone %}<p class="mt-2"><strong><i class="bi bi-telephone me-1"></i></strong> <span>{{ contact.phone }}</span></p>{% endif %}
-              {% if contact.email %}<p><strong><i class="bi bi-envelope me-1"></i></strong> <span>{{ contact.email }}</span></p>{% endif %}
+              {% if contact.phone %}<p class="mt-2"><strong><i class="bi bi-telephone me-1"></i></strong> <a href="{{ contact.phone|tel_href }}" class="footer-contact-link">{{ contact.phone }}</a></p>{% endif %}
+              {% if contact.whatsapp_number %}
+              <p><strong><i class="bi bi-whatsapp me-1" aria-hidden="true"></i></strong> {% if contact.whatsapp_number|wa_me_url %}<a href="{{ contact.whatsapp_number|wa_me_url }}" target="_blank" rel="noopener noreferrer" class="footer-contact-link">{{ contact.whatsapp_number }}</a>{% else %}{{ contact.whatsapp_number }}{% endif %}</p>
+              {% endif %}
+              {% if contact.email %}<p><strong><i class="bi bi-envelope me-1"></i></strong> <a href="{{ contact.email|mailto_href }}" class="footer-contact-link">{{ contact.email }}</a></p>{% endif %}
             </div>
             {% endif %}
           </div>
 
           <div class="col-lg-2 col-md-3 footer-links">
-            <h4>{% if language == 'en' %}Quick Links{% elif language == 'ru' %}Ссылки{% else %}Keçidlər{% endif %}</h4>
+            <h4>{% trans "Quick links" %}</h4>
             <ul>
-              <li><a href="{% url 'projects:home-page' %}">{% if language == 'en' %}Home{% elif language == 'ru' %}Главная{% else %}Ana Səhifə{% endif %}</a></li>
-              <li><a href="{% url 'projects:about-page' %}">{% if language == 'en' %}About Us{% elif language == 'ru' %}О нас{% else %}Haqqımızda{% endif %}</a></li>
-              <li><a href="{% url 'projects:product-page' %}">{% if language == 'en' %}Products{% elif language == 'ru' %}Продукты{% else %}Məhsullar{% endif %}</a></li>
-              <li><a href="{% url 'projects:blog-page' %}">{% if language == 'en' %}Blog{% elif language == 'ru' %}Блог{% else %}Bloq{% endif %}</a></li>
-              <li><a href="{% url 'projects:contact-page' %}">{% if language == 'en' %}Contact{% elif language == 'ru' %}Контакт{% else %}Əlaqə{% endif %}</a></li>
+              <li><a href="{% url 'projects:home-page' %}">{% trans "Home" %}</a></li>
+              <li><a href="{% url 'projects:about-page' %}">{% trans "About us" %}</a></li>
+              {% if categories %}<li><a href="{% url 'projects:product-page' %}?slug={{ categories.0.slug }}">{% trans "Products" %}</a></li>{% endif %}
+              <li><a href="{% url 'projects:blog-page' %}">{% trans "Blog" %}</a></li>
+              <li><a href="{% url 'projects:contact-page' %}">{% trans "Contact" %}</a></li>
             </ul>
           </div>
 
           {% if categories %}
           <div class="col-lg-2 col-md-3 footer-links">
-            <h4>{% if language == 'en' %}Categories{% elif language == 'ru' %}Категории{% else %}Kateqoriyalar{% endif %}</h4>
+            <h4>{% trans "Categories" %}</h4>
             <ul>
               {% for cat in categories %}
               <li><a href="{% url 'projects:product-page' %}?slug={{ cat.slug }}">{{ cat.name }}</a></li>
@@ -166,14 +178,13 @@
 
           {% if contact %}
           <div class="col-lg-4 col-md-6 footer-links">
-            <h4>{% if language == 'en' %}Follow Us{% elif language == 'ru' %}Мы в соц. сетях{% else %}Sosial Şəbəkələr{% endif %}</h4>
+            <h4>{% trans "Follow us on social media" %}</h4>
             <div class="social-links d-flex mt-3">
               {% if contact.instagram %}<a href="{{ contact.instagram }}" target="_blank" class="me-2"><i class="bi bi-instagram"></i></a>{% endif %}
               {% if contact.facebook %}<a href="{{ contact.facebook }}" target="_blank" class="me-2"><i class="bi bi-facebook"></i></a>{% endif %}
               {% if contact.youtube %}<a href="{{ contact.youtube }}" target="_blank" class="me-2"><i class="bi bi-youtube"></i></a>{% endif %}
               {% if contact.linkedn %}<a href="{{ contact.linkedn }}" target="_blank" class="me-2"><i class="bi bi-linkedin"></i></a>{% endif %}
               {% if contact.tiktok %}<a href="{{ contact.tiktok }}" target="_blank" class="me-2"><i class="bi bi-tiktok"></i></a>{% endif %}
-              {% if contact.whatsapp_number %}<a href="https://wa.me/{{ contact.whatsapp_number }}" target="_blank" class="me-2"><i class="bi bi-whatsapp"></i></a>{% endif %}
             </div>
           </div>
           {% endif %}
@@ -186,7 +197,7 @@
       <div class="container d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between align-items-center">
         <div class="d-flex flex-column align-items-center align-items-lg-start">
           <div>
-            © {% now "Y" %} <strong><span>Ganaqro</span></strong>. {% if language == 'en' %}All Rights Reserved{% elif language == 'ru' %}Все права защищены{% else %}Bütün hüquqlar qorunur{% endif %}
+            © {% now "Y" %} <a href="https://digiboom.az/" target="_blank" rel="noopener noreferrer">DigiBoom</a> · {% trans "All rights reserved." %}
           </div>
         </div>
         {% if contact %}
@@ -202,7 +213,29 @@
 
   </footer>
 
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <div class="floating-actions" role="toolbar" aria-label="{% trans "Quick actions" %}">
+    {% if contact and contact.whatsapp_number|wa_me_url %}
+      <a href="{{ contact.whatsapp_number|wa_me_url }}"
+         class="floating-actions__fab floating-actions__fab--whatsapp d-flex align-items-center justify-content-center"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="WhatsApp">
+        <i class="bi bi-whatsapp" aria-hidden="true"></i>
+      </a>
+    {% endif %}
+    {% if contact and contact.phone %}
+      <a href="{{ contact.phone|tel_href }}"
+         class="floating-actions__fab floating-actions__fab--call d-flex align-items-center justify-content-center"
+         aria-label="{% trans "Call us" %}">
+        <i class="bi bi-telephone-outbound" aria-hidden="true"></i>
+      </a>
+    {% endif %}
+    <a href="#" id="scroll-top"
+       class="floating-actions__fab floating-actions__fab--scroll scroll-top d-flex align-items-center justify-content-center"
+       aria-label="{% trans "Back to top" %}">
+      <i class="bi bi-arrow-up-short" aria-hidden="true"></i>
+    </a>
+  </div>
 
   <div id="preloader"></div>
 

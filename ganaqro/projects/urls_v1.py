@@ -3,11 +3,11 @@ from django.urls import path
 from projects.views.views_v1 import (
     HomePageView,
     ProductPageView,
-    ProductDetailPageView,
     AboutPageView,
     ContactPageView,
     BlogPageView,
     BlogDetailPageView,
+    BlogViewCountsApiView,
 )
 
 
@@ -25,11 +25,6 @@ urlpatterns = [
         name='product-page'
     ),
     path(
-        'products/<slug:slug>/',
-        ProductDetailPageView.as_view(),
-        name='product-detail'
-    ),
-    path(
         'about/',
         AboutPageView.as_view(),
         name='about-page'
@@ -43,6 +38,11 @@ urlpatterns = [
         'blog/',
         BlogPageView.as_view(),
         name='blog-page'
+    ),
+    path(
+        'blog/api/view-counts/',
+        BlogViewCountsApiView.as_view(),
+        name='blog-view-counts',
     ),
     path(
         'blog/<int:blog_id>/',

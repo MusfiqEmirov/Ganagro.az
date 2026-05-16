@@ -59,17 +59,17 @@ class Product(SluggedModel):
         verbose_name='Məhsul adı (RU)'
     )
     description_az = models.TextField(
-        validators=[MaxLengthValidator(1000)],
+        validators=[MaxLengthValidator(500)],
         verbose_name='Məhsul haqqında (AZ)'
     )
     description_en = models.TextField(
-        validators=[MaxLengthValidator(1000)],
+        validators=[MaxLengthValidator(500)],
         null=True,
         blank=True,
         verbose_name='Məhsul haqqında (EN)'
     )
     description_ru = models.TextField(
-        validators=[MaxLengthValidator(1000)],
+        validators=[MaxLengthValidator(500)],
         null=True,
         blank=True,
         verbose_name='Məhsul haqqında (RU)'

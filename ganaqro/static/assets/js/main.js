@@ -34,7 +34,7 @@
 
     if (scrollTop > lastScrollTop && scrollTop > selectHeader.offsetHeight) {
       selectHeader.style.setProperty('position', 'sticky', 'important');
-      selectHeader.style.top = `-${header.offsetHeight + 50}px`;
+      selectHeader.style.top = `-${selectHeader.offsetHeight + 50}px`;
     } else if (scrollTop > selectHeader.offsetHeight) {
       selectHeader.style.setProperty('position', 'sticky', 'important');
       selectHeader.style.top = "0";
@@ -81,36 +81,62 @@
     });
   });
 
+  /** Dropdown triggers with href="#" */
+  document.querySelectorAll('.navmenu .dropdown--products > a[href="#"], .navmenu .dropdown--lang > a[href="#"]').forEach(a => {
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+    });
+  });
+
   /**
-   * Preloader
+   * Preloader — çıxarılması DOM hazır olan kimi (bütün şəkillərin load-u gözləmir).
    */
   const preloader = document.querySelector('#preloader');
   if (preloader) {
-    window.addEventListener('load', () => {
+    const removePreloader = function() {
       preloader.remove();
-    });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', removePreloader);
+    } else {
+      removePreloader();
+    }
+    window.addEventListener('load', function preloaderSafetyRemove() {
+      const el = document.getElementById('preloader');
+      if (el) el.remove();
+    }, { once: true });
   }
 
   /**
    * Scroll top button
    */
-  let scrollTop = document.querySelector('.scroll-top');
+  const scrollTop = document.querySelector('#scroll-top');
 
   function toggleScrollTop() {
     if (scrollTop) {
       window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
     }
   }
-  scrollTop.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  });
 
-  window.addEventListener('load', toggleScrollTop);
-  document.addEventListener('scroll', toggleScrollTop);
+  if (scrollTop) {
+    scrollTop.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    window.addEventListener('load', toggleScrollTop);
+    document.addEventListener('scroll', toggleScrollTop);
+  }
+
+  function whenDomReady(fn) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', fn);
+    } else {
+      fn();
+    }
+  }
 
   /**
    * Animation on scroll function and init
@@ -123,7 +149,6 @@
       mirror: false
     });
   }
-  window.addEventListener('load', aosInit);
 
   /**
    * Auto generate the carousel indicators
@@ -143,19 +168,41 @@
    */
   function initSwiper() {
     document.querySelectorAll(".init-swiper").forEach(function(swiperElement) {
-      let config = JSON.parse(
-        swiperElement.querySelector(".swiper-config").innerHTML.trim()
-      );
+      const configEl = swiperElement.querySelector(".swiper-config");
+      if (!configEl) return;
+      let config;
+      try {
+        config = JSON.parse(configEl.innerHTML.trim());
+      } catch (err) {
+        console.warn("Swiper config JSON parse failed:", err);
+        return;
+      }
 
-      if (swiperElement.classList.contains("swiper-tab")) {
-        initSwiperWithCustomPagination(swiperElement, config);
-      } else {
-        new Swiper(swiperElement, config);
+      try {
+        if (swiperElement.classList.contains("swiper-tab")) {
+          initSwiperWithCustomPagination(swiperElement, config);
+        } else {
+          new Swiper(swiperElement, config);
+        }
+      } catch (err2) {
+        console.warn("Swiper init failed:", err2);
       }
     });
   }
 
-  window.addEventListener("load", initSwiper);
+  /** DOM hazır olanda karruselləri işə salır (tam səh.fə yüklənməsini gözləmir). */
+  function bootSwiperAndAos() {
+    initSwiper();
+    aosInit();
+  }
+  whenDomReady(bootSwiperAndAos);
+
+  /** Şəkillər axını bitəndə swiper ölçülərini yeniləmək üçün (hero və s.). */
+  window.addEventListener('load', function swiperPostLoadLayout() {
+    requestAnimationFrame(function() {
+      window.dispatchEvent(new Event('resize'));
+    });
+  }, { once: true });
 
   /**
    * Initiate glightbox

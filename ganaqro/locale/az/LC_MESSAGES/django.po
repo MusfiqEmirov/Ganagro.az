@@ -1,0 +1,204 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ganaqro\n"
+"Language: az\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "About us"
+msgstr "Haqqımızda"
+
+msgid "Address"
+msgstr "Ünvan"
+
+msgid "All blog posts"
+msgstr "Bütün bloq yazıları"
+
+msgid "All rights reserved."
+msgstr "Bütün hüquqlar qorunur."
+
+msgid "Azerbaijani"
+msgstr "Azərbaycan"
+
+msgid "Back to blog"
+msgstr "Bloqa qayıt"
+
+msgid "Blog"
+msgstr "Bloq"
+
+msgid "Blog pagination"
+msgstr "Bloq səhifələməsi"
+
+msgid "Blog post not found"
+msgstr "Bloq yazısı tapılmadı"
+
+msgid "Browse our photo collection"
+msgstr "Foto kolleksiyamıza nəzər salın"
+
+msgid "Call us"
+msgstr "Zəng et"
+
+msgid "Categories"
+msgstr "Kateqoriyalar"
+
+msgid "Clients"
+msgstr "Müştərilər"
+
+msgid "Close"
+msgstr "Bağla"
+
+msgid "Contact"
+msgstr "Əlaqə"
+
+msgid "Contact information is not available."
+msgstr "Əlaqə məlumatı mövcud deyil."
+
+msgid "Contact us"
+msgstr "Bizimlə əlaqə saxlayın"
+
+msgid "Contact us about any question"
+msgstr "Hər hansı sual üçün bizimlə əlaqə saxlayın"
+
+msgid "Email address"
+msgstr "E-poçt ünvanı"
+
+msgid "Email"
+msgstr "E-poçt"
+
+msgid "English"
+msgstr "English"
+
+msgid "Explore %(category)s"
+msgstr "%(category)s üzrə bax"
+
+msgid "Follow us on social media"
+msgstr "Sosial şəbəkələrdə izləyin"
+
+msgid "Full name"
+msgstr "Ad Soyad"
+
+msgid "Get in touch"
+msgstr "Bizimlə əlaqə"
+
+msgid "Get in touch with us"
+msgstr "Bizimlə əlaqə saxlayın"
+
+msgid "Home"
+msgstr "Ana Səhifə"
+
+msgid "Image viewer"
+msgstr "Şəkil baxışı"
+
+msgid "Interested? Get in touch!"
+msgstr "Maraqlandınız? Bizimlə əlaqə saxlayın!"
+
+msgid "Learn more"
+msgstr "Ətraflı"
+
+msgid "Main navigation"
+msgstr "Əsas naviqasiya"
+
+msgid "Map is not configured"
+msgstr "Xəritə təyin edilməyib"
+
+msgid "Map"
+msgstr "Xəritə"
+
+msgid "Menu"
+msgstr "Menyu"
+
+msgid "Mobile number"
+msgstr "Mobil nömrə"
+
+msgid "News and articles from our team"
+msgstr "Komandamızdan xəbər və məqalələr"
+
+msgid "Next image"
+msgstr "Növbəti şəkil"
+
+msgid "No blog posts yet"
+msgstr "Hələ bloq yazısı yoxdur"
+
+msgid "No other posts."
+msgstr "Başqa yazı yoxdur."
+
+msgid "No products found"
+msgstr "Məhsul tapılmadı"
+
+msgid "Open image"
+msgstr "Şəkili aç"
+
+msgid "Other posts"
+msgstr "Digər yazılar"
+
+msgid "Our blog posts"
+msgstr "Bloq yazılarımız"
+
+msgid "Our gallery"
+msgstr "Qaleriyamız"
+
+msgid "Partners"
+msgstr "Tərəfdaşlar"
+
+msgid "Phone"
+msgstr "Telefon"
+
+msgid "Play video"
+msgstr "Videonu işə sal"
+
+msgid "Please correct the errors in the form."
+msgstr "Formdakı xətaları düzəldin."
+
+msgid "Previous image"
+msgstr "Əvvəlki şəkil"
+
+msgid "Products pagination"
+msgstr "Məhsul səhifələməsi"
+
+msgid "Products"
+msgstr "Məhsullar"
+
+msgid "Projects"
+msgstr "Layihələr"
+
+msgid "Quick actions"
+msgstr "Tez keçidlər"
+
+msgid "Quick links"
+msgstr "Keçidlər"
+
+msgid "Read more"
+msgstr "Ətraflı oxu"
+
+msgid "Russian"
+msgstr "Русский"
+
+msgid "Send message"
+msgstr "Göndər"
+
+msgid "Something went wrong. Please try again."
+msgstr "Xəta baş verdi. Zəhmət olmasa yenidən cəhd edin."
+
+msgid "Subject"
+msgstr "Mövzu"
+
+msgid "Views"
+msgstr "Baxış"
+
+msgid "View all products"
+msgstr "Bütün məhsullara bax"
+
+msgid "views"
+msgstr "baxış"
+
+msgid "Your full name"
+msgstr "Adınız və soyadınız"
+
+msgid "Your message has been sent successfully."
+msgstr "Mesajınız uğurla göndərildi."
+
+msgid "Your message"
+msgstr "Mesajınız"
+

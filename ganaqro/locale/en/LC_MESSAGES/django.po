@@ -1,0 +1,204 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ganaqro\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "About us"
+msgstr "About us"
+
+msgid "Address"
+msgstr "Address"
+
+msgid "All blog posts"
+msgstr "All blog posts"
+
+msgid "All rights reserved."
+msgstr "All rights reserved."
+
+msgid "Azerbaijani"
+msgstr "Azerbaijani"
+
+msgid "Back to blog"
+msgstr "Back to blog"
+
+msgid "Blog"
+msgstr "Blog"
+
+msgid "Blog pagination"
+msgstr "Blog pagination"
+
+msgid "Blog post not found"
+msgstr "Blog post not found"
+
+msgid "Browse our photo collection"
+msgstr "Browse our photo collection"
+
+msgid "Call us"
+msgstr "Call us"
+
+msgid "Categories"
+msgstr "Categories"
+
+msgid "Clients"
+msgstr "Clients"
+
+msgid "Close"
+msgstr "Close"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Contact information is not available."
+msgstr "Contact information is not available."
+
+msgid "Contact us"
+msgstr "Contact us"
+
+msgid "Contact us about any question"
+msgstr "Contact us about any question"
+
+msgid "Email address"
+msgstr "Email address"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "English"
+msgstr "English"
+
+msgid "Explore %(category)s"
+msgstr "Explore %(category)s"
+
+msgid "Follow us on social media"
+msgstr "Follow us on social media"
+
+msgid "Full name"
+msgstr "Full name"
+
+msgid "Get in touch"
+msgstr "Get in touch"
+
+msgid "Get in touch with us"
+msgstr "Get in touch with us"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "Image viewer"
+msgstr "Image viewer"
+
+msgid "Interested? Get in touch!"
+msgstr "Interested? Get in touch!"
+
+msgid "Learn more"
+msgstr "Learn more"
+
+msgid "Main navigation"
+msgstr "Main navigation"
+
+msgid "Map is not configured"
+msgstr "Map is not configured"
+
+msgid "Map"
+msgstr "Map"
+
+msgid "Menu"
+msgstr "Menu"
+
+msgid "Mobile number"
+msgstr "Mobile number"
+
+msgid "News and articles from our team"
+msgstr "News and articles from our team"
+
+msgid "Next image"
+msgstr "Next image"
+
+msgid "No blog posts yet"
+msgstr "No blog posts yet"
+
+msgid "No other posts."
+msgstr "No other posts."
+
+msgid "No products found"
+msgstr "No products found"
+
+msgid "Open image"
+msgstr "Open image"
+
+msgid "Other posts"
+msgstr "Other posts"
+
+msgid "Our blog posts"
+msgstr "Our blog posts"
+
+msgid "Our gallery"
+msgstr "Our gallery"
+
+msgid "Partners"
+msgstr "Partners"
+
+msgid "Phone"
+msgstr "Phone"
+
+msgid "Play video"
+msgstr "Play video"
+
+msgid "Please correct the errors in the form."
+msgstr "Please correct the errors in the form."
+
+msgid "Previous image"
+msgstr "Previous image"
+
+msgid "Products pagination"
+msgstr "Products pagination"
+
+msgid "Products"
+msgstr "Products"
+
+msgid "Projects"
+msgstr "Projects"
+
+msgid "Quick actions"
+msgstr "Quick actions"
+
+msgid "Quick links"
+msgstr "Quick links"
+
+msgid "Read more"
+msgstr "Read more"
+
+msgid "Russian"
+msgstr "Russian"
+
+msgid "Send message"
+msgstr "Send message"
+
+msgid "Something went wrong. Please try again."
+msgstr "Something went wrong. Please try again."
+
+msgid "Subject"
+msgstr "Subject"
+
+msgid "Views"
+msgstr "Views"
+
+msgid "View all products"
+msgstr "View all products"
+
+msgid "views"
+msgstr "views"
+
+msgid "Your full name"
+msgstr "Your full name"
+
+msgid "Your message has been sent successfully."
+msgstr "Your message has been sent successfully."
+
+msgid "Your message"
+msgstr "Your message"
+

@@ -1,0 +1,56 @@
+{% load static i18n %}
+{% if partners %}
+<section id="partners" class="partners-carousel section light-background" aria-label="{% trans "Partners" %}">
+  <div class="container">
+    <div class="partners-carousel__head text-center" data-aos="fade-up">
+      <h2 class="partners-carousel__title">
+        {% trans "Partners" %}
+      </h2>
+    </div>
+
+    <div class="partners-carousel__shell">
+      <div class="swiper init-swiper partners-swiper" data-aos="fade-up">
+      <script type="application/json" class="swiper-config">
+        {
+          "loop": true,
+          "speed": 450,
+          "autoplay": {
+            "delay": 120,
+            "disableOnInteraction": false,
+            "pauseOnMouseEnter": false,
+            "stopOnLastSlide": false,
+            "waitForTransition": true
+          },
+          "slidesPerView": 2,
+          "spaceBetween": 12,
+          "grabCursor": true,
+          "breakpoints": {
+            "400": { "slidesPerView": 2.2, "spaceBetween": 14 },
+            "576": { "slidesPerView": 3, "spaceBetween": 14 },
+            "768": { "slidesPerView": 4, "spaceBetween": 16 },
+            "992": { "slidesPerView": 5, "spaceBetween": 18 },
+            "1200": { "slidesPerView": 5, "spaceBetween": 18 }
+          }
+        }
+      </script>
+      <div class="swiper-wrapper">
+        {% for partner in partners %}
+        <div class="swiper-slide">
+          <article class="partner-marquee-card">
+            <div class="partner-marquee-card__figure">
+              {% if partner.logo %}
+              <img src="{{ partner.logo }}" class="partner-marquee-card__img" alt="{{ partner.name }}" loading="{% if forloop.counter <= 8 %}eager{% else %}lazy{% endif %}" decoding="async" width="200" height="200" {% if forloop.counter <= 2 %}fetchpriority="high"{% elif forloop.counter > 8 %}fetchpriority="low"{% endif %}>
+              {% else %}
+              <div class="partner-marquee-card__placeholder" aria-hidden="true">{{ partner.name|truncatechars:16 }}</div>
+              {% endif %}
+            </div>
+            <p class="partner-marquee-card__name">{{ partner.name }}</p>
+          </article>
+        </div>
+        {% endfor %}
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}

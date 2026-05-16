@@ -1,135 +1,102 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
 {% block title %}Ganaqro - {{ blog.name }}{% endblock %}
 {% block body_class %}blog-details-page{% endblock %}
 
 {% block content %}
 
-  <!-- Page Title -->
-  <div class="page-title dark-background" data-aos="fade"
-       style="background-image: url('{% static "assets/img/page-title-bg.webp" %}');">
-    <div class="container position-relative">
-      <h1>{{ blog.name }}</h1>
-      <nav class="breadcrumbs">
-        <ol>
-          <li><a href="{% url 'projects:home-page' %}">{% if language == 'en' %}Home{% elif language == 'ru' %}Главная{% else %}Ana Səhifə{% endif %}</a></li>
-          <li><a href="{% url 'projects:blog-page' %}">{% if language == 'en' %}Blog{% elif language == 'ru' %}Блог{% else %}Bloq{% endif %}</a></li>
-          <li class="current">{{ blog.name|truncatewords:6 }}</li>
-        </ol>
-      </nav>
-    </div>
-  </div><!-- End Page Title -->
+  {% include "includes/page_title.html" %}
 
   <!-- Blog Details Section -->
   <section id="blog-details" class="blog-details section">
-    <div class="container" data-aos="fade-up">
-      <div class="row g-5">
+    <div class="container">
+      <div class="row g-4 g-lg-5">
 
-        <!-- Main Content -->
+        <!-- Main article -->
         <div class="col-lg-8">
           <article class="article">
-
-            {% if blog.image %}
-            <div class="post-img mb-4">
-              <img src="{{ blog.image }}" alt="{{ blog.name }}" class="img-fluid rounded w-100" style="max-height:480px; object-fit:cover;">
-            </div>
-            {% endif %}
-
-            <h2 class="title fw-bold mb-3">{{ blog.name }}</h2>
-
-            <div class="meta-top d-flex flex-wrap gap-3 mb-4 text-muted">
-              <span><i class="bi bi-calendar3 me-1"></i> {{ blog.date|date:"d M Y" }}</span>
-              <span><i class="bi bi-eye me-1"></i> {{ blog.view_count }} {% if language == 'en' %}views{% elif language == 'ru' %}просмотров{% else %}baxış{% endif %}</span>
-            </div>
 
             <div class="content blog-content">
               {{ blog.description|safe }}
             </div>
 
-            <div class="meta-bottom d-flex justify-content-between align-items-center mt-5 pt-3 border-top">
+            <div class="meta-bottom mt-5 pt-3 border-top">
               <a href="{% url 'projects:blog-page' %}" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left me-2"></i>
-                {% if language == 'en' %}Back to Blog{% elif language == 'ru' %}Назад к блогу{% else %}Bloqa qayıt{% endif %}
+                {% trans "Back to blog" %}
               </a>
-              <div class="d-flex gap-2">
-                <span class="text-muted">
-                  {% if language == 'en' %}Share:{% elif language == 'ru' %}Поделиться:{% else %}Paylaş:{% endif %}
-                </span>
-                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="btn btn-sm btn-outline-primary">
-                  <i class="bi bi-facebook"></i>
-                </a>
-                <a href="https://wa.me/?text={{ blog.name|urlencode }}%20{{ request.build_absolute_uri|urlencode }}" target="_blank" class="btn btn-sm btn-outline-success">
-                  <i class="bi bi-whatsapp"></i>
-                </a>
-              </div>
             </div>
-
           </article>
-        </div><!-- End Main Content -->
+        </div>
 
-        <!-- Sidebar -->
-        <div class="col-lg-4">
-
-          <!-- Contact Box -->
-          {% if contact %}
-          <div class="card border-0 shadow-sm mb-4">
-            <div class="card-body">
-              <h5 class="card-title border-bottom pb-2 mb-3">
-                {% if language == 'en' %}Contact Us{% elif language == 'ru' %}Контакты{% else %}Əlaqə{% endif %}
-              </h5>
-              {% if contact.phone %}
-              <p class="mb-2"><i class="bi bi-telephone-fill text-success me-2"></i>
-                <a href="tel:{{ contact.phone }}" class="text-dark">{{ contact.phone }}</a>
-              </p>
-              {% endif %}
-              {% if contact.email %}
-              <p class="mb-2"><i class="bi bi-envelope-fill text-success me-2"></i>
-                <a href="mailto:{{ contact.email }}" class="text-dark">{{ contact.email }}</a>
-              </p>
-              {% endif %}
-              {% if contact.address %}
-              <p class="mb-3"><i class="bi bi-geo-alt-fill text-success me-2"></i>{{ contact.address }}</p>
-              {% endif %}
-              <div class="d-flex gap-2 mt-2">
-                {% if contact.instagram %}<a href="{{ contact.instagram }}" target="_blank" class="btn btn-sm btn-outline-secondary"><i class="bi bi-instagram"></i></a>{% endif %}
-                {% if contact.facebook %}<a href="{{ contact.facebook }}" target="_blank" class="btn btn-sm btn-outline-secondary"><i class="bi bi-facebook"></i></a>{% endif %}
-                {% if contact.whatsapp_number %}<a href="https://wa.me/{{ contact.whatsapp_number }}" target="_blank" class="btn btn-sm btn-outline-success"><i class="bi bi-whatsapp"></i></a>{% endif %}
-              </div>
-            </div>
-          </div>
-          {% endif %}
-
-          <!-- Products CTA -->
-          {% if categories %}
-          <div class="card border-0 shadow-sm bg-success text-white">
-            <div class="card-body">
-              <h5 class="card-title">
-                {% if language == 'en' %}Our Products{% elif language == 'ru' %}Наши продукты{% else %}Məhsullarımız{% endif %}
-              </h5>
-              <p class="small opacity-75">
-                {% if language == 'en' %}Browse our product catalog{% elif language == 'ru' %}Просмотрите наш каталог{% else %}Məhsul kataloqumuza baxın{% endif %}
-              </p>
-              <ul class="list-unstyled mb-3">
-                {% for cat in categories %}
-                <li class="mb-1">
-                  <a href="{% url 'projects:product-page' %}?slug={{ cat.slug }}" class="text-white text-decoration-none">
-                    <i class="bi bi-chevron-right me-1"></i>{{ cat.name }}
-                  </a>
-                </li>
-                {% endfor %}
-              </ul>
-              <a href="{% url 'projects:product-page' %}" class="btn btn-light btn-sm">
-                {% if language == 'en' %}View All{% elif language == 'ru' %}Все{% else %}Hamısı{% endif %}
-              </a>
-            </div>
-          </div>
-          {% endif %}
-
-        </div><!-- End Sidebar -->
+        <!-- Right: other posts -->
+        <aside class="col-lg-4">
+          <nav class="blog-detail-sidebar" aria-label="{% trans "Other posts" %}">
+            <h3 class="blog-detail-sidebar__heading">
+              {% trans "Other posts" %}
+            </h3>
+            {% if other_blogs %}
+            <ul class="blog-detail-sidebar__list list-unstyled mb-0">
+              {% for ob in other_blogs %}
+              <li>
+                <a href="{% url 'projects:blog-detail' blog_id=ob.id %}" class="blog-detail-sidebar__link">
+                  <span class="blog-detail-sidebar__thumb-wrap">
+                    {% if ob.image %}
+                    <img src="{{ ob.image }}" alt="" class="blog-detail-sidebar__thumb" loading="lazy">
+                    {% else %}
+                    <img src="{% static 'assets/img/blog/blog-1.jpg' %}" alt="" class="blog-detail-sidebar__thumb" loading="lazy">
+                    {% endif %}
+                  </span>
+                  <span class="blog-detail-sidebar__text">
+                    <span class="blog-detail-sidebar__title">{{ ob.name }}</span>
+                    <span class="blog-detail-sidebar__meta">
+                      {{ ob.date|date:"d.m.Y" }}
+                      <span class="blog-detail-sidebar__dot">·</span>
+                      <i class="bi bi-eye" aria-hidden="true"></i>
+                      <span class="blog-view-count" data-blog-id="{{ ob.id }}">{{ ob.view_count }}</span>
+                    </span>
+                  </span>
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-muted small mb-0">
+              {% trans "No other posts." %}
+            </p>
+            {% endif %}
+          </nav>
+        </aside>
 
       </div>
     </div>
   </section><!-- /Blog Details Section -->
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+  var nodes = document.querySelectorAll('.blog-view-count[data-blog-id]');
+  if (!nodes.length) return;
+  var ids = [];
+  var seen = {};
+  nodes.forEach(function (n) {
+    var id = n.getAttribute('data-blog-id');
+    if (id && !seen[id]) { seen[id] = true; ids.push(id); }
+  });
+  if (!ids.length) return;
+  var url = "{% url 'projects:blog-view-counts' %}?ids=" + encodeURIComponent(ids.join(','));
+  fetch(url, { headers: { Accept: 'application/json' }, credentials: 'same-origin' })
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      nodes.forEach(function (n) {
+        var id = n.getAttribute('data-blog-id');
+        if (data[id] != null) n.textContent = data[id];
+      });
+    })
+    .catch(function () {});
+})();
+</script>
 {% endblock %}
