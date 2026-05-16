@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}Ganaqro · {% trans "Tez-tez verilən suallar" %}{% endblock %}
+{% block body_class %}faq-page{% endblock %}
+
+{% block content %}
+
+  {% include "includes/page_title.html" %}
+
+  {% include "includes/faq_section.html" with accordion_id="faqAccordion" %}
+
+{% endblock %}

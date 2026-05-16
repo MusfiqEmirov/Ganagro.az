@@ -9,7 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from projects.models.media_models import media_not_marked_as_background_q
 from projects.models import (
     Product, ProductCategory, Partner, About,
-    Contact, Media, Motto, Statistic, Blog,
+    Contact, Media, Motto, Statistic, Blog, FAQ,
 )
 from projects.utils.cache_utils import cached_query, get_query_cache_key, cached_page_data
 from django.core.cache import cache
@@ -252,16 +252,43 @@ def build_hero_carousel(lang):
 # ---------------------------------------------------------------------------
 
 @cached_query(timeout='CACHE_TIMEOUT_LONG')
-def get_statistics():
+def get_statistics(lang='az'):
     statistic = Statistic.objects.first()
     if statistic:
+
+        def caption(base):
+            return (_localized_with_az_fallback(statistic, lang, base) or '').strip()
+
         return {
             'value_one': statistic.value_one,
             'value_two': statistic.value_two,
             'value_three': statistic.value_three,
             'value_four': statistic.value_four,
+            'caption_one': caption('caption_one'),
+            'caption_two': caption('caption_two'),
+            'caption_three': caption('caption_three'),
+            'caption_four': caption('caption_four'),
         }
     return {}
+
+
+# ---------------------------------------------------------------------------
+# FAQ
+# ---------------------------------------------------------------------------
+
+@cached_query(timeout='CACHE_TIMEOUT_MEDIUM')
+def get_faqs(lang='az'):
+    return FAQ.objects.filter(is_active=True).order_by('sort_order', 'id')
+
+
+def serialize_faq(faq, lang='az'):
+    if faq is None:
+        return None
+    return {
+        'id': faq.id,
+        'question': _localized_with_az_fallback(faq, lang, 'question'),
+        'answer': _localized_with_az_fallback(faq, lang, 'answer'),
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -519,6 +546,9 @@ def get_home_page_data(request, lang):
     )
     home_blogs = [serialize_blog(b, lang) for b in blog_list]
 
+    faq_list = get_faqs(lang)
+    home_faqs = [serialize_faq(f, lang) for f in faq_list]
+
     return {
         'products': serialized_products,
         'categories': serialized_categories,
@@ -531,9 +561,10 @@ def get_home_page_data(request, lang):
         },
         'background_image': get_background_image('home'),
         'hero_carousel': hero_carousel,
-        'statistics': get_statistics(),
+        'statistics': get_statistics(lang),
         'category_panels': category_panels,
         'home_blogs': home_blogs,
+        'faqs': home_faqs,
     }
 
 

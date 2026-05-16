@@ -7,3 +7,4 @@ from .appeal_models import AppealContact
 from .motto_models import Motto
 from .statistic_models import Statistic
 from .blog_models import Blog
+from .faq_models import FAQ

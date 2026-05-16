@@ -73,8 +73,23 @@ msgstr "English"
 msgid "Explore %(category)s"
 msgstr "Explore %(category)s"
 
+msgid "Bütün suallar"
+msgstr "All questions"
+
 msgid "Follow us on social media"
 msgstr "Follow us on social media"
+
+msgid "Hələ heç bir sual əlavə edilməyib."
+msgstr "No questions have been added yet."
+
+msgid "Məhsul və xidmətlərimiz haqqında ən çox verilən sualların cavablarını tapın."
+msgstr "Find answers to the most common questions about our products and services."
+
+msgid "Sual-cavab"
+msgstr "FAQ"
+
+msgid "Tez-tez verilən suallar"
+msgstr "Frequently asked questions"
 
 msgid "Full name"
 msgstr "Full name"
@@ -196,8 +211,8 @@ msgstr "views"
 msgid "Your full name"
 msgstr "Your full name"
 
-msgid "Your message has been sent successfully."
-msgstr "Your message has been sent successfully."
+msgid "Thank you. We have received your message."
+msgstr "Thank you. We have received your message."
 
 msgid "Your message"
 msgstr "Your message"

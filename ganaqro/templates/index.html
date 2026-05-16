@@ -86,47 +86,7 @@
   </section>
   {% endif %}
 
-  <!-- Statistics Section -->
-  {% if statistics %}
-  <section id="statistics" class="stats section light-background">
-    <div class="container" data-aos="fade-up">
-      <div class="row gy-4">
-        {% if statistics.value_one %}
-        <div class="col-lg-3 col-md-6">
-          <div class="stats-item text-center w-100 h-100">
-            <span data-purecounter-start="0" data-purecounter-end="{{ statistics.value_one }}" data-purecounter-duration="1" class="purecounter">{{ statistics.value_one }}</span>
-            <p>{% trans "Clients" %}</p>
-          </div>
-        </div>
-        {% endif %}
-        {% if statistics.value_two %}
-        <div class="col-lg-3 col-md-6">
-          <div class="stats-item text-center w-100 h-100">
-            <span data-purecounter-start="0" data-purecounter-end="{{ statistics.value_two }}" data-purecounter-duration="1" class="purecounter">{{ statistics.value_two }}</span>
-            <p>{% trans "Projects" %}</p>
-          </div>
-        </div>
-        {% endif %}
-        {% if statistics.value_three %}
-        <div class="col-lg-3 col-md-6">
-          <div class="stats-item text-center w-100 h-100">
-            <span data-purecounter-start="0" data-purecounter-end="{{ statistics.value_three }}" data-purecounter-duration="1" class="purecounter">{{ statistics.value_three }}</span>
-            <p>{% trans "Products" %}</p>
-          </div>
-        </div>
-        {% endif %}
-        {% if statistics.value_four %}
-        <div class="col-lg-3 col-md-6">
-          <div class="stats-item text-center w-100 h-100">
-            <span data-purecounter-start="0" data-purecounter-end="{{ statistics.value_four }}" data-purecounter-duration="1" class="purecounter">{{ statistics.value_four }}</span>
-            <p>{% trans "Partners" %}</p>
-          </div>
-        </div>
-        {% endif %}
-      </div>
-    </div>
-  </section><!-- /Statistics Section -->
-  {% endif %}
+  {% include "includes/statistics_section.html" with section_id="statistics" %}
 
   <!-- About Section -->
   {% if about %}
@@ -288,6 +248,10 @@
   {% endif %}
 
   {% include "includes/partners_carousel.html" %}
+
+  {% if faqs %}
+  {% include "includes/faq_section.html" with section_id="home-faq" section_class="home-faq-section light-background" accordion_id="homeFaqAccordion" show_view_all=True %}
+  {% endif %}
 
   <!-- About Gallery Fullscreen Modal -->
   {% if about and about.medias %}

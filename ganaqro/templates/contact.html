@@ -114,7 +114,7 @@
 
         <!-- Form -->
         <div class="col-lg-4 order-3">
-          <div class="contact-section-v2__panel contact-section-v2__panel--form php-email-form">
+          <div class="contact-section-v2__panel contact-section-v2__panel--form">
             <form action="{% url 'projects:contact-page' %}" method="post" novalidate>
               {% csrf_token %}
               {{ form.website }}

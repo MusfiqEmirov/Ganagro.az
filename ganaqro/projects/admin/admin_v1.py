@@ -15,6 +15,7 @@ from projects.models import (
     Motto,
     Statistic,
     Blog,
+    FAQ,
 )
 
 admin.site.site_header = 'Ganaqro — Admin'
@@ -350,7 +351,47 @@ class MottoAdmin(admin.ModelAdmin):
 
 @admin.register(Statistic)
 class StatisticAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'value_one', 'value_two', 'value_three', 'value_four')
+    fieldsets = (
+        (_('Göstərici 1'), {
+            'fields': (
+                'value_one',
+                'caption_one_az',
+                'caption_one_en',
+                'caption_one_ru',
+            ),
+        }),
+        (_('Göstərici 2'), {
+            'fields': (
+                'value_two',
+                'caption_two_az',
+                'caption_two_en',
+                'caption_two_ru',
+            ),
+        }),
+        (_('Göstərici 3'), {
+            'fields': (
+                'value_three',
+                'caption_three_az',
+                'caption_three_en',
+                'caption_three_ru',
+            ),
+        }),
+        (_('Göstərici 4'), {
+            'fields': (
+                'value_four',
+                'caption_four_az',
+                'caption_four_en',
+                'caption_four_ru',
+            ),
+        }),
+    )
+    list_display = (
+        '__str__',
+        'value_one',
+        'value_two',
+        'value_three',
+        'value_four',
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -415,6 +456,24 @@ class MediaAdmin(AdminImageCompressMixin, admin.ModelAdmin):
         obj.partner = None
         obj.video = None
         super().save_model(request, obj, form, change)
+
+
+# ---------------------------------------------------------------------------
+# FAQ
+# ---------------------------------------------------------------------------
+
+@admin.register(FAQ)
+class FAQAdmin(admin.ModelAdmin):
+    list_display = ('question_az', 'sort_order', 'is_active', 'created_at')
+    list_editable = ('sort_order', 'is_active')
+    search_fields = ('question_az', 'question_en', 'question_ru', 'answer_az')
+    ordering = ('sort_order', 'id')
+    fieldsets = (
+        (_('Azərbaycan'), {'fields': ('question_az', 'answer_az'), 'classes': ('wide',)}),
+        (_('English'), {'fields': ('question_en', 'answer_en'), 'classes': ('wide', 'g-lang-en')}),
+        (_('Русский'), {'fields': ('question_ru', 'answer_ru'), 'classes': ('wide', 'g-lang-ru')}),
+        (_('Parametrlər'), {'fields': ('sort_order', 'is_active')}),
+    )
 
 
 # ---------------------------------------------------------------------------
