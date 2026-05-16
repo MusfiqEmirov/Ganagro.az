@@ -1535,8 +1535,9 @@ body.scrolled .header.site-header.site-header--v2 {
   text-align: center;
 }
 
-.page-title--banner .page-motto--primary {
-  font-size: clamp(1.35rem, 3.2vw, 2.25rem);
+.page-title.page-title--banner .container p.page-motto.page-motto--primary,
+.page-title.page-title--banner .container h1.page-motto.page-motto--primary {
+  font-size: clamp(0.88rem, 1.65vw, 1.28rem);
   font-weight: 700;
   color: color-mix(in srgb, var(--contrast-color), transparent 4%);
   margin: 0 auto 12px;
@@ -1545,7 +1546,7 @@ body.scrolled .header.site-header.site-header--v2 {
   text-shadow: 0 1px 10px rgba(0, 0, 0, 0.22);
 }
 
-.page-title--banner h1.page-motto--primary {
+.page-title.page-title--banner .container h1.page-motto.page-motto--primary {
   padding: 0;
   border: none;
 }
@@ -1586,14 +1587,16 @@ body.scrolled .header.site-header.site-header--v2 {
 }
 
 @media (max-width: 991px) {
-  .page-title--banner .page-motto--primary {
-    font-size: clamp(1.08rem, 3.6vw, 1.68rem);
+  .page-title.page-title--banner .container p.page-motto.page-motto--primary,
+  .page-title.page-title--banner .container h1.page-motto.page-motto--primary {
+    font-size: clamp(0.76rem, 2.15vw, 1.02rem);
   }
 }
 
 @media (max-width: 575px) {
-  .page-title--banner .page-motto--primary {
-    font-size: clamp(1rem, 4.2vw, 1.45rem);
+  .page-title.page-title--banner .container p.page-motto.page-motto--primary,
+  .page-title.page-title--banner .container h1.page-motto.page-motto--primary {
+    font-size: clamp(0.7rem, 2.85vw, 0.88rem);
     padding: 0 16px;
   }
 }
