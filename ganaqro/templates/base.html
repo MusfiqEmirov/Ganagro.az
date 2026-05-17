@@ -118,7 +118,7 @@
             </ul>
           </li>
         </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list" role="button" tabindex="0" aria-label="{% trans "Menu" %}"></i>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list" role="button" tabindex="0" aria-label="{% trans "Menu" %}" aria-expanded="false" aria-controls="navmenu"></i>
       </nav>
 
     </div>
@@ -146,7 +146,7 @@
         <div class="row gy-4">
           <div class="col-lg-4 col-md-6 footer-about">
             <a href="{% url 'projects:home-page' %}" class="logo d-flex align-items-center">
-              <img src="{% static 'assets/img/logo.png' %}" alt="Ganaqro" style="max-height:40px;">
+              <img src="{% static 'assets/img/logo.png' %}" alt="Ganaqro" decoding="async">
             </a>
             {% if contact %}
             <div class="footer-contact pt-3">
@@ -201,20 +201,10 @@
     </div>
 
     <div class="copyright text-center">
-      <div class="container d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between align-items-center">
-        <div class="d-flex flex-column align-items-center align-items-lg-start">
-          <div>
-            © {% now "Y" %} <a href="https://digiboom.az/" target="_blank" rel="noopener noreferrer">DigiBoom</a> · {% trans "All rights reserved." %}
-          </div>
+      <div class="container">
+        <div>
+          © {% now "Y" %} <a href="https://digiboom.az/" target="_blank" rel="noopener noreferrer">DigiBoom</a> · {% trans "All rights reserved." %}
         </div>
-        {% if contact %}
-        <div class="social-links order-first order-lg-last mb-3 mb-lg-0">
-          {% if contact.instagram %}<a href="{{ contact.instagram }}" target="_blank"><i class="bi bi-instagram"></i></a>{% endif %}
-          {% if contact.facebook %}<a href="{{ contact.facebook }}" target="_blank"><i class="bi bi-facebook"></i></a>{% endif %}
-          {% if contact.youtube %}<a href="{{ contact.youtube }}" target="_blank"><i class="bi bi-youtube"></i></a>{% endif %}
-          {% if contact.linkedn %}<a href="{{ contact.linkedn }}" target="_blank"><i class="bi bi-linkedin"></i></a>{% endif %}
-        </div>
-        {% endif %}
       </div>
     </div>
 

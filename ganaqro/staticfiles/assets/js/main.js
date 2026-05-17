@@ -15,6 +15,7 @@
   function toggleScrolled() {
     const selectBody = document.querySelector('body');
     const selectHeader = document.querySelector('#header');
+    if (!selectHeader || !selectBody) return;
     if (!selectHeader.classList.contains('scroll-up-sticky') && !selectHeader.classList.contains('sticky-top') && !selectHeader.classList.contains('fixed-top')) return;
     window.scrollY > 100 ? selectBody.classList.add('scrolled') : selectBody.classList.remove('scrolled');
   }
@@ -28,7 +29,7 @@
   let lastScrollTop = 0;
   window.addEventListener('scroll', function() {
     const selectHeader = document.querySelector('#header');
-    if (!selectHeader.classList.contains('scroll-up-sticky')) return;
+    if (!selectHeader || !selectHeader.classList.contains('scroll-up-sticky')) return;
 
     let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
@@ -52,21 +53,44 @@
 
   function mobileNavToogle() {
     document.querySelector('body').classList.toggle('mobile-nav-active');
-    mobileNavToggleBtn.classList.toggle('bi-list');
-    mobileNavToggleBtn.classList.toggle('bi-x');
+    const open = document.body.classList.contains('mobile-nav-active');
+    if (mobileNavToggleBtn) {
+      mobileNavToggleBtn.classList.toggle('bi-list');
+      mobileNavToggleBtn.classList.toggle('bi-x');
+      mobileNavToggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
   }
-  mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
 
-  /**
-   * Hide mobile nav on same-page/hash links
-   */
-  document.querySelectorAll('#navmenu a').forEach(navmenu => {
-    navmenu.addEventListener('click', () => {
-      if (document.querySelector('.mobile-nav-active')) {
+  if (mobileNavToggleBtn) {
+    mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
+    mobileNavToggleBtn.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
         mobileNavToogle();
       }
     });
+  }
 
+  const navmenuEl = document.querySelector('#navmenu');
+  if (navmenuEl) {
+    navmenuEl.addEventListener('click', function(e) {
+      if (e.target !== navmenuEl) return;
+      if (document.body.classList.contains('mobile-nav-active')) {
+        mobileNavToogle();
+      }
+    });
+  }
+
+  /**
+   * Mobil menyunu yalnız real keçiddə bağla (href="#" olan Məhsullar/Dil açıcıları menyunu dərhal bağlamasın).
+   */
+  document.querySelectorAll('#navmenu a').forEach((anchor) => {
+    anchor.addEventListener('click', () => {
+      if (!document.body.classList.contains('mobile-nav-active')) return;
+      const href = anchor.getAttribute('href');
+      if (!href || href === '#') return;
+      mobileNavToogle();
+    });
   });
 
   /**
@@ -75,9 +99,13 @@
   document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
     navmenu.addEventListener('click', function(e) {
       e.preventDefault();
-      this.parentNode.classList.toggle('active');
-      this.parentNode.nextElementSibling.classList.toggle('dropdown-active');
+      const parent = this.parentNode;
+      const panel = parent && parent.nextElementSibling;
+      if (!panel) return;
+      parent.classList.toggle('active');
+      panel.classList.toggle('dropdown-active');
       e.stopImmediatePropagation();
+      e.stopPropagation();
     });
   });
 
@@ -154,11 +182,14 @@
    * Auto generate the carousel indicators
    */
   document.querySelectorAll('.carousel-indicators').forEach((carouselIndicator) => {
-    carouselIndicator.closest('.carousel').querySelectorAll('.carousel-item').forEach((carouselItem, index) => {
+    const carousel = carouselIndicator.closest('.carousel');
+    if (!carousel || !carousel.id) return;
+    const targetId = carousel.id;
+    carousel.querySelectorAll('.carousel-item').forEach((carouselItem, index) => {
       if (index === 0) {
-        carouselIndicator.innerHTML += `<li data-bs-target="#${carouselIndicator.closest('.carousel').id}" data-bs-slide-to="${index}" class="active"></li>`;
+        carouselIndicator.innerHTML += `<li data-bs-target="#${targetId}" data-bs-slide-to="${index}" class="active"></li>`;
       } else {
-        carouselIndicator.innerHTML += `<li data-bs-target="#${carouselIndicator.closest('.carousel').id}" data-bs-slide-to="${index}"></li>`;
+        carouselIndicator.innerHTML += `<li data-bs-target="#${targetId}" data-bs-slide-to="${index}"></li>`;
       }
     });
   });
@@ -207,8 +238,10 @@
   /**
    * Initiate glightbox
    */
-  const glightbox = GLightbox({
-    selector: '.glightbox'
-  });
+  if (typeof GLightbox !== 'undefined') {
+    GLightbox({
+      selector: '.glightbox'
+    });
+  }
 
 })();
