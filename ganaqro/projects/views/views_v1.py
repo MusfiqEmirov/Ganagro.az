@@ -1,3 +1,5 @@
+import logging
+
 from django.http import Http404, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -7,6 +9,7 @@ from django.views import View
 
 from projects.models import Blog
 from projects.forms.forms_v1 import AppealContactForm
+from projects.utils.send_email import send_appeal_contact_notification
 from projects.utils.queries import (
     get_language_from_request,
     get_home_page_data,
@@ -112,13 +115,15 @@ class ContactPageView(View):
 
         if form.is_valid():
             try:
-                form.save()
+                appeal = form.save()
+                send_appeal_contact_notification(appeal)
                 messages.success(
                     request,
                     _('Thank you. We have received your message.'),
                 )
                 return redirect('projects:contact-page')
             except Exception:
+                logging.getLogger(__name__).exception('Contact form save failed.')
                 messages.error(request, _('Something went wrong. Please try again.'))
         else:
             messages.error(request, _('Please correct the errors in the form.'))
