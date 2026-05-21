@@ -1,17 +1,13 @@
 {% load static i18n %}
-{% if page_motto or page_heading %}
 <div class="page-title dark-background page-title--banner"
      data-aos="fade"
      style="background-image: url('{% if background_image %}{{ background_image }}{% else %}{% static "assets/img/page-title-bg.webp" %}{% endif %}');">
   <div class="container position-relative">
-    {% if page_heading and page_motto %}
+    {% if page_heading %}
       <h1 class="visually-hidden">{{ page_heading }}</h1>
+    {% endif %}
+    {% if page_motto %}
       <p class="page-motto page-motto--primary">{{ page_motto }}</p>
-    {% elif page_motto %}
-      <p class="page-motto page-motto--primary">{{ page_motto }}</p>
-    {% elif page_heading %}
-      {# Deviz olmadıqda səhifə adı əsas başlıq kimi (page-title__heading əvəzi) #}
-      <h1 class="page-motto page-motto--primary">{{ page_heading }}</h1>
     {% endif %}
 
     {% if page_subtitle %}
@@ -27,4 +23,3 @@
     {% endif %}
   </div>
 </div>
-{% endif %}

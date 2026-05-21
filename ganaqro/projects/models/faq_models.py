@@ -33,20 +33,20 @@ class FAQ(models.Model):
     )
     sort_order = models.PositiveIntegerField(
         default=0,
-        verbose_name='Sıra',
-        help_text='Kiçik rəqəm yuxarıda göstərilir.',
+        verbose_name='Sıra nömrəsi',
+        help_text='Kiçik rəqəm = siyahıda yuxarıda. Məs: 1, 2, 3...',
     )
     is_active = models.BooleanField(
         default=True,
-        verbose_name='Aktiv',
+        verbose_name='Saytda göstərilsin?',
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
     )
 
     class Meta:
-        verbose_name = 'FAQ'
-        verbose_name_plural = 'FAQ'
+        verbose_name = 'Tez-tez verilən sual'
+        verbose_name_plural = 'Tez-tez verilən suallar'
         ordering = ['sort_order', 'id']
 
     def __str__(self):

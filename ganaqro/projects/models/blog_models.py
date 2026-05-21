@@ -45,20 +45,21 @@ class Blog(models.Model):
     )
     on_main_page = models.BooleanField(
         default=False,
-        verbose_name='Ana səhifədə olsun',
-        help_text='Ana səhifədə ən çox 6 bloq göstərilir.',
+        verbose_name='Ana səhifədə göstərilsin?',
+        help_text='Ana səhifədə ən çox 6 bloq yazısı göstərilir.',
     )
     view_count = models.PositiveIntegerField(
         default=0,
-        verbose_name='Baxış sayı'
+        verbose_name='Baxış sayı',
+        help_text='Avtomatik sayılır — dəyişdirməyin.',
     )
     created_at = models.DateTimeField(
         auto_now_add=True
     )
 
     class Meta:
-        verbose_name = 'Bloq'
-        verbose_name_plural = 'Bloqlar'
+        verbose_name = 'Bloq yazısı'
+        verbose_name_plural = 'Bloq yazıları'
         ordering = ['-date', '-created_at']
 
     def clean(self):

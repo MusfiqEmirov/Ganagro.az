@@ -7,7 +7,8 @@ class About(models.Model):
         max_length=120,
         null=True,
         blank=True,
-        verbose_name='Əsas başlıq (AZ)'
+        verbose_name='Əsas başlıq (AZ)',
+        help_text='Haqqımızda səhifəsində böyük başlıq.',
     )
     main_title_en = models.CharField(
         max_length=120,
@@ -41,15 +42,16 @@ class About(models.Model):
     )
     description_az = models.TextField(
         validators=[MaxLengthValidator(4000)],
-        verbose_name='Text (AZ)'
+        verbose_name='Mətn (AZ)',
+        help_text='Şirkət haqqında əsas mətn — Haqqımızda səhifəsində və ana səhifədə qısa blokda.',
     )
     description_en = models.TextField(
         validators=[MaxLengthValidator(4000)],
-        verbose_name='Text (EN)'
+        verbose_name='Mətn (EN)',
     )
     description_ru = models.TextField(
         validators=[MaxLengthValidator(4000)],
-        verbose_name='Text (RU)'
+        verbose_name='Mətn (RU)',
     )
     video = models.FileField(
         upload_to='videos/about/',
@@ -61,20 +63,20 @@ class About(models.Model):
                 message='Allowed formats: mp4, webm, mov, ogg, mkv.',
             )
         ],
-        verbose_name='Video',
-        help_text='Single promotional video for the About page (optional).',
+        verbose_name='Əsas tanıtım videosu',
+        help_text='Haqqımızda və ana səhifədə göstərilən yeganə video. Yalnız bir fayl yükləyin.',
     )
     video_poster = models.ImageField(
         upload_to='images/about/video_posters/',
         null=True,
         blank=True,
         verbose_name='Video örtüyü (poster)',
-        help_text='Cover frame shown before play (recommended — square image works best).',
+        help_text='Video oynatılmadan əvvəl görünən şəkil.',
     )
 
     class Meta:
-        verbose_name = 'Haqqımızda'
-        verbose_name_plural = 'Haqqımızda'
+        verbose_name = 'Haqqımızda səhifəsi'
+        verbose_name_plural = 'Haqqımızda səhifəsi'
 
     def __str__(self):
         return self.main_title_az or 'Haqqımızda'

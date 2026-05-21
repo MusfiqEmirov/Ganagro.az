@@ -26,15 +26,16 @@ class AppealContact(models.Model):
     )
     is_read = models.BooleanField(
         default=False,
-        verbose_name='Oxunub'
+        verbose_name='Oxunub?',
+        help_text='Mesajı oxuduqdan sonra işarələyin.',
     )
     created_at = models.DateTimeField(
         auto_now_add=True
     )
 
     class Meta:
-        verbose_name = 'Əlaqə müraciəti'
-        verbose_name_plural = 'Əlaqə müraciətləri'
+        verbose_name = 'Gələn mesaj (əlaqə forması)'
+        verbose_name_plural = 'Gələn mesajlar (əlaqə forması)'
         ordering = ['-created_at']
 
     def __str__(self):

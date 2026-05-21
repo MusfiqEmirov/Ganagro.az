@@ -127,7 +127,7 @@ def get_about(lang='az'):
         Prefetch(
             'medias',
             queryset=Media.objects.filter(
-                Q(image__isnull=False) | Q(video__isnull=False),
+                image__isnull=False,
             ).filter(media_not_marked_as_background_q()),
         )
     ).first()
@@ -381,9 +381,9 @@ def serialize_about(about, lang='az'):
                     media, lang, 'short_description'
                 ),
                 'image': media.image.url if media.image else None,
-                'video': media.video.url if media.video else None,
             }
             for media in about.medias.all()
+            if media.image
         ]
     }
 

@@ -85,13 +85,13 @@
                 {% get_current_language as CURRENT_LANG %}
                 {% if CURRENT_LANG == 'en' %}
                 <img class="lang-flag-img" src="{% static 'assets/img/flag-en.png' %}" alt="" width="24" height="16" decoding="async">
-                <span class="lang-label">{% trans "English" %}</span>
+                <span class="lang-label">EN</span>
                 {% elif CURRENT_LANG == 'ru' %}
                 <img class="lang-flag-img" src="{% static 'assets/img/flag-ru.png' %}" alt="" width="24" height="16" decoding="async">
-                <span class="lang-label">{% trans "Russian" %}</span>
+                <span class="lang-label">RU</span>
                 {% else %}
                 <img class="lang-flag-img" src="{% static 'assets/img/flag-az.png' %}" alt="" width="24" height="16" decoding="async">
-                <span class="lang-label">{% trans "Azerbaijani" %}</span>
+                <span class="lang-label">AZ</span>
                 {% endif %}
               </span>
               <i class="bi bi-chevron-down toggle-dropdown" aria-hidden="true"></i>
@@ -100,19 +100,19 @@
               <li role="none">
                 <a role="menuitem" href="?lang=az" class="lang-menu-item{% if language == 'az' %} active{% endif %}">
                   <img class="lang-flag-img lang-flag-img--row" src="{% static 'assets/img/flag-az.png' %}" alt="" width="26" height="18" decoding="async">
-                  <span class="lang-menu-text">{% trans "Azerbaijani" %}</span>
+                  <span class="lang-menu-text">AZ</span>
                 </a>
               </li>
               <li role="none">
                 <a role="menuitem" href="?lang=en" class="lang-menu-item{% if language == 'en' %} active{% endif %}">
                   <img class="lang-flag-img lang-flag-img--row" src="{% static 'assets/img/flag-en.png' %}" alt="" width="26" height="18" decoding="async">
-                  <span class="lang-menu-text">{% trans "English" %}</span>
+                  <span class="lang-menu-text">EN</span>
                 </a>
               </li>
               <li role="none">
                 <a role="menuitem" href="?lang=ru" class="lang-menu-item{% if language == 'ru' %} active{% endif %}">
                   <img class="lang-flag-img lang-flag-img--row" src="{% static 'assets/img/flag-ru.png' %}" alt="" width="26" height="18" decoding="async">
-                  <span class="lang-menu-text">{% trans "Russian" %}</span>
+                  <span class="lang-menu-text">RU</span>
                 </a>
               </li>
             </ul>
@@ -134,6 +134,10 @@
       </div>
       {% endfor %}
     </div>
+    {% endif %}
+
+    {% if request.resolver_match.url_name != 'home-page' %}
+      {% include "includes/page_title.html" %}
     {% endif %}
 
     {% block content %}{% endblock %}

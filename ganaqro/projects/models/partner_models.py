@@ -41,7 +41,8 @@ class Partner(models.Model):
     )
     is_active = models.BooleanField(
         default=True,
-        verbose_name='Aktiv'
+        verbose_name='Saytda göstərilsin?',
+        help_text='Söndürsəniz tərəfdaş karuseldə görünməz.',
     )
     created_at = models.DateTimeField(
         auto_now_add=True

@@ -4906,6 +4906,16 @@ section,
   color: color-mix(in srgb, var(--default-color), transparent 42%);
 }
 
+#products .row {
+  --bs-gutter-x: 0.65rem;
+}
+
+@media (min-width: 768px) {
+  #products .row {
+    --bs-gutter-x: 1rem;
+  }
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 1199px) {
   .home-panel-card__img { height: 220px; }
@@ -5397,9 +5407,12 @@ section,
   width: 100%;
 }
 
+.partners-swiper .swiper-wrapper {
+  transition-timing-function: linear !important;
+}
+
 .partners-swiper .swiper-slide {
   height: auto;
-  transition: transform 0.45s cubic-bezier(0.34, 0.82, 0.55, 1);
 }
 
 .partner-marquee-card {
