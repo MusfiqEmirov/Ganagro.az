@@ -1800,11 +1800,11 @@ body.scrolled .header.site-header.site-header--v2 {
 }
 
 .page-title--banner {
-  padding: 100px 0 88px;
+  padding: 118px 0 102px;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 260px;
+  min-height: 320px;
   box-sizing: border-box;
   text-align: center;
 }
@@ -1855,8 +1855,8 @@ body.scrolled .header.site-header.site-header--v2 {
 
 @media (max-width: 575px) {
   .page-title--banner {
-    padding: 72px 0 64px;
-    min-height: 200px;
+    padding: 84px 0 74px;
+    min-height: 240px;
   }
 }
 

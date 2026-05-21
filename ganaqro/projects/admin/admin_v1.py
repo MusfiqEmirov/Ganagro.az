@@ -116,6 +116,7 @@ class MediaAdminForm(forms.ModelForm):
             'is_contact_page_background_image',
             'is_product_page_background_image',
             'is_blog_page_background_image',
+            'is_faq_page_background_image',
         )
 
 
@@ -475,6 +476,7 @@ class MediaAdmin(AdminImageCompressMixin, AdminPageHelpMixin, admin.ModelAdmin):
         'is_contact_page_background_image',
         'is_product_page_background_image',
         'is_blog_page_background_image',
+        'is_faq_page_background_image',
         'created_at',
     )
     list_filter = (
@@ -483,6 +485,7 @@ class MediaAdmin(AdminImageCompressMixin, AdminPageHelpMixin, admin.ModelAdmin):
         'is_contact_page_background_image',
         'is_product_page_background_image',
         'is_blog_page_background_image',
+        'is_faq_page_background_image',
     )
     ordering = ('-created_at',)
     readonly_fields = ('image_preview', 'created_at')
@@ -496,6 +499,7 @@ class MediaAdmin(AdminImageCompressMixin, AdminPageHelpMixin, admin.ModelAdmin):
                 'is_contact_page_background_image',
                 'is_product_page_background_image',
                 'is_blog_page_background_image',
+                'is_faq_page_background_image',
             ),
             'description': _(
                 'Yalnız bir səhifə seçin. Bu şəkil həmin səhifənin yuxarı geniş banner '
