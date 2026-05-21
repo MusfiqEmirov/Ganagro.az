@@ -32,7 +32,7 @@
             <div class="home-panel-card__body">
               <p class="home-panel-card__name">{{ product.name }}</p>
               {% if product.description %}
-              <p class="home-panel-card__desc">{{ product.description|striptags|truncate_sentence:200 }}</p>
+              <p class="home-panel-card__desc">{{ product.description|truncate_sentence:200 }}</p>
               {% endif %}
             </div>
           </a>

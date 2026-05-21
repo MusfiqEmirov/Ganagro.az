@@ -1,10 +1,25 @@
+import html as html_lib
 import re
 from urllib.parse import parse_qs, urlparse
 
 from django import template
+from django.utils.html import strip_tags
 from django.utils.safestring import mark_safe
 
 register = template.Library()
+
+
+def _plain_text(value):
+    """CKEditor HTML → kart üçün təmiz mətn."""
+    if value is None:
+        return ''
+    raw = str(value)
+    raw = re.sub(r'<\s*br\s*/?\s*>', ' ', raw, flags=re.I)
+    raw = re.sub(r'</\s*(p|div|li|h[1-6]|blockquote|tr|td|th)\s*>', ' ', raw, flags=re.I)
+    text = strip_tags(raw)
+    text = html_lib.unescape(text)
+    text = text.replace('\xa0', ' ')
+    return re.sub(r'\s+', ' ', text).strip()
 
 
 @register.filter
@@ -98,27 +113,31 @@ def wa_me_url(value):
 @register.filter
 def truncate_sentence(value, max_chars=500):
     """
-    Truncates text to the last complete sentence that fits within max_chars.
-    If no sentence ending is found within max_chars, truncates at the last word.
+    Plain text excerpt for cards: strips HTML, then truncates near max_chars.
+    Prefers the last sentence end inside the limit; otherwise breaks at a word.
     """
-    if not value:
-        return value
+    text = _plain_text(value)
+    if not text:
+        return text
 
-    text = str(value)
-
+    max_chars = int(max_chars)
     if len(text) <= max_chars:
         return text
 
     chunk = text[:max_chars]
 
-    # Find last sentence-ending punctuation (. ! ?) within the chunk
-    match = re.search(r'[.!?][^.!?]*$', chunk)
-    if match:
-        return chunk[:match.start() + 1]
+    last_punct = max(chunk.rfind('.'), chunk.rfind('!'), chunk.rfind('?'))
+    if last_punct > 0 and last_punct >= len(chunk) * 0.3:
+        return chunk[:last_punct + 1].strip()
 
-    # No sentence ending — fall back to last word boundary
     last_space = chunk.rfind(' ')
     if last_space > 0:
-        return chunk[:last_space] + '…'
+        return chunk[:last_space].rstrip() + '…'
 
-    return chunk + '…'
+    return chunk.rstrip() + '…'
+
+
+@register.filter
+def plain_text(value):
+    """CKEditor HTML field as plain text (for card previews)."""
+    return _plain_text(value)

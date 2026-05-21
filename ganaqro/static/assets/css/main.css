@@ -4774,9 +4774,13 @@ section,
   font-size: 0.8rem;
   line-height: 1.55;
   margin: 0;
-  min-height: 6.2rem;  /* ~5 sətir × (0.8rem × 1.55) ≈ 200 simvol */
+  min-height: 6.2rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
   overflow: hidden;
   flex-shrink: 0;
+  word-break: break-word;
 }
 
 /* Card colours per panel type */
