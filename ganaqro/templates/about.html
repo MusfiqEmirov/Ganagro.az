@@ -6,8 +6,6 @@
 
 {% block content %}
 
-  {% include "includes/page_title.html" %}
-
   <!-- About Section -->
   {% if about %}
   <section id="about-3" class="about-3 section">
@@ -16,10 +14,6 @@
         {% if about.video %}
         <div class="col-lg-6 order-2 order-lg-2" data-aos="zoom-out">
           {% include "includes/about_video_card.html" with video_url=about.video poster_url=about.video_poster %}
-        </div>
-        {% elif about.medias and about.medias.0.video %}
-        <div class="col-lg-6 order-2 order-lg-2" data-aos="zoom-out">
-          {% include "includes/about_video_card.html" with video_url=about.medias.0.video poster_url=about.medias.0.image %}
         </div>
         {% elif about.medias and about.medias.0.image %}
         <div class="col-lg-6 order-2 order-lg-2" data-aos="zoom-out">

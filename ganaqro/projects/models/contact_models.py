@@ -64,13 +64,13 @@ class Contact(models.Model):
     map_embed_url = models.TextField(
         null=True,
         blank=True,
-        verbose_name='Google Maps embed URL',
-        help_text='iframe src dəyəri (məs. https://www.google.com/maps/embed?pb=...)',
+        verbose_name='Google Xəritə linki (embed)',
+        help_text='Google Maps-dən «Paylaş → Xəritəni daxil et» bölməsindən iframe src linkini yapışdırın.',
     )
 
     class Meta:
-        verbose_name = "Əlaqə"
-        verbose_name_plural = "Əlaqələr"
+        verbose_name = 'Əlaqə məlumatları'
+        verbose_name_plural = 'Əlaqə məlumatları'
 
     def __str__(self):
         return self.address_az or 'Əlaqə'

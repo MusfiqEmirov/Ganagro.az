@@ -1,0 +1,22 @@
+.g-admin-help {
+  margin: 0 0 1.25rem;
+  padding: 14px 18px;
+  border-radius: 8px;
+  border: 1px solid #c8e1f4;
+  background: #eef6fc;
+  color: #1a3a52;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  max-width: 960px;
+}
+
+.g-admin-help strong {
+  color: #0c3d5c;
+}
+
+.g-admin-help em {
+  font-style: normal;
+  background: rgba(255, 255, 255, 0.65);
+  padding: 0 4px;
+  border-radius: 3px;
+}

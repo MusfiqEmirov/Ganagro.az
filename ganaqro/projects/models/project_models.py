@@ -25,8 +25,8 @@ class ProductCategory(SluggedModel):
     )
 
     class Meta:
-        verbose_name = 'Kateqoriya adı'
-        verbose_name_plural = 'Kateqoriya adları'
+        verbose_name = 'Məhsul kateqoriyası'
+        verbose_name_plural = 'Məhsul kateqoriyaları'
     
     def get_slug_source(self) -> str:
         return self.name_az
@@ -78,13 +78,15 @@ class Product(SluggedModel):
         default=True,
         null=True,
         blank=True,
-        verbose_name='Məhsul aktivliyi'
+        verbose_name='Saytda göstərilsin?',
+        help_text='Söndürsəniz məhsul saytda görünməz.',
     )
     on_main_page = models.BooleanField(
         default=False,
         null=True,
         blank=True,
-        verbose_name='Ana səhifədə olsun'
+        verbose_name='Ana səhifədə göstərilsin?',
+        help_text='Hər kateqoriyada ana səhifədə ən çox 6 məhsul ola bilər.',
     )
     created_at = models.DateTimeField(
         auto_now_add=True

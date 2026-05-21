@@ -8,8 +8,6 @@
 
 {% block content %}
 
-  {% include "includes/page_title.html" %}
-
   <!-- Blog Section -->
   <section id="blog" class="blog section light-background">
     <div class="container">
@@ -41,10 +39,6 @@
               <h3 class="home-blog-card-v2__title">
                 <a href="{% url 'projects:blog-detail' blog_id=blog.id %}" class="home-blog-card-v2__title-link">{{ blog.name }}</a>
               </h3>
-              <p class="home-blog-card-v2__meta" title="{% trans "Views" %}">
-                <i class="bi bi-eye" aria-hidden="true"></i>
-                <span class="blog-view-count" data-blog-id="{{ blog.id }}">{{ blog.view_count }}</span>
-              </p>
               {% if blog.description %}
               <p class="home-blog-card-v2__excerpt">{{ blog.description|striptags|truncate_sentence:260 }}</p>
               {% endif %}
@@ -113,30 +107,4 @@
     </div>
   </section><!-- /Blog Section -->
 
-{% endblock %}
-
-{% block extra_js %}
-<script>
-(function () {
-  var nodes = document.querySelectorAll('.blog-view-count[data-blog-id]');
-  if (!nodes.length) return;
-  var ids = [];
-  var seen = {};
-  nodes.forEach(function (n) {
-    var id = n.getAttribute('data-blog-id');
-    if (id && !seen[id]) { seen[id] = true; ids.push(id); }
-  });
-  if (!ids.length) return;
-  var url = "{% url 'projects:blog-view-counts' %}?ids=" + encodeURIComponent(ids.join(','));
-  fetch(url, { headers: { Accept: 'application/json' }, credentials: 'same-origin' })
-    .then(function (r) { return r.json(); })
-    .then(function (data) {
-      nodes.forEach(function (n) {
-        var id = n.getAttribute('data-blog-id');
-        if (data[id] != null) n.textContent = data[id];
-      });
-    })
-    .catch(function () {});
-})();
-</script>
 {% endblock %}

@@ -115,8 +115,8 @@ class Media(models.Model):
     )
 
     class Meta:
-        verbose_name = 'Səhifə fon şəkli'
-        verbose_name_plural = 'Səhifə fon şəkilləri'
+        verbose_name = 'Səhifə banner fon şəkli'
+        verbose_name_plural = 'Səhifə banner fon şəkilləri'
 
     @property
     def webp_url(self):
