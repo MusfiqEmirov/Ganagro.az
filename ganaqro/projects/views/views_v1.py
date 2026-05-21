@@ -157,7 +157,7 @@ class FAQPageView(View):
             'faqs': [serialize_faq(f, lang) for f in faqs],
             'categories': [serialize_product_category(c, lang) for c in categories],
             'language': lang,
-            'background_image': get_background_image('contact'),
+            'background_image': get_background_image('faq'),
             'page_heading': page_heading,
             'page_motto': get_page_motto('contact', lang),
         }

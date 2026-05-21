@@ -18,6 +18,7 @@ def media_not_marked_as_background_q():
         & Q(is_contact_page_background_image=False)
         & Q(is_product_page_background_image=False)
         & Q(is_blog_page_background_image=False)
+        & Q(is_faq_page_background_image=False)
     )
 
 
@@ -108,6 +109,10 @@ class Media(models.Model):
     is_blog_page_background_image = models.BooleanField(
         default=False,
         verbose_name='Bloq səhifələri fon şəkli'
+    )
+    is_faq_page_background_image = models.BooleanField(
+        default=False,
+        verbose_name='FAQ səhifəsi fon şəkli'
     )
     created_at = models.DateTimeField(
         auto_now_add=True,

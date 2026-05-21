@@ -133,7 +133,7 @@ FAQ_HELP = (
 )
 
 MEDIA_HELP = (
-    '<strong>Bu nədir?</strong> Daxili səhifələrin yuxarı banner fon şəkilləri (Haqqımızda, Bloq və s.).<br>'
+    '<strong>Bu nədir?</strong> Daxili səhifələrin yuxarı banner fon şəkilləri (Haqqımızda, Bloq, FAQ və s.).<br>'
     '<strong>Harada dəyişir?</strong> Ana səhifə xaric bütün səhifələrin yuxarı geniş şəkil zolağı.<br>'
     '<strong>Qeyd:</strong> Məhsul, tərəfdaş və qalereya şəkilləri burada deyil — həmin bölmələrin '
     'öz səhifəsindən yüklənir. Hər səhifə üçün yalnız <strong>bir</strong> fon şəkli işarələyin.'
