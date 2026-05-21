@@ -64,7 +64,7 @@
                 <div class="home-panel-card__body">
                   <p class="home-panel-card__name">{{ product.name }}</p>
                   {% if product.description %}
-                  <p class="home-panel-card__desc">{{ product.description|striptags|truncate_sentence:200 }}</p>
+                  <p class="home-panel-card__desc">{{ product.description|truncate_sentence:200 }}</p>
                   {% endif %}
                 </div>
               </a>
@@ -220,7 +220,7 @@
                 <a href="{% url 'projects:blog-detail' blog_id=blog.id %}" class="home-blog-card-v2__title-link">{{ blog.name }}</a>
               </h3>
               {% if blog.description %}
-              <p class="home-blog-card-v2__excerpt">{{ blog.description|striptags|truncate_sentence:260 }}</p>
+              <p class="home-blog-card-v2__excerpt">{{ blog.description|truncate_sentence:260 }}</p>
               {% endif %}
               <a href="{% url 'projects:blog-detail' blog_id=blog.id %}" class="home-blog-card-v2__readmore">
                 {% trans "Read more" %}
