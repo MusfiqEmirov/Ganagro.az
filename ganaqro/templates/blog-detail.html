@@ -15,6 +15,21 @@
         <div class="col-lg-8">
           <article class="article">
 
+            <header class="blog-article-header">
+              <h1 class="blog-article-header__title">{{ blog.name }}</h1>
+              <div class="blog-article-meta">
+                <time class="blog-article-meta__item" datetime="{{ blog.date|date:'Y-m-d' }}">
+                  <i class="bi bi-calendar3" aria-hidden="true"></i>
+                  {{ blog.date|date:"d M Y" }}
+                </time>
+                <span class="blog-article-meta__item blog-article-meta__item--views">
+                  <i class="bi bi-eye" aria-hidden="true"></i>
+                  <span id="blog-detail-view-count" class="blog-view-count" data-blog-id="{{ blog.id }}">{{ blog.view_count }}</span>
+                  {% trans "views" %}
+                </span>
+              </div>
+            </header>
+
             <div class="post-img">
               {% if blog.image %}
               <img src="{{ blog.image }}" alt="{{ blog.name }}" class="img-fluid">

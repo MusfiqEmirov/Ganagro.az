@@ -197,9 +197,7 @@ class BlogDetailPageView(View):
             'other_blogs': get_other_blogs(blog_id, lang),
             'language': lang,
             'categories': [serialize_product_category(c, lang) for c in categories],
-            'page_heading': blog_data['name'],
             'background_image': get_background_image('blog'),
-            'page_subtitle_blog_meta': True,
             'page_motto': get_page_motto('blog', lang),
         }
         return render(request, self.template_name, context)
