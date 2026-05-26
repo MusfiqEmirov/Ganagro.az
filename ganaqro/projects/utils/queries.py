@@ -172,6 +172,7 @@ def get_background_image(page_type):
         'contact': 'is_contact_page_background_image',
         'product': 'is_product_page_background_image',
         'blog': 'is_blog_page_background_image',
+        'faq': 'is_faq_page_background_image',
     }
 
     if page_type not in image_map:

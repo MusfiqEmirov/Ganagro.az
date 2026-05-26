@@ -17,7 +17,7 @@
       <div class="row gy-4 gx-lg-4 align-items-stretch contact-section-v2__row">
 
         <!-- Contact Info -->
-        <div class="col-lg-4 order-2 order-lg-1">
+        <div class="col-lg-4 order-2 order-lg-1 contact-section-v2__col">
           <div class="contact-section-v2__panel contact-section-v2__panel--info">
             <h3 class="contact-section-v2__panel-title">
               {% trans "Get in touch" %}
@@ -86,7 +86,7 @@
         </div><!-- /info -->
 
         <!-- Map -->
-        <div class="col-lg-4 order-1 order-lg-2">
+        <div class="col-lg-4 order-1 order-lg-2 contact-section-v2__col">
           {% if contact and contact.map_embed_url %}
           <div class="contact-section-v2__map-wrap">
             <iframe class="contact-section-v2__map"
@@ -111,13 +111,13 @@
         </div><!-- /map -->
 
         <!-- Form -->
-        <div class="col-lg-4 order-3">
+        <div class="col-lg-4 order-3 contact-section-v2__col">
           <div class="contact-section-v2__panel contact-section-v2__panel--form">
-            <form action="{% url 'projects:contact-page' %}" method="post" novalidate>
+            <form class="contact-section-v2__form" action="{% url 'projects:contact-page' %}" method="post" novalidate>
               {% csrf_token %}
               {{ form.website }}
 
-              <div class="row g-3">
+              <div class="row g-3 contact-section-v2__form-fields">
                 <div class="col-md-6">
                   <label for="{{ form.full_name.id_for_label }}" class="form-label small mb-1">
                     {% trans "Full name" %} <span class="text-danger">*</span>
@@ -182,7 +182,7 @@
                   {% endif %}
                 </div>
 
-                <div class="col-12">
+                <div class="col-12 contact-section-v2__message-field">
                   <label for="{{ form.info.id_for_label }}" class="form-label small mb-1">
                     {% trans "Your message" %} <span class="text-danger">*</span>
                   </label>
