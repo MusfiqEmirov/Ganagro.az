@@ -19,6 +19,9 @@ msgstr "All blog posts"
 msgid "All rights reserved."
 msgstr "All rights reserved."
 
+msgid "Developed by"
+msgstr "Developed by"
+
 msgid "Azerbaijani"
 msgstr "Azerbaijani"
 

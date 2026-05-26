@@ -3,6 +3,7 @@ import logging
 from django.http import Http404, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.db.models import F
 from django.views import View
@@ -198,7 +199,13 @@ class BlogDetailPageView(View):
             'language': lang,
             'categories': [serialize_product_category(c, lang) for c in categories],
             'background_image': get_background_image('blog'),
+            'page_heading': blog_data['name'],
             'page_motto': get_page_motto('blog', lang),
+            'breadcrumbs': [
+                {'label': _('Home'), 'url': reverse('projects:home-page')},
+                {'label': _('Blog'), 'url': reverse('projects:blog-page')},
+                {'label': blog_data['name']},
+            ],
         }
         return render(request, self.template_name, context)
 

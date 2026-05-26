@@ -19,6 +19,9 @@ msgstr "Bütün bloq yazıları"
 msgid "All rights reserved."
 msgstr "Bütün hüquqlar qorunur."
 
+msgid "Developed by"
+msgstr "Hazırlayan"
+
 msgid "Azerbaijani"
 msgstr "Azərbaycan"
 

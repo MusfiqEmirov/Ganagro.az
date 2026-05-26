@@ -350,9 +350,10 @@ mark_as_unread.short_description = _('Seçilmişləri oxunmamış kimi işarəl�
 class AppealContactAdmin(AdminPageHelpMixin, admin.ModelAdmin):
     admin_page_help = APPEAL_HELP
     list_display = ('full_name', 'email', 'phone', 'subject', 'is_read', 'created_at')
-    list_filter = ('is_read',)
+    list_filter = ('is_read', ('created_at', admin.DateFieldListFilter))
     search_fields = ('full_name', 'email', 'phone', 'subject')
     ordering = ('-created_at',)
+    date_hierarchy = 'created_at'
     readonly_fields = ('full_name', 'email', 'phone', 'subject', 'info', 'created_at')
     actions = [mark_as_read, mark_as_unread]
 

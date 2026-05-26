@@ -9,6 +9,10 @@
   <!-- Blog Details Section -->
   <section id="blog-details" class="blog-details section">
     <div class="container">
+      {% if breadcrumbs %}
+      {% include "includes/blog_breadcrumb.html" %}
+      {% endif %}
+
       <div class="row g-4 g-lg-5">
 
         <!-- Main article -->
@@ -42,12 +46,6 @@
               {{ blog.description|safe }}
             </div>
 
-            <div class="meta-bottom mt-5 pt-3 border-top">
-              <a href="{% url 'projects:blog-page' %}" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left me-2"></i>
-                {% trans "Back to blog" %}
-              </a>
-            </div>
           </article>
         </div>
 

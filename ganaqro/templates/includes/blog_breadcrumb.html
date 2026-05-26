@@ -1,0 +1,21 @@
+{% load i18n %}
+<div class="blog-detail-nav" data-aos="fade-up">
+  <a href="{% url 'projects:blog-page' %}" class="blog-detail-nav__back">
+    <span class="blog-detail-nav__back-icon" aria-hidden="true"><i class="bi bi-arrow-left"></i></span>
+    <span class="blog-detail-nav__back-label">{% trans "Back to blog" %}</span>
+  </a>
+
+  <nav class="blog-detail-nav__trail" aria-label="{% trans "Breadcrumb" %}">
+    <ol class="blog-detail-nav__list">
+      {% for crumb in breadcrumbs %}
+      <li class="blog-detail-nav__item{% if forloop.last %} blog-detail-nav__item--current{% endif %}"{% if forloop.last %} aria-current="page"{% endif %}>
+        {% if crumb.url and not forloop.last %}
+        <a href="{{ crumb.url }}" class="blog-detail-nav__link">{{ crumb.label }}</a>
+        {% else %}
+        <span class="blog-detail-nav__current">{{ crumb.label }}</span>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+  </nav>
+</div>
