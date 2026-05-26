@@ -4,32 +4,44 @@
   <div class="container" data-aos="fade-up">
     <div class="row g-4 site-stats__grid">
       {% if statistics.value_one %}
-      <div class="col-lg-3 col-md-6">
+      <div class="col-6 col-md-6 col-lg-3">
         <div class="site-stats__card">
+          {% if statistics.icon_one %}
+          <span class="site-stats__icon" aria-hidden="true"><i class="bi {{ statistics.icon_one }}"></i></span>
+          {% endif %}
           <span data-purecounter-start="0" data-purecounter-end="{{ statistics.value_one }}" data-purecounter-duration="1" class="site-stats__value purecounter">{{ statistics.value_one }}</span>
           <p class="site-stats__caption">{% if statistics.caption_one %}{{ statistics.caption_one }}{% else %}{% trans "Clients" %}{% endif %}</p>
         </div>
       </div>
       {% endif %}
       {% if statistics.value_two %}
-      <div class="col-lg-3 col-md-6">
+      <div class="col-6 col-md-6 col-lg-3">
         <div class="site-stats__card">
+          {% if statistics.icon_two %}
+          <span class="site-stats__icon" aria-hidden="true"><i class="bi {{ statistics.icon_two }}"></i></span>
+          {% endif %}
           <span data-purecounter-start="0" data-purecounter-end="{{ statistics.value_two }}" data-purecounter-duration="1" class="site-stats__value purecounter">{{ statistics.value_two }}</span>
           <p class="site-stats__caption">{% if statistics.caption_two %}{{ statistics.caption_two }}{% else %}{% trans "Projects" %}{% endif %}</p>
         </div>
       </div>
       {% endif %}
       {% if statistics.value_three %}
-      <div class="col-lg-3 col-md-6">
+      <div class="col-6 col-md-6 col-lg-3">
         <div class="site-stats__card">
+          {% if statistics.icon_three %}
+          <span class="site-stats__icon" aria-hidden="true"><i class="bi {{ statistics.icon_three }}"></i></span>
+          {% endif %}
           <span data-purecounter-start="0" data-purecounter-end="{{ statistics.value_three }}" data-purecounter-duration="1" class="site-stats__value purecounter">{{ statistics.value_three }}</span>
           <p class="site-stats__caption">{% if statistics.caption_three %}{{ statistics.caption_three }}{% else %}{% trans "Products" %}{% endif %}</p>
         </div>
       </div>
       {% endif %}
       {% if statistics.value_four %}
-      <div class="col-lg-3 col-md-6">
+      <div class="col-6 col-md-6 col-lg-3">
         <div class="site-stats__card">
+          {% if statistics.icon_four %}
+          <span class="site-stats__icon" aria-hidden="true"><i class="bi {{ statistics.icon_four }}"></i></span>
+          {% endif %}
           <span data-purecounter-start="0" data-purecounter-end="{{ statistics.value_four }}" data-purecounter-duration="1" class="site-stats__value purecounter">{{ statistics.value_four }}</span>
           <p class="site-stats__caption">{% if statistics.caption_four %}{{ statistics.caption_four }}{% else %}{% trans "Partners" %}{% endif %}</p>
         </div>

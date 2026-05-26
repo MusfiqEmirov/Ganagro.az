@@ -67,7 +67,8 @@ STATISTIC_HELP = (
     '<strong>Bu nədir?</strong> Ana səhifədə və Haqqımızda səhifəsində görünən 4 rəqəmli statistika bloku '
     '(məs: <em>25 — İllik təcrübə</em>).<br>'
     '<strong>Harada dəyişir?</strong> Sayt → Ana səhifə (aşağı hissə) və Haqqımızda səhifəsi.<br>'
-    '<strong>Necə doldurulur?</strong> Hər kart üçün böyük rəqəm yazın, altına qısa izahı 3 dildə əlavə edin. '
+    '<strong>Necə doldurulur?</strong> Hər kart üçün böyük rəqəm yazın, istəsəniz ikon seçin (boş da buraxa bilərsiniz), '
+    'altına qısa izahı 3 dildə əlavə edin. '
     'Adətən yalnız <strong>1 qeyd</strong> saxlanılır — mövcud olanı redaktə edin.'
 )
 

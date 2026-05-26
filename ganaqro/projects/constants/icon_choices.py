@@ -1,0 +1,27 @@
+from django.utils.translation import gettext_lazy as _
+
+STATISTIC_ICON_CHOICES = [
+    ('bi-people', _('İnsanlar')),
+    ('bi-person-check', _('Müştəri')),
+    ('bi-person-workspace', _('İşçi')),
+    ('bi-building', _('Bina / Ofis')),
+    ('bi-globe', _('Dünya')),
+    ('bi-geo-alt', _('Məkan')),
+    ('bi-truck', _('Nəqliyyat')),
+    ('bi-box-seam', _('Məhsul')),
+    ('bi-basket', _('Səbət')),
+    ('bi-flower1', _('Bitki')),
+    ('bi-tree', _('Ağac')),
+    ('bi-droplet', _('Su')),
+    ('bi-sun', _('Günəş')),
+    ('bi-award', _('Mükafat')),
+    ('bi-trophy', _('Kubok')),
+    ('bi-star', _('Ulduz')),
+    ('bi-graph-up', _('Artım')),
+    ('bi-bar-chart', _('Qrafik')),
+    ('bi-pie-chart', _('Dairəvi qrafik')),
+    ('bi-calendar-check', _('Təqvim')),
+    ('bi-clock-history', _('Təcrübə')),
+    ('bi-shop', _('Mağaza')),
+    ('bi-briefcase', _('Biznes')),
+]

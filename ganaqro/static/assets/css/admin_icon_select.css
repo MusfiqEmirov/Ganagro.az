@@ -1,0 +1,31 @@
+.bootstrap-icon-select-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 420px;
+}
+
+.bootstrap-icon-select-wrap select {
+  flex: 1;
+  min-width: 0;
+}
+
+.bootstrap-icon-select__preview {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: #f0f4f8;
+  border: 1px solid #c8d4e0;
+  color: #574a9e;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.bootstrap-icon-select__preview:empty::before {
+  content: "—";
+  color: #94a3b8;
+  font-size: 1rem;
+}

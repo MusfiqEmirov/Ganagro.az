@@ -47,6 +47,9 @@ if not ADMIN_URL:
 if not ADMIN_URL.endswith('/'):
     ADMIN_URL += '/'
 
+# Admin panel default language (used by CustomLocaleMiddleware)
+ADMIN_LANGUAGE_CODE = 'az'
+
 
 # Application definition
 
