@@ -19,6 +19,7 @@ from projects.admin.admin_help import (
     STATISTIC_HELP,
     patch_admin_site_order,
 )
+from projects.admin.widgets import BootstrapIconSelect
 
 from projects.models import (
     Product,
@@ -102,6 +103,24 @@ class BlogAdminForm(forms.ModelForm):
             'description_en': CKEditorWidget(),
             'description_ru': CKEditorWidget(),
         }
+
+
+class StatisticAdminForm(forms.ModelForm):
+    class Meta:
+        model = Statistic
+        fields = '__all__'
+        widgets = {
+            'icon_one': BootstrapIconSelect(),
+            'icon_two': BootstrapIconSelect(),
+            'icon_three': BootstrapIconSelect(),
+            'icon_four': BootstrapIconSelect(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name in ('icon_one', 'icon_two', 'icon_three', 'icon_four'):
+            self.fields[field_name].empty_label = _('İkon yoxdur')
+            self.fields[field_name].required = False
 
 
 class MediaAdminForm(forms.ModelForm):
@@ -411,19 +430,22 @@ class MottoAdmin(AdminPageHelpMixin, admin.ModelAdmin):
 @admin.register(Statistic)
 class StatisticAdmin(AdminPageHelpMixin, admin.ModelAdmin):
     admin_page_help = STATISTIC_HELP
+    form = StatisticAdminForm
     fieldsets = (
         (_('1-ci statistika kartı (soldan birinci)'), {
             'fields': (
                 'value_one',
+                'icon_one',
                 'caption_one_az',
                 'caption_one_en',
                 'caption_one_ru',
             ),
-            'description': _('Böyük rəqəm + altında qısa izah. Məs: 25 — İllik təcrübə'),
+            'description': _('Böyük rəqəm + istəyə görə ikon + altında qısa izah. Məs: 25 — İllik təcrübə'),
         }),
         (_('2-ci statistika kartı'), {
             'fields': (
                 'value_two',
+                'icon_two',
                 'caption_two_az',
                 'caption_two_en',
                 'caption_two_ru',
@@ -432,6 +454,7 @@ class StatisticAdmin(AdminPageHelpMixin, admin.ModelAdmin):
         (_('3-cü statistika kartı'), {
             'fields': (
                 'value_three',
+                'icon_three',
                 'caption_three_az',
                 'caption_three_en',
                 'caption_three_ru',
@@ -440,6 +463,7 @@ class StatisticAdmin(AdminPageHelpMixin, admin.ModelAdmin):
         (_('4-cü statistika kartı (sağdan sonuncu)'), {
             'fields': (
                 'value_four',
+                'icon_four',
                 'caption_four_az',
                 'caption_four_en',
                 'caption_four_ru',

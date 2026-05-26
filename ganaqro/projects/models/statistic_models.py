@@ -1,5 +1,7 @@
 from django.db import models
 
+from projects.constants.icon_choices import STATISTIC_ICON_CHOICES
+
 
 class Statistic(models.Model):
     value_one = models.PositiveIntegerField(
@@ -83,6 +85,42 @@ class Statistic(models.Model):
         max_length=255,
         blank=True,
         verbose_name='4-cü kart — alt yazı (RU)',
+    )
+    icon_one = models.CharField(
+        max_length=64,
+        blank=True,
+        null=True,
+        default=None,
+        choices=STATISTIC_ICON_CHOICES,
+        verbose_name='1-ci kart — ikon',
+        help_text='İstəsəniz boş buraxa bilərsiniz.',
+    )
+    icon_two = models.CharField(
+        max_length=64,
+        blank=True,
+        null=True,
+        default=None,
+        choices=STATISTIC_ICON_CHOICES,
+        verbose_name='2-ci kart — ikon',
+        help_text='İstəsəniz boş buraxa bilərsiniz.',
+    )
+    icon_three = models.CharField(
+        max_length=64,
+        blank=True,
+        null=True,
+        default=None,
+        choices=STATISTIC_ICON_CHOICES,
+        verbose_name='3-cü kart — ikon',
+        help_text='İstəsəniz boş buraxa bilərsiniz.',
+    )
+    icon_four = models.CharField(
+        max_length=64,
+        blank=True,
+        null=True,
+        default=None,
+        choices=STATISTIC_ICON_CHOICES,
+        verbose_name='4-cü kart — ikon',
+        help_text='İstəsəniz boş buraxa bilərsiniz.',
     )
 
     class Meta:

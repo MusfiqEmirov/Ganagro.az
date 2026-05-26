@@ -3465,6 +3465,20 @@ section#hero.hero.section {
     0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
+.site-stats__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 0.85rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-color), transparent 90%);
+  color: var(--accent-color);
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
 .site-stats__value {
   display: block;
   font-family: var(--heading-font);
