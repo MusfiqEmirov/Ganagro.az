@@ -1,4 +1,5 @@
 import logging
+from email.utils import formataddr
 
 from django.conf import settings
 from django.core.mail import EmailMessage
@@ -52,9 +53,9 @@ def send_appeal_contact_notification(instance):
 def send_mail_func(recipient, subject, message, sender_name='', sender_email=''):
     smtp_user = getattr(settings, 'EMAIL_HOST_USER', None) or settings.DEFAULT_FROM_EMAIL
 
-    if sender_name and sender_email:
-        from_email = f'{sender_name} <{smtp_user}>'
-        reply_to = [f'{sender_name} <{sender_email}>']
+    if sender_email:
+        from_email = formataddr((sender_email, smtp_user))
+        reply_to = [sender_email]
     else:
         from_email = smtp_user
         reply_to = []
