@@ -1,7 +1,7 @@
 import logging
 
 from django.conf import settings
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from django.utils import timezone
 from django.utils.formats import date_format
 
@@ -36,19 +36,34 @@ def send_appeal_contact_notification(instance):
         message = format_appeal_contact_message(instance)
         recipient = settings.CONTACT_RECEIVER_EMAIL
         if not recipient:
-            logger.warning('Contact form email skipped: EMAIL_HOST_USER is not set.')
+            logger.warning('Contact form email skipped: CONTACT_RECEIVER_EMAIL is not set.')
             return
-        send_mail_func(recipient, subject, message)
+        send_mail_func(
+            recipient=recipient,
+            subject=subject,
+            message=message,
+            sender_name=instance.full_name,
+            sender_email=instance.email,
+        )
     except Exception:
         logger.exception('Contact form notification email failed.')
 
 
-def send_mail_func(user_email, custom_subject, custom_message):
-    from_email = getattr(settings, 'EMAIL_HOST_USER', None) or settings.DEFAULT_FROM_EMAIL
-    send_mail(
-        custom_subject,
-        custom_message,
-        from_email,
-        [user_email],
-        fail_silently=False,
+def send_mail_func(recipient, subject, message, sender_name='', sender_email=''):
+    smtp_user = getattr(settings, 'EMAIL_HOST_USER', None) or settings.DEFAULT_FROM_EMAIL
+
+    if sender_name and sender_email:
+        from_email = f'{sender_name} <{smtp_user}>'
+        reply_to = [f'{sender_name} <{sender_email}>']
+    else:
+        from_email = smtp_user
+        reply_to = []
+
+    email = EmailMessage(
+        subject=subject,
+        body=message,
+        from_email=from_email,
+        to=[recipient],
+        reply_to=reply_to,
     )
+    email.send(fail_silently=False)
