@@ -34,7 +34,7 @@ def send_appeal_contact_notification(instance):
     try:
         subject = f'Yeni əlaqə müraciəti: {instance.subject}'
         message = format_appeal_contact_message(instance)
-        recipient = settings.EMAIL_HOST_USER
+        recipient = settings.CONTACT_RECEIVER_EMAIL
         if not recipient:
             logger.warning('Contact form email skipped: EMAIL_HOST_USER is not set.')
             return
