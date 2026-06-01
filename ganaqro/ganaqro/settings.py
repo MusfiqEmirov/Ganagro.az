@@ -202,6 +202,10 @@ CACHE_TIMEOUT_LONG = 86400  # 24 hours for stable data (about, contact, backgrou
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Sitemap / SEO
+SITE_ID = 1
+SITE_DOMAIN = os.getenv('SITE_DOMAIN', 'www.ganaqro.az')
+
 EMAIL_BACKEND = os.getenv(
     'EMAIL_BACKEND',
     'django.core.mail.backends.smtp.EmailBackend',
