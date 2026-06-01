@@ -21,9 +21,7 @@ def format_appeal_contact_message(instance):
         'Yeni əlaqə formu müraciəti\n'
         '────────────────────────────\n\n'
         f'Ad soyad:     {instance.full_name}\n'
-        f'Email:        {instance.email}\n'
-        f'Mobil nömrə:  {phone}\n'
-        f'Mövzu:        {instance.subject}\n\n'
+        f'Mobil nömrə:  {phone}\n\n'
         'Mesaj:\n'
         f'{instance.info}\n\n'
         '────────────────────────────\n'
@@ -33,7 +31,7 @@ def format_appeal_contact_message(instance):
 
 def send_appeal_contact_notification(instance):
     try:
-        subject = f'Yeni əlaqə müraciəti: {instance.subject}'
+        subject = 'Saytdan gələn müraciət'
         message = format_appeal_contact_message(instance)
         recipient = settings.CONTACT_RECEIVER_EMAIL
         if not recipient:
