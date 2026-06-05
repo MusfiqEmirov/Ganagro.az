@@ -19,7 +19,7 @@
   <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
   <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
 
-  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/css/main.css' %}?v=20260604b" rel="stylesheet">
   {% block extra_css %}{% endblock %}
 </head>
 
@@ -64,7 +64,7 @@
           <li>
             <a href="{% url 'projects:blog-page' %}"
                class="site-header__link{% if request.resolver_match.url_name == 'blog-page' or request.resolver_match.url_name == 'blog-detail' %} active{% endif %}">
-              {% trans "Blog" %}
+              {% trans "Bloqlar" %}
             </a>
           </li>
           <li>
@@ -155,7 +155,7 @@
             </a>
             {% if contact %}
             <div class="footer-contact pt-3">
-              {% if contact.address %}<p>{{ contact.address }}</p>{% endif %}
+              {% if contact.address %}<p><a href="{{ contact.address|google_maps_url }}" target="_blank" rel="noopener noreferrer" class="footer-contact-link">{{ contact.address }}</a></p>{% endif %}
               {% if contact.phone %}<p class="mt-2"><strong><i class="bi bi-telephone me-1"></i></strong> <a href="{{ contact.phone|tel_href }}" class="footer-contact-link">{{ contact.phone }}</a></p>{% endif %}
               {% if contact.whatsapp_number %}
               <p><strong><i class="bi bi-whatsapp me-1" aria-hidden="true"></i></strong> {% if contact.whatsapp_number|wa_me_url %}<a href="{{ contact.whatsapp_number|wa_me_url }}" target="_blank" rel="noopener noreferrer" class="footer-contact-link">{{ contact.whatsapp_number }}</a>{% else %}{{ contact.whatsapp_number }}{% endif %}</p>
@@ -172,7 +172,7 @@
               <li><a href="{% url 'projects:about-page' %}">{% trans "About us" %}</a></li>
               {% if categories %}<li><a href="{% url 'projects:product-page' %}?slug={{ categories.0.slug }}">{% trans "Products" %}</a></li>{% endif %}
               <li><a href="{% url 'projects:faq-page' %}">{% trans "Sual-cavab" %}</a></li>
-              <li><a href="{% url 'projects:blog-page' %}">{% trans "Blog" %}</a></li>
+              <li><a href="{% url 'projects:blog-page' %}">{% trans "Bloqlar" %}</a></li>
               <li><a href="{% url 'projects:contact-page' %}">{% trans "Contact" %}</a></li>
             </ul>
           </div>
@@ -247,7 +247,7 @@
   <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
   <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
   <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
-  <script src="{% static 'assets/js/main.js' %}"></script>
+  <script src="{% static 'assets/js/main.js' %}?v=20260604"></script>
   {% block extra_js %}{% endblock %}
 
 </body>

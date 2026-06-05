@@ -14,13 +14,10 @@ msgid "Address"
 msgstr "Ünvan"
 
 msgid "All blog posts"
-msgstr "Bütün bloq yazıları"
+msgstr "Bütün Bloq yazıları"
 
 msgid "All rights reserved."
 msgstr "Bütün hüquqlar qorunur."
-
-msgid "Developed by"
-msgstr "Hazırlayan"
 
 msgid "Azerbaijani"
 msgstr "Azərbaycan"
@@ -30,6 +27,9 @@ msgstr "Bloqa qayıt"
 
 msgid "Blog"
 msgstr "Bloq"
+
+msgid "Bloqlar"
+msgstr "Bloqlar"
 
 msgid "Blog pagination"
 msgstr "Bloq səhifələməsi"
@@ -76,23 +76,8 @@ msgstr "English"
 msgid "Explore %(category)s"
 msgstr "%(category)s üzrə bax"
 
-msgid "Bütün suallar"
-msgstr "Bütün suallar"
-
 msgid "Follow us on social media"
 msgstr "Sosial şəbəkələrdə izləyin"
-
-msgid "Hələ heç bir sual əlavə edilməyib."
-msgstr "Hələ heç bir sual əlavə edilməyib."
-
-msgid "Məhsul və xidmətlərimiz haqqında ən çox verilən sualların cavablarını tapın."
-msgstr "Məhsul və xidmətlərimiz haqqında ən çox verilən sualların cavablarını tapın."
-
-msgid "Sual-cavab"
-msgstr "Sual-cavab"
-
-msgid "Tez-tez verilən suallar"
-msgstr "Tez-tez verilən suallar"
 
 msgid "Full name"
 msgstr "Ad Soyad"
@@ -137,7 +122,7 @@ msgid "Next image"
 msgstr "Növbəti şəkil"
 
 msgid "No blog posts yet"
-msgstr "Hələ bloq yazısı yoxdur"
+msgstr "Hələ Bloq yazısı yoxdur"
 
 msgid "No other posts."
 msgstr "Başqa yazı yoxdur."
@@ -214,8 +199,8 @@ msgstr "baxış"
 msgid "Your full name"
 msgstr "Adınız və soyadınız"
 
-msgid "Thank you. We have received your message."
-msgstr "Təşəkkür edirik. Mesajınız qəbul edildi."
+msgid "Your message has been sent successfully."
+msgstr "Mesajınız uğurla göndərildi."
 
 msgid "Your message"
 msgstr "Mesajınız"

@@ -23,12 +23,12 @@ class AppealContactForm(forms.ModelForm):
             'class': 'form-control',
             'placeholder': _('Email address')
         }),
-        required=True,
+        required=False,
         label=_('Email address')
     )
     phone = forms.CharField(
         max_length=40,
-        required=False,
+        required=True,
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'placeholder': _('Mobile number'),
@@ -36,15 +36,6 @@ class AppealContactForm(forms.ModelForm):
             'autocomplete': 'tel',
         }),
         label=_('Mobile number'),
-    )
-    subject = forms.CharField(
-        widget=forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': _('Subject')
-        }),
-        required=True,
-        label=_('Subject'),
-        max_length=250
     )
     info = forms.CharField(
         widget=forms.Textarea(attrs={
@@ -63,9 +54,14 @@ class AppealContactForm(forms.ModelForm):
             'full_name',
             'email',
             'phone',
-            'subject',
-            'info'
+            'info',
         ]
+
+    def clean_phone(self):
+        value = (self.cleaned_data.get('phone') or '').strip()
+        if not value:
+            raise ValidationError(_('This field is required.'))
+        return value
 
     def clean_website(self):
         value = self.cleaned_data.get('website')

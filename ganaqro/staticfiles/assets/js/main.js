@@ -71,50 +71,51 @@
     });
   }
 
+  function isMobileNavView() {
+    return window.matchMedia('(max-width: 1199px)').matches;
+  }
+
+  function toggleMobileNavDropdown(anchor) {
+    const panel = anchor && anchor.nextElementSibling;
+    if (!panel) return;
+    anchor.classList.toggle('active');
+    panel.classList.toggle('dropdown-active');
+    if (anchor.classList.contains('lang-dropdown-toggle')) {
+      anchor.setAttribute('aria-expanded', anchor.classList.contains('active') ? 'true' : 'false');
+    }
+  }
+
   const navmenuEl = document.querySelector('#navmenu');
   if (navmenuEl) {
     navmenuEl.addEventListener('click', function(e) {
-      if (e.target !== navmenuEl) return;
-      if (document.body.classList.contains('mobile-nav-active')) {
-        mobileNavToogle();
+      if (e.target === navmenuEl) {
+        if (document.body.classList.contains('mobile-nav-active')) {
+          mobileNavToogle();
+        }
+        return;
       }
-    });
-  }
 
-  /**
-   * Mobil menyunu yalnız real keçiddə bağla (href="#" olan Məhsullar/Dil açıcıları menyunu dərhal bağlamasın).
-   */
-  document.querySelectorAll('#navmenu a').forEach((anchor) => {
-    anchor.addEventListener('click', () => {
+      const dropdownAnchor = e.target.closest(
+        'a.products-dropdown-toggle, a.lang-dropdown-toggle'
+      );
+      if (dropdownAnchor && dropdownAnchor.getAttribute('href') === '#') {
+        e.preventDefault();
+        if (isMobileNavView() && document.body.classList.contains('mobile-nav-active')) {
+          if (!e.target.closest('.dropdown-menu-panel')) {
+            toggleMobileNavDropdown(dropdownAnchor);
+          }
+        }
+        return;
+      }
+
       if (!document.body.classList.contains('mobile-nav-active')) return;
-      const href = anchor.getAttribute('href');
+      const navLink = e.target.closest('#navmenu a[href]');
+      if (!navLink) return;
+      const href = navLink.getAttribute('href');
       if (!href || href === '#') return;
       mobileNavToogle();
     });
-  });
-
-  /**
-   * Toggle mobile nav dropdowns
-   */
-  document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
-    navmenu.addEventListener('click', function(e) {
-      e.preventDefault();
-      const parent = this.parentNode;
-      const panel = parent && parent.nextElementSibling;
-      if (!panel) return;
-      parent.classList.toggle('active');
-      panel.classList.toggle('dropdown-active');
-      e.stopImmediatePropagation();
-      e.stopPropagation();
-    });
-  });
-
-  /** Dropdown triggers with href="#" */
-  document.querySelectorAll('.navmenu .dropdown--products > a[href="#"], .navmenu .dropdown--lang > a[href="#"]').forEach(a => {
-    a.addEventListener('click', function(e) {
-      e.preventDefault();
-    });
-  });
+  }
 
   /**
    * Preloader — çıxarılması DOM hazır olan kimi (bütün şəkillərin load-u gözləmir).
@@ -221,8 +222,42 @@
     });
   }
 
+  /**
+   * Bloq və məhsul siyahılarında mobil görünüşdə səhifə başına 6 element.
+   */
+  function syncListPerPage() {
+    const isListPage = document.body.classList.contains('blog-page')
+      || document.body.classList.contains('services-page');
+    if (!isListPage) {
+      return;
+    }
+
+    const perPage = window.matchMedia('(max-width: 767px)').matches ? '6' : '9';
+    const cookieName = 'ganaqro_list_per_page';
+    const cookieMatch = document.cookie.match(new RegExp('(?:^|; )' + cookieName + '=([^;]*)'));
+    const currentCookie = cookieMatch ? cookieMatch[1] : null;
+
+    if (currentCookie !== perPage) {
+      document.cookie = cookieName + '=' + perPage + ';path=/;max-age=86400;SameSite=Lax';
+    }
+
+    const url = new URL(window.location.href);
+    const urlPerPage = url.searchParams.get('per_page');
+    const expectedUrlPerPage = perPage === '9' ? null : perPage;
+
+    if ((urlPerPage || null) !== expectedUrlPerPage) {
+      if (expectedUrlPerPage) {
+        url.searchParams.set('per_page', expectedUrlPerPage);
+      } else {
+        url.searchParams.delete('per_page');
+      }
+      window.location.replace(url.toString());
+    }
+  }
+
   /** DOM hazır olanda karruselləri işə salır (tam səh.fə yüklənməsini gözləmir). */
   function bootSwiperAndAos() {
+    syncListPerPage();
     initSwiper();
     aosInit();
   }

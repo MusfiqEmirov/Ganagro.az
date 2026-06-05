@@ -3,7 +3,7 @@
 {% load project_tags %}
 {% load i18n %}
 
-{% block title %}Ganaqro · {% trans "Blog" %}{% endblock %}
+{% block title %}Ganaqro · {% trans "Bloqlar" %}{% endblock %}
 {% block body_class %}blog-page{% endblock %}
 
 {% block content %}
@@ -60,7 +60,7 @@
             <ul class="pagination justify-content-center">
               {% if pagination.has_previous %}
               <li class="page-item">
-                <a class="page-link" href="?page={{ pagination.current_page|add:"-1" }}">
+                <a class="page-link" href="?page={{ pagination.current_page|add:"-1" }}{% if pagination.per_page != 9 %}&per_page={{ pagination.per_page }}{% endif %}">
                   <i class="bi bi-chevron-left"></i>
                 </a>
               </li>
@@ -78,7 +78,7 @@
 
               {% if pagination.has_next %}
               <li class="page-item">
-                <a class="page-link" href="?page={{ pagination.current_page|add:"1" }}">
+                <a class="page-link" href="?page={{ pagination.current_page|add:"1" }}{% if pagination.per_page != 9 %}&per_page={{ pagination.per_page }}{% endif %}">
                   <i class="bi bi-chevron-right"></i>
                 </a>
               </li>

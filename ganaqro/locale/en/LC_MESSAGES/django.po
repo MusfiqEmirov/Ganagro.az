@@ -14,22 +14,22 @@ msgid "Address"
 msgstr "Address"
 
 msgid "All blog posts"
-msgstr "All blog posts"
+msgstr "All Blog posts"
 
 msgid "All rights reserved."
 msgstr "All rights reserved."
-
-msgid "Developed by"
-msgstr "Developed by"
 
 msgid "Azerbaijani"
 msgstr "Azerbaijani"
 
 msgid "Back to blog"
-msgstr "Back to blog"
+msgstr "Back to Blog"
 
 msgid "Blog"
 msgstr "Blog"
+
+msgid "Bloqlar"
+msgstr "Blogs"
 
 msgid "Blog pagination"
 msgstr "Blog pagination"
@@ -76,23 +76,8 @@ msgstr "English"
 msgid "Explore %(category)s"
 msgstr "Explore %(category)s"
 
-msgid "Bütün suallar"
-msgstr "All questions"
-
 msgid "Follow us on social media"
 msgstr "Follow us on social media"
-
-msgid "Hələ heç bir sual əlavə edilməyib."
-msgstr "No questions have been added yet."
-
-msgid "Məhsul və xidmətlərimiz haqqında ən çox verilən sualların cavablarını tapın."
-msgstr "Find answers to the most common questions about our products and services."
-
-msgid "Sual-cavab"
-msgstr "FAQ"
-
-msgid "Tez-tez verilən suallar"
-msgstr "Frequently asked questions"
 
 msgid "Full name"
 msgstr "Full name"
@@ -137,7 +122,7 @@ msgid "Next image"
 msgstr "Next image"
 
 msgid "No blog posts yet"
-msgstr "No blog posts yet"
+msgstr "No Blog posts yet"
 
 msgid "No other posts."
 msgstr "No other posts."
@@ -152,7 +137,7 @@ msgid "Other posts"
 msgstr "Other posts"
 
 msgid "Our blog posts"
-msgstr "Our blog posts"
+msgstr "Our Blog posts"
 
 msgid "Our gallery"
 msgstr "Our gallery"
@@ -214,8 +199,8 @@ msgstr "views"
 msgid "Your full name"
 msgstr "Your full name"
 
-msgid "Thank you. We have received your message."
-msgstr "Thank you. We have received your message."
+msgid "Your message has been sent successfully."
+msgstr "Your message has been sent successfully."
 
 msgid "Your message"
 msgstr "Your message"

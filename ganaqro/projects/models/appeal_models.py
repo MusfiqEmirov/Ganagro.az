@@ -8,17 +8,19 @@ class AppealContact(models.Model):
         verbose_name='Ad soyad'
     )
     email = models.EmailField(
-        verbose_name='Email'
+        null=True,
+        blank=True,
+        verbose_name='Email',
     )
     phone = models.CharField(
         max_length=40,
-        blank=True,
-        default='',
         verbose_name='Mobil nömrə',
     )
     subject = models.CharField(
         max_length=250,
-        verbose_name='Mövzu'
+        null=True,
+        blank=True,
+        verbose_name='Mövzu',
     )
     info = models.TextField(
         validators=[MaxLengthValidator(500)],
@@ -39,4 +41,4 @@ class AppealContact(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f"{self.full_name} — {self.subject}"
+        return self.full_name

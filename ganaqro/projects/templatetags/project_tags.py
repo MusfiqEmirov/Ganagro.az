@@ -1,6 +1,6 @@
 import html as html_lib
 import re
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs, quote_plus, urlparse
 
 from django import template
 from django.utils.html import strip_tags
@@ -66,6 +66,19 @@ def mailto_href(value):
     if not s.startswith('mailto:'):
         return mark_safe('mailto:' + s.strip())
     return mark_safe(s)
+
+
+@register.filter
+def google_maps_url(value):
+    """
+    Open Google Maps search for a plain-text address.
+    """
+    if value is None:
+        return ''
+    s = str(value).strip()
+    if not s:
+        return ''
+    return mark_safe(f'https://www.google.com/maps/search/?api=1&query={quote_plus(s)}')
 
 
 @register.filter
