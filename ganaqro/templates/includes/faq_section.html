@@ -28,10 +28,7 @@
                data-bs-parent="#{{ accordion_id|default:'faqAccordion' }}">
             <div class="accordion-body faq-accordion__body">
               <div class="faq-accordion__answer">
-                <span class="faq-accordion__bullet" aria-hidden="true"></span>
-                <div class="faq-accordion__answer-text">
-                  {{ item.answer|linebreaks }}
-                </div>
+                {{ item.answer|linebreaks }}
               </div>
             </div>
           </div>

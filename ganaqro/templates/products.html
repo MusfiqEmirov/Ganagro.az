@@ -48,7 +48,7 @@
             <ul class="pagination justify-content-center">
               {% if pagination.has_previous %}
               <li class="page-item">
-                <a class="page-link" href="?page={{ pagination.current_page|add:"-1" }}{% if filters.slug %}&slug={{ filters.slug }}{% endif %}">
+                <a class="page-link" href="?page={{ pagination.current_page|add:"-1" }}{% if filters.slug %}&slug={{ filters.slug }}{% endif %}{% if pagination.per_page != 9 %}&per_page={{ pagination.per_page }}{% endif %}">
                   <i class="bi bi-chevron-left"></i>
                 </a>
               </li>
@@ -56,13 +56,13 @@
 
               {% for i in pagination.page_range %}
               <li class="page-item {% if i == pagination.current_page %}active{% endif %}">
-                <a class="page-link" href="?page={{ i }}{% if filters.slug %}&slug={{ filters.slug }}{% endif %}">{{ i }}</a>
+                <a class="page-link" href="?page={{ i }}{% if filters.slug %}&slug={{ filters.slug }}{% endif %}{% if pagination.per_page != 9 %}&per_page={{ pagination.per_page }}{% endif %}">{{ i }}</a>
               </li>
               {% endfor %}
 
               {% if pagination.has_next %}
               <li class="page-item">
-                <a class="page-link" href="?page={{ pagination.current_page|add:"1" }}{% if filters.slug %}&slug={{ filters.slug }}{% endif %}">
+                <a class="page-link" href="?page={{ pagination.current_page|add:"1" }}{% if filters.slug %}&slug={{ filters.slug }}{% endif %}{% if pagination.per_page != 9 %}&per_page={{ pagination.per_page }}{% endif %}">
                   <i class="bi bi-chevron-right"></i>
                 </a>
               </li>

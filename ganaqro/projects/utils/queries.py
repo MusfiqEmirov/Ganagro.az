@@ -456,6 +456,47 @@ def serialize_blog(blog, lang='az'):
 # Pagination helpers
 # ---------------------------------------------------------------------------
 
+LIST_PER_PAGE_DESKTOP = 9
+LIST_PER_PAGE_MOBILE = 6
+LIST_PER_PAGE_COOKIE = 'ganaqro_list_per_page'
+
+
+def is_mobile_list_request(request):
+    cookie_value = request.COOKIES.get(LIST_PER_PAGE_COOKIE)
+    if cookie_value in ('6', '9'):
+        return cookie_value == '6'
+
+    ua = request.META.get('HTTP_USER_AGENT', '').lower()
+    if 'ipad' in ua or 'tablet' in ua:
+        return False
+
+    mobile_keywords = (
+        'mobile', 'android', 'iphone', 'ipod',
+        'windows phone', 'iemobile', 'opera mini',
+    )
+    return any(keyword in ua for keyword in mobile_keywords)
+
+
+def resolve_list_per_page(request):
+    per_page_param = request.GET.get('per_page')
+    if per_page_param is not None:
+        try:
+            value = int(per_page_param)
+            if value > 0:
+                return value
+        except (TypeError, ValueError):
+            pass
+
+    if is_mobile_list_request(request):
+        return LIST_PER_PAGE_MOBILE
+    return LIST_PER_PAGE_DESKTOP
+
+
+def apply_list_pagination_params(request):
+    request.GET = request.GET.copy()
+    request.GET['per_page'] = str(resolve_list_per_page(request))
+
+
 def paginate_queryset(queryset, page, per_page):
     paginator = Paginator(queryset, per_page)
     try:
@@ -578,18 +619,13 @@ def get_product_list_data(request, lang):
     category_slug = request.GET.get('slug')
     is_active = request.GET.get('is_active', 'true').lower() == 'true'
     page = request.GET.get('page', 1)
-    per_page_param = request.GET.get('per_page')
+    per_page = int(request.GET.get('per_page', LIST_PER_PAGE_DESKTOP))
 
     products = get_products(
         lang=lang,
         category_slug=category_slug,
         is_active=is_active,
     )
-
-    if per_page_param is None:
-        per_page = 9
-    else:
-        per_page = int(per_page_param)
 
     products_page_obj, products_paginator = paginate_queryset(products, page, per_page)
     serialized_products = [serialize_product(p, lang) for p in products_page_obj]
@@ -628,7 +664,7 @@ def get_product_list_data(request, lang):
 @cached_page_data(timeout='CACHE_TIMEOUT_MEDIUM')
 def get_blog_list_data(request, lang):
     page = request.GET.get('page', 1)
-    per_page = 9
+    per_page = int(request.GET.get('per_page', LIST_PER_PAGE_DESKTOP))
 
     blogs = get_blogs(lang=lang)
     blogs_page_obj, blogs_paginator = paginate_queryset(blogs, page, per_page)
@@ -636,12 +672,12 @@ def get_blog_list_data(request, lang):
 
     contact = get_contact(lang)
 
-    page_heading = _('Blog')
+    page_heading = _('Bloqlar')
 
     return {
         'blogs': serialized_blogs,
         'contact': serialize_contact(contact, lang) if contact else None,
         'pagination': get_pagination_data(blogs_page_obj, blogs_paginator),
         'page_heading': page_heading,
-        'page_motto': get_page_motto('blog', lang),
+        'page_motto': get_page_motto('blog', lang) or page_heading,
     }

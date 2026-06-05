@@ -12,6 +12,7 @@ from projects.models import Blog
 from projects.forms.forms_v1 import AppealContactForm
 from projects.utils.send_email import send_appeal_contact_notification
 from projects.utils.queries import (
+    apply_list_pagination_params,
     get_language_from_request,
     get_home_page_data,
     get_product_list_data,
@@ -56,6 +57,7 @@ class ProductPageView(View):
         if category_slug:
             request.GET = request.GET.copy()
             request.GET['slug'] = category_slug
+        apply_list_pagination_params(request)
         context = get_product_list_data(request, lang)
         context['background_image'] = get_background_image('product')
         context['language'] = lang
@@ -170,6 +172,7 @@ class BlogPageView(View):
 
     def get(self, request):
         lang = get_language_from_request(request)
+        apply_list_pagination_params(request)
         context = get_blog_list_data(request, lang)
         context['language'] = lang
         context['background_image'] = get_background_image('blog')
@@ -203,7 +206,7 @@ class BlogDetailPageView(View):
             'page_motto': get_page_motto('blog', lang),
             'breadcrumbs': [
                 {'label': _('Home'), 'url': reverse('projects:home-page')},
-                {'label': _('Blog'), 'url': reverse('projects:blog-page')},
+                {'label': _('Bloqlar'), 'url': reverse('projects:blog-page')},
                 {'label': blog_data['name']},
             ],
         }

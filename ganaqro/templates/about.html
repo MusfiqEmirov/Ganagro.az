@@ -12,15 +12,15 @@
     <div class="container">
       <div class="row gy-5 align-items-start">
         {% if about.video %}
-        <div class="col-lg-6 order-2 order-lg-2" data-aos="zoom-out">
+        <div class="col-lg-6 order-1 order-lg-1 mb-4 mb-lg-0" data-aos="zoom-out">
           {% include "includes/about_video_card.html" with video_url=about.video poster_url=about.video_poster %}
         </div>
         {% elif about.medias and about.medias.0.image %}
-        <div class="col-lg-6 order-2 order-lg-2" data-aos="zoom-out">
+        <div class="col-lg-6 order-1 order-lg-1 mb-4 mb-lg-0" data-aos="zoom-out">
           <img src="{{ about.medias.0.image }}" alt="{{ about.main_title }}" class="img-fluid rounded shadow">
         </div>
         {% endif %}
-        <div class="col-lg-{% if about.video or about.medias %}6{% else %}12{% endif %}" data-aos="fade-up" data-aos-delay="100">
+        <div class="col-lg-{% if about.video or about.medias %}6{% else %}12{% endif %} order-2 order-lg-2" data-aos="fade-up" data-aos-delay="100">
           <h2 class="content-title mb-4">{{ about.main_title }}</h2>
           <div class="mb-4 about-description">{{ about.description|safe }}</div>
           <p>

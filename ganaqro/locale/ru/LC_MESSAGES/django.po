@@ -14,28 +14,28 @@ msgid "Address"
 msgstr "Адрес"
 
 msgid "All blog posts"
-msgstr "Все записи блога"
+msgstr "Все Блог-записи"
 
 msgid "All rights reserved."
 msgstr "Все права защищены."
-
-msgid "Developed by"
-msgstr "Разработано"
 
 msgid "Azerbaijani"
 msgstr "Азербайджанский"
 
 msgid "Back to blog"
-msgstr "Назад к блогу"
+msgstr "Назад в Блог"
 
 msgid "Blog"
 msgstr "Блог"
 
+msgid "Bloqlar"
+msgstr "Блоги"
+
 msgid "Blog pagination"
-msgstr "Пагинация блога"
+msgstr "Пагинация Блога"
 
 msgid "Blog post not found"
-msgstr "Запись блога не найдена"
+msgstr "Блог-запись не найдена"
 
 msgid "Browse our photo collection"
 msgstr "Просмотрите нашу фотоколлекцию"
@@ -76,23 +76,8 @@ msgstr "Английский"
 msgid "Explore %(category)s"
 msgstr "Смотреть: %(category)s"
 
-msgid "Bütün suallar"
-msgstr "Все вопросы"
-
 msgid "Follow us on social media"
 msgstr "Мы в соцсетях"
-
-msgid "Hələ heç bir sual əlavə edilməyib."
-msgstr "Вопросы пока не добавлены."
-
-msgid "Məhsul və xidmətlərimiz haqqında ən çox verilən sualların cavablarını tapın."
-msgstr "Найдите ответы на самые частые вопросы о наших продуктах и услугах."
-
-msgid "Sual-cavab"
-msgstr "Вопросы и ответы"
-
-msgid "Tez-tez verilən suallar"
-msgstr "Часто задаваемые вопросы"
 
 msgid "Full name"
 msgstr "ФИО"
@@ -137,7 +122,7 @@ msgid "Next image"
 msgstr "Следующее изображение"
 
 msgid "No blog posts yet"
-msgstr "Записей в блоге пока нет"
+msgstr "Блог-записей пока нет"
 
 msgid "No other posts."
 msgstr "Других записей нет."
@@ -152,7 +137,7 @@ msgid "Other posts"
 msgstr "Другие записи"
 
 msgid "Our blog posts"
-msgstr "Наш блог"
+msgstr "Наш Блог"
 
 msgid "Our gallery"
 msgstr "Наша галерея"
@@ -214,8 +199,8 @@ msgstr "просмотров"
 msgid "Your full name"
 msgstr "Ваше полное имя"
 
-msgid "Thank you. We have received your message."
-msgstr "Спасибо. Мы получили ваше сообщение."
+msgid "Your message has been sent successfully."
+msgstr "Ваше сообщение успешно отправлено."
 
 msgid "Your message"
 msgstr "Ваше сообщение"

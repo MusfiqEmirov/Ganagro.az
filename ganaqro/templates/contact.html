@@ -29,7 +29,7 @@
                 <span class="contact-section-v2__icon" aria-hidden="true"><i class="bi bi-geo-alt"></i></span>
                 <div class="contact-section-v2__item-body">
                   <strong>{% trans "Address" %}</strong>
-                  <p class="mb-0">{{ contact.address }}</p>
+                  <p class="mb-0"><a href="{{ contact.address|google_maps_url }}" target="_blank" rel="noopener noreferrer">{{ contact.address }}</a></p>
                 </div>
               </div>
               {% endif %}
@@ -135,15 +135,14 @@
                 </div>
                 <div class="col-md-6">
                   <label for="{{ form.email.id_for_label }}" class="form-label small mb-1">
-                    {% trans "Email address" %} <span class="text-danger">*</span>
+                    {% trans "Email address" %}
                   </label>
                   <input type="email"
                          name="{{ form.email.html_name }}"
                          id="{{ form.email.id_for_label }}"
                          class="form-control {% if form.email.errors %}is-invalid{% endif %}"
                          placeholder="{% trans "Email address" %}"
-                         value="{{ form.email.value|default:'' }}"
-                         required>
+                         value="{{ form.email.value|default:'' }}">
                   {% if form.email.errors %}
                   <div class="invalid-feedback">{{ form.email.errors.0 }}</div>
                   {% endif %}
@@ -151,7 +150,7 @@
 
                 <div class="col-12">
                   <label for="{{ form.phone.id_for_label }}" class="form-label small mb-1">
-                    {% trans "Mobile number" %}
+                    {% trans "Mobile number" %} <span class="text-danger">*</span>
                   </label>
                   <input type="text"
                          name="{{ form.phone.html_name }}"
@@ -160,25 +159,10 @@
                          placeholder="{% trans "Mobile number" %}"
                          inputmode="tel"
                          autocomplete="tel"
-                         value="{{ form.phone.value|default:'' }}">
+                         value="{{ form.phone.value|default:'' }}"
+                         required>
                   {% if form.phone.errors %}
                   <div class="invalid-feedback">{{ form.phone.errors.0 }}</div>
-                  {% endif %}
-                </div>
-
-                <div class="col-12">
-                  <label for="{{ form.subject.id_for_label }}" class="form-label small mb-1">
-                    {% trans "Subject" %} <span class="text-danger">*</span>
-                  </label>
-                  <input type="text"
-                         name="{{ form.subject.html_name }}"
-                         id="{{ form.subject.id_for_label }}"
-                         class="form-control {% if form.subject.errors %}is-invalid{% endif %}"
-                         placeholder="{% trans "Subject" %}"
-                         value="{{ form.subject.value|default:'' }}"
-                         required>
-                  {% if form.subject.errors %}
-                  <div class="invalid-feedback">{{ form.subject.errors.0 }}</div>
                   {% endif %}
                 </div>
 

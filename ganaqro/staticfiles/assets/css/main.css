@@ -797,8 +797,23 @@ body.scrolled .header.site-header.site-header--v2 {
     visibility: visible;
   }
 
+  .site-header__navmenu.navmenu .dropdown--products {
+    width: max-content;
+  }
+
   .site-header__navmenu.navmenu .dropdown--products > ul {
-    min-width: min(280px, 44vw);
+    width: max-content;
+    min-width: max-content;
+    max-width: min(90vw, max-content);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px 12px;
+  }
+
+  .site-header__navmenu.navmenu .dropdown--products > ul a {
+    white-space: nowrap;
+    padding: 12px 16px;
   }
 
   .site-header__navmenu.navmenu .dropdown-menu-panel--lang a.lang-menu-item {
@@ -943,6 +958,27 @@ body.scrolled .header.site-header.site-header--v2 {
     border-bottom: 1px solid color-mix(in srgb, var(--default-color), transparent 92%);
   }
 
+  .site-header__navmenu.navmenu .site-header__list > li.dropdown--products > a.products-dropdown-toggle.site-header__link,
+  .site-header__navmenu.navmenu .site-header__lang-wrap > a.lang-dropdown-toggle.site-header__lang-trigger {
+    justify-content: flex-start;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .site-header__navmenu.navmenu .site-header__list > li.dropdown--products > a.products-dropdown-toggle.site-header__link > span,
+  .site-header__navmenu.navmenu .site-header__lang-wrap > a.lang-dropdown-toggle.site-header__lang-trigger > .lang-dropdown-trigger {
+    flex: 0 0 auto;
+    width: auto;
+    pointer-events: auto;
+  }
+
+  .site-header__navmenu.navmenu .site-header__list > li.dropdown--products > a.products-dropdown-toggle.site-header__link > .toggle-dropdown,
+  .site-header__navmenu.navmenu .site-header__lang-wrap > a.lang-dropdown-toggle.site-header__lang-trigger > .toggle-dropdown {
+    flex: 0 0 auto;
+    margin-left: 4px;
+    pointer-events: auto;
+  }
+
   .site-header__navmenu.navmenu a i,
   .site-header__navmenu.navmenu a:focus i {
     font-size: 12px;
@@ -972,6 +1008,54 @@ body.scrolled .header.site-header.site-header--v2 {
     font-weight: 600;
     padding: 10px 14px;
     transition: color 0.22s ease, background 0.22s ease;
+  }
+
+  .site-header__navmenu.navmenu .dropdown--products > ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px 14px 14px;
+    margin: 8px 12px 12px;
+    background-color: color-mix(in srgb, var(--accent-color), transparent 94%);
+    border: 1px solid color-mix(in srgb, var(--accent-color), transparent 82%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  }
+
+  .site-header__navmenu.navmenu .dropdown--products > ul.dropdown-active {
+    display: flex;
+  }
+
+  .site-header__navmenu.navmenu .dropdown--products > ul > li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .site-header__navmenu.navmenu .dropdown--products > ul > li > a {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background-color: var(--nav-dropdown-background-color);
+    border: 1px solid color-mix(in srgb, var(--accent-color), transparent 80%);
+    box-shadow:
+      0 2px 8px rgba(87, 74, 158, 0.08),
+      0 1px 0 rgba(255, 255, 255, 0.9) inset;
+    transition: color 0.22s ease, background 0.22s ease, border-color 0.22s ease,
+      box-shadow 0.22s ease, transform 0.18s ease;
+  }
+
+  .site-header__navmenu.navmenu .dropdown--products > ul > li > a:hover,
+  .site-header__navmenu.navmenu .dropdown--products > ul > li > a:active,
+  .site-header__navmenu.navmenu .dropdown--products > ul > li > a.active {
+    color: var(--nav-dropdown-hover-color);
+    background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
+    border-color: color-mix(in srgb, var(--accent-color), transparent 58%);
+    box-shadow:
+      0 4px 14px rgba(87, 74, 158, 0.14),
+      0 1px 0 rgba(255, 255, 255, 0.85) inset;
+    transform: translateY(-1px);
   }
 
   .site-header__navmenu.navmenu .dropdown--nav ul a:hover,
@@ -6215,7 +6299,14 @@ section#hero.hero.section {
 
 .faq-accordion {
   --bs-accordion-border-width: 0;
+  --bs-accordion-body-padding-x: 0;
+  --bs-accordion-body-padding-y: 0;
   --bs-accordion-btn-focus-box-shadow: none;
+  --faq-pad-x: 1.35rem;
+  --faq-pad-y: 1.15rem;
+  --faq-index-w: 2.25rem;
+  --faq-gap: 1rem;
+  --faq-answer-inset: calc(var(--faq-pad-x) + var(--faq-index-w) + var(--faq-gap));
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -6240,8 +6331,8 @@ section#hero.hero.section {
   font-size: 1rem;
   color: var(--heading-color);
   background: var(--surface-color);
-  padding: 1.15rem 1.35rem;
-  gap: 1rem;
+  padding: var(--faq-pad-y) var(--faq-pad-x);
+  gap: var(--faq-gap);
   align-items: flex-start;
   box-shadow: none;
 }
@@ -6268,8 +6359,9 @@ section#hero.hero.section {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 2.25rem;
-  height: 2.25rem;
+  width: var(--faq-index-w);
+  min-width: var(--faq-index-w);
+  height: var(--faq-index-w);
   padding: 0 0.35rem;
   border-radius: 8px;
   font-size: 0.8rem;
@@ -6292,17 +6384,19 @@ section#hero.hero.section {
 }
 
 .faq-accordion__body {
-  padding: 0 1.35rem 1.25rem;
+  padding: 0;
 }
 
 .faq-accordion__answer {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 1rem 1.15rem;
-  border-radius: 10px;
-  background: color-mix(in srgb, var(--accent-color), transparent 93%);
-  border-left: 4px solid var(--accent-color);
+  margin: 0;
+  padding: 1rem var(--faq-pad-x) 1.15rem var(--faq-answer-inset);
+  border: 0;
+  border-top: 1px solid color-mix(in srgb, var(--accent-color), transparent 82%);
+  border-radius: 0;
+  background: color-mix(in srgb, var(--accent-color), transparent 94%);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--default-color), transparent 12%);
   animation: faq-answer-in 0.28s ease-out;
 }
 
@@ -6317,25 +6411,7 @@ section#hero.hero.section {
   }
 }
 
-.faq-accordion__bullet {
-  flex-shrink: 0;
-  width: 10px;
-  height: 10px;
-  margin-top: 0.5rem;
-  border-radius: 50%;
-  background: var(--accent-color);
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent-color), transparent 82%);
-}
-
-.faq-accordion__answer-text {
-  flex: 1;
-  min-width: 0;
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: color-mix(in srgb, var(--default-color), transparent 12%);
-}
-
-.faq-accordion__answer-text p:last-child {
+.faq-accordion__answer p:last-child {
   margin-bottom: 0;
 }
 
@@ -6359,17 +6435,20 @@ section#hero.hero.section {
 }
 
 @media (max-width: 575px) {
-  .faq-accordion__body {
-    padding: 0 1.1rem 1.1rem;
+  .faq-accordion {
+    --faq-pad-x: 1.1rem;
+    --faq-pad-y: 1rem;
+    --faq-index-w: 2rem;
+    --faq-gap: 0.85rem;
   }
 
   .faq-accordion__answer {
-    gap: 12px;
-    padding: 0.9rem 1rem;
+    padding-top: 0.9rem;
+    padding-bottom: 1rem;
+    font-size: 0.9rem;
   }
 
   .faq-accordion__button {
-    padding: 1rem 1.1rem;
     font-size: 0.95rem;
   }
 }

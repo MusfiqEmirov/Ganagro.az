@@ -51,8 +51,7 @@ def format_appeal_contact_message(instance):
 
     return (
         f'Ad soyad:     {instance.full_name}\n'
-        f'Mobil növrə:  {phone}\n'
-        f'Mövzu:        {instance.subject}\n\n'
+        f'Mobil növrə:  {phone}\n\n'
         'Mesaj:\n'
         f'{instance.info}\n\n'
         '────────────────────────────\n'
@@ -67,7 +66,6 @@ def format_appeal_contact_message_html(instance):
     created_label = date_format(created_at, 'd.m.Y H:i')
 
     full_name = html_lib.escape(instance.full_name)
-    subject = html_lib.escape(instance.subject)
     info = html_lib.escape(instance.info).replace('\n', '<br>')
 
     if instance.phone and instance.phone.strip():
@@ -85,7 +83,6 @@ def format_appeal_contact_message_html(instance):
         '<div style="font-family:Arial,sans-serif;font-size:14px;line-height:1.6;">'
         f'<p style="margin:0;">Ad soyad: &nbsp;&nbsp;&nbsp;&nbsp; {full_name}</p>'
         f'<p style="margin:0;">{phone_line}</p>'
-        f'<p style="margin:0;">Mövzu: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {subject}</p>'
         '<p style="margin:16px 0 0;">Mesaj:</p>'
         f'<p style="margin:0;">{info}</p>'
         '<hr style="border:none;border-top:1px solid #ccc;margin:16px 0;">'
