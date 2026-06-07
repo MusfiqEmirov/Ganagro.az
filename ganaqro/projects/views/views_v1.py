@@ -1,5 +1,6 @@
 import logging
 
+from django.conf import settings
 from django.http import Http404, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -94,11 +95,20 @@ class AboutPageView(View):
 class ContactPageView(View):
     template_name = 'contact.html'
 
+    @staticmethod
+    def _turnstile_context():
+        site_key = (getattr(settings, 'TURNSTILE_SITE_KEY', '') or '').strip()
+        secret_key = (getattr(settings, 'TURNSTILE_SECRET_KEY', '') or '').strip()
+        return {
+            'turnstile_enabled': bool(site_key and secret_key),
+            'turnstile_site_key': site_key,
+        }
+
     def get(self, request):
         lang = get_language_from_request(request)
         contact = get_contact(lang)
         categories = get_product_categories(lang)
-        form = AppealContactForm()
+        form = AppealContactForm(request=request)
         page_heading = _('Contact')
 
         context = {
@@ -109,17 +119,27 @@ class ContactPageView(View):
             'form': form,
             'page_heading': page_heading,
             'page_motto': get_page_motto('contact', lang),
+            **self._turnstile_context(),
         }
         return render(request, self.template_name, context)
 
+    def _is_ajax(self, request):
+        return request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+
     def post(self, request):
         lang = get_language_from_request(request)
-        form = AppealContactForm(request.POST)
+        form = AppealContactForm(request.POST, request=request)
+        is_ajax = self._is_ajax(request)
 
         if form.is_valid():
             try:
                 appeal = form.save()
                 send_appeal_contact_notification(appeal)
+                if is_ajax:
+                    return JsonResponse({
+                        'ok': True,
+                        'message': _('Thank you. We have received your message.'),
+                    })
                 messages.success(
                     request,
                     _('Thank you. We have received your message.'),
@@ -127,8 +147,22 @@ class ContactPageView(View):
                 return redirect('projects:contact-page')
             except Exception:
                 logging.getLogger(__name__).exception('Contact form save failed.')
+                if is_ajax:
+                    return JsonResponse({
+                        'ok': False,
+                        'message': _('Something went wrong. Please try again.'),
+                    }, status=500)
                 messages.error(request, _('Something went wrong. Please try again.'))
         else:
+            if is_ajax:
+                return JsonResponse(
+                    {
+                        'ok': False,
+                        'message': _('Please correct the errors in the form.'),
+                        'errors': form.errors.get_json_data(),
+                    },
+                    status=400,
+                )
             messages.error(request, _('Please correct the errors in the form.'))
 
         contact = get_contact(lang)
@@ -143,6 +177,7 @@ class ContactPageView(View):
             'form': form,
             'page_heading': page_heading,
             'page_motto': get_page_motto('contact', lang),
+            **self._turnstile_context(),
         }
         return render(request, self.template_name, context)
 
@@ -154,11 +189,13 @@ class FAQPageView(View):
         lang = get_language_from_request(request)
         faqs = get_faqs(lang)
         categories = get_product_categories(lang)
+        contact = get_contact(lang)
         page_heading = _('Tez-tez verilən suallar')
 
         context = {
             'faqs': [serialize_faq(f, lang) for f in faqs],
             'categories': [serialize_product_category(c, lang) for c in categories],
+            'contact': serialize_contact(contact, lang) if contact else None,
             'language': lang,
             'background_image': get_background_image('faq'),
             'page_heading': page_heading,

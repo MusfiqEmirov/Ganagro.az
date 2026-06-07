@@ -190,6 +190,8 @@
               </div>
               {% endif %}
 
+              {% include 'includes/turnstile_checkbox.html' with form=form turnstile_site_key=turnstile_site_key %}
+
               <button type="submit" class="btn btn-primary w-100 mt-3 py-3 contact-section-v2__submit">
                 {% trans "Send message" %}
               </button>

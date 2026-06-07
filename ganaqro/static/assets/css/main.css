@@ -4445,6 +4445,18 @@ section#hero.hero.section {
   flex-shrink: 0;
 }
 
+.turnstile-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.contact-section-v2__turnstile {
+  padding-top: 0.25rem;
+  gap: 0.5rem;
+}
+
 /*--------------------------------------------------------------
 # Contact Section
 --------------------------------------------------------------*/

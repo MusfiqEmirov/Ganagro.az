@@ -21,6 +21,8 @@ services:
       context: ..
       dockerfile: docker/Dockerfile-local
     container_name: ganaqro_web_local
+    env_file:
+      - .env
     command: gunicorn --bind 0.0.0.0:8000 --workers 1 --timeout 5 --chdir ganaqro ganaqro.wsgi_local:application
     volumes:
       - ..:/app                                  # entire project mount
@@ -45,6 +47,8 @@ services:
       EMAIL_HOST_PASSWORD: ${EMAIL_HOST_PASSWORD:-}
       DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL:-}
       CONTACT_RECEIVER_EMAIL: ${CONTACT_RECEIVER_EMAIL:-}
+      TURNSTILE_SITE_KEY: ${TURNSTILE_SITE_KEY:-}
+      TURNSTILE_SECRET_KEY: ${TURNSTILE_SECRET_KEY:-}
     depends_on:
       db:
         condition: service_healthy

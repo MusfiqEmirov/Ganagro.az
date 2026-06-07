@@ -3,11 +3,10 @@ import os
 
 from dotenv import load_dotenv
 
-
-load_dotenv()
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(BASE_DIR / '.env')
 #
 
 ##
@@ -100,6 +99,7 @@ TEMPLATES = [
                 'django.template.context_processors.i18n',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'ganaqro.context_processors.turnstile',
             ],
         },
     },
@@ -221,6 +221,9 @@ CONTACT_RECEIVER_EMAIL = os.getenv(
     'CONTACT_RECEIVER_EMAIL',
     EMAIL_HOST_USER
 )
+
+TURNSTILE_SITE_KEY = (os.getenv('TURNSTILE_SITE_KEY') or '').strip()
+TURNSTILE_SECRET_KEY = (os.getenv('TURNSTILE_SECRET_KEY') or '').strip()
 
 # Lokal inkişaf: .env-də EMAIL yoxdursa settings_local-dakı SMTP istifadə et
 if DEBUG and not EMAIL_HOST_USER:

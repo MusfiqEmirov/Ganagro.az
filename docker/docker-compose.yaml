@@ -39,7 +39,9 @@ services:
       SECRET_KEY: ${SECRET_KEY}
       ALLOWED_HOSTS: ${ALLOWED_HOSTS:-localhost,127.0.0.1}
       ADMIN_URL: ${ADMIN_URL}
-      
+      TURNSTILE_SITE_KEY: ${TURNSTILE_SITE_KEY:-}
+      TURNSTILE_SECRET_KEY: ${TURNSTILE_SECRET_KEY:-}
+
     depends_on:
       db:
         condition: service_healthy

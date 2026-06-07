@@ -279,4 +279,40 @@
     });
   }
 
+  function resetTurnstileIfPresent(form) {
+    try {
+      if (typeof turnstile === 'undefined' || !turnstile || !turnstile.reset) return;
+      var widget = form.querySelector('.cf-turnstile');
+      if (!widget) return;
+      turnstile.reset();
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  function onAjaxFormSubmit(e) {
+    var form = e.target;
+    if (!form.matches('form[data-ajax="1"]')) return;
+    e.preventDefault();
+
+    var fd = new FormData(form);
+    fetch(form.action || window.location.href, {
+      method: 'POST',
+      body: fd,
+      credentials: 'same-origin',
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        if (data.ok) {
+          form.reset();
+        }
+      })
+      .finally(function () {
+        resetTurnstileIfPresent(form);
+      });
+  }
+
+  document.addEventListener('submit', onAjaxFormSubmit, true);
+
 })();
