@@ -247,7 +247,10 @@
   <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
   <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
   <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
-  <script src="{% static 'assets/js/main.js' %}?v=20260604"></script>
+  <script src="{% static 'assets/js/main.js' %}?v=20260607"></script>
+  {% if turnstile_site_key %}
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  {% endif %}
   {% block extra_js %}{% endblock %}
 
 </body>

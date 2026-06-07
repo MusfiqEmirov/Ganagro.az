@@ -1,0 +1,16 @@
+{% load i18n %}
+{% if turnstile_site_key %}
+<div class="turnstile-wrap contact-section-v2__turnstile">
+    <p class="form-label small text-center w-100 mb-2">
+        {% trans "Security verification" %} <span class="text-danger">*</span>
+    </p>
+    <div class="cf-turnstile"
+         data-sitekey="{{ turnstile_site_key }}"
+         data-appearance="always"
+         data-theme="light"></div>
+    {% if form.turnstile.errors %}
+    <div class="text-danger small mt-2 text-center w-100">{{ form.turnstile.errors.0 }}</div>
+    {% endif %}
+    {{ form.turnstile }}
+</div>
+{% endif %}

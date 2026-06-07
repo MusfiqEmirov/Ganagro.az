@@ -1,10 +1,12 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+
+from projects.forms.turnstile_mixin import TurnstileMixin
 from projects.models import AppealContact
 
 
-class AppealContactForm(forms.ModelForm):
+class AppealContactForm(TurnstileMixin, forms.ModelForm):
     website = forms.CharField(
         required=False,
         widget=forms.HiddenInput(),
@@ -68,3 +70,8 @@ class AppealContactForm(forms.ModelForm):
         if value:
             raise ValidationError(_('Something went wrong. Please try again.'))
         return value
+
+    def clean(self):
+        cleaned_data = super().clean()
+        self._turnstile_verify()
+        return cleaned_data
