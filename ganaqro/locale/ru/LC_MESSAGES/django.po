@@ -181,6 +181,9 @@ msgstr "Русский"
 msgid "Send message"
 msgstr "Отправить"
 
+msgid "Sending..."
+msgstr "Отправка..."
+
 msgid "Something went wrong. Please try again."
 msgstr "Произошла ошибка. Попробуйте снова."
 

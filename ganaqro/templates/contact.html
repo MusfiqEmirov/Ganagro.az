@@ -113,6 +113,16 @@
         <!-- Form -->
         <div class="col-lg-4 order-3 contact-section-v2__col">
           <div class="contact-section-v2__panel contact-section-v2__panel--form">
+            {% if messages %}
+            <div class="contact-section-v2__form-messages mb-3">
+              {% for message in messages %}
+              <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show mb-2" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{% trans "Close" %}"></button>
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
             <form class="contact-section-v2__form" action="{% url 'projects:contact-page' %}" method="post" novalidate>
               {% csrf_token %}
               {{ form.website }}
@@ -192,8 +202,10 @@
 
               {% include 'includes/turnstile_checkbox.html' with form=form turnstile_site_key=turnstile_site_key %}
 
-              <button type="submit" class="btn btn-primary w-100 mt-3 py-3 contact-section-v2__submit">
-                {% trans "Send message" %}
+              <button type="submit"
+                      class="btn btn-primary w-100 mt-3 py-3 contact-section-v2__submit"
+                      data-loading-text="{% trans "Sending..." %}">
+                <span class="contact-section-v2__submit-label">{% trans "Send message" %}</span>
               </button>
             </form>
           </div>
@@ -203,4 +215,39 @@
     </div>
   </section><!-- /Contact Section -->
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+  var form = document.querySelector('.contact-section-v2__form');
+  if (form) {
+    form.addEventListener('submit', function () {
+      var btn = form.querySelector('.contact-section-v2__submit');
+      if (!btn || btn.disabled) return;
+      var loadingText = btn.getAttribute('data-loading-text') || '';
+      btn.disabled = true;
+      btn.setAttribute('aria-busy', 'true');
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>' + loadingText;
+    });
+  }
+})();
+</script>
+{% if messages %}
+<script>
+(function () {
+  var wrap = document.querySelector('.contact-section-v2__form-messages');
+  if (!wrap) return;
+  setTimeout(function () {
+    wrap.querySelectorAll('.alert').forEach(function (el) {
+      if (typeof bootstrap !== 'undefined' && bootstrap.Alert) {
+        bootstrap.Alert.getOrCreateInstance(el).close();
+      } else {
+        el.remove();
+      }
+    });
+  }, 2000);
+})();
+</script>
+{% endif %}
 {% endblock %}

@@ -138,11 +138,11 @@ class ContactPageView(View):
                 if is_ajax:
                     return JsonResponse({
                         'ok': True,
-                        'message': _('Thank you. We have received your message.'),
+                        'message': _('Your message has been sent successfully.'),
                     })
                 messages.success(
                     request,
-                    _('Thank you. We have received your message.'),
+                    _('Your message has been sent successfully.'),
                 )
                 return redirect('projects:contact-page')
             except Exception:
