@@ -19,6 +19,11 @@ from projects.admin.admin_help import (
     STATISTIC_HELP,
     patch_admin_site_order,
 )
+from projects.admin.filters import (
+    AppealContactMonthFilter,
+    AppealContactPeriodFilter,
+    AppealContactYearFilter,
+)
 from projects.admin.widgets import BootstrapIconSelect
 
 from projects.models import (
@@ -370,12 +375,18 @@ mark_as_unread.short_description = _('Seçilmişləri oxunmamış kimi işarəl�
 class AppealContactAdmin(AdminPageHelpMixin, admin.ModelAdmin):
     admin_page_help = APPEAL_HELP
     list_display = ('full_name', 'email', 'phone', 'is_read', 'created_at')
-    list_filter = ('is_read', ('created_at', admin.DateFieldListFilter))
-    search_fields = ('full_name', 'email', 'phone', 'info')
+    list_filter = (
+        'is_read',
+        AppealContactPeriodFilter,
+        AppealContactYearFilter,
+        AppealContactMonthFilter,
+    )
+    search_fields = ('full_name', 'email', 'phone', 'info', 'subject')
     ordering = ('-created_at',)
     date_hierarchy = 'created_at'
-    readonly_fields = ('full_name', 'email', 'phone', 'info', 'created_at')
+    readonly_fields = ('full_name', 'email', 'phone', 'subject', 'info', 'created_at')
     actions = [mark_as_read, mark_as_unread]
+    list_per_page = 50
 
     def has_add_permission(self, request):
         return False

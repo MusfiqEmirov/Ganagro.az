@@ -1,4 +1,4 @@
-{% load static i18n %}
+{% load static i18n project_tags %}
 {% if partners %}
 <section id="partners" class="partners-carousel section light-background" aria-label="{% trans "Partners" %}">
   <div class="container">
@@ -33,7 +33,7 @@
         }
       </script>
       <div class="swiper-wrapper">
-        {% for partner in partners %}
+        {% for partner in partners|repeat_for_carousel:12 %}
         <div class="swiper-slide">
           <article class="partner-marquee-card">
             <div class="partner-marquee-card__figure">

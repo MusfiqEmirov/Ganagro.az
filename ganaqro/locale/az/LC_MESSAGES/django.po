@@ -140,7 +140,7 @@ msgid "Our blog posts"
 msgstr "Bloq yazılarımız"
 
 msgid "Our gallery"
-msgstr "Qaleriyamız"
+msgstr "Qalereyamız."
 
 msgid "Partners"
 msgstr "Tərəfdaşlar"
