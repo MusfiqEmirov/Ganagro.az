@@ -154,3 +154,24 @@ def truncate_sentence(value, max_chars=500):
 def plain_text(value):
     """CKEditor HTML field as plain text (for card previews)."""
     return _plain_text(value)
+
+
+@register.filter
+def repeat_for_carousel(items, min_count=12):
+    """
+    Swiper loop üçün elementləri minimum saya qədər təkrarla.
+    Az tərəfdaş olduqda eyni kartlar klonlanır — karusel davamlı hərəkət edir.
+    """
+    try:
+        min_count = int(min_count)
+    except (TypeError, ValueError):
+        min_count = 12
+    if not items:
+        return items
+    seq = list(items)
+    if len(seq) >= min_count:
+        return seq
+    out = []
+    while len(out) < min_count:
+        out.extend(seq)
+    return out

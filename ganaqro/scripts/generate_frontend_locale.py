@@ -72,7 +72,7 @@ TRIPLES = [
     ("Open image", "Şəkili aç", "Open image", "Открыть изображение"),
     ("Other posts", "Digər yazılar", "Other posts", "Другие записи"),
     ("Our blog posts", "Bloq yazılarımız", "Our Blog posts", "Наш Блог"),
-    ("Our gallery", "Qaleriyamız", "Our gallery", "Наша галерея"),
+    ("Our gallery", "Qalereyamız.", "Our gallery", "Наша галерея"),
     ("Partners", "Tərəfdaşlar", "Partners", "Партнёры"),
     ("Phone", "Telefon", "Phone", "Телефон"),
     ("Play video", "Videonu işə sal", "Play video", "Воспроизвести видео"),

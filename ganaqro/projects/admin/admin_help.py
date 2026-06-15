@@ -98,7 +98,9 @@ APPEAL_HELP = (
     '<strong>Bu nədir?</strong> Ziyarətçilərin Əlaqə formasından göndərdiyi mesajlar.<br>'
     '<strong>Harada gəlir?</strong> Sayt → Əlaqə səhifəsi → «Mesaj göndər» forması.<br>'
     '<strong>Nə etməli?</strong> Mesajı oxuyun, «Oxunub» işarələyin. Yeni mesaj əlavə edə bilməzsiniz — '
-    'yalnız saytdan gəlir.'
+    'yalnız saytdan gəlir.<br>'
+    '<strong>Filtr:</strong> Sağ paneldən «Göndərilmə vaxtı», «İl» və «Ay» ilə mesajları zamana görə '
+    'süzə bilərsiniz; yuxarıdakı tarix iyerarxiyası ilə də gün/ay/il üzrə keçid edin.'
 )
 
 CATEGORY_HELP = (
