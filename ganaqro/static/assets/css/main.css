@@ -1,20 +1,4 @@
-/**
-* Template Name: AgriCulture
-* Template URL: https://bootstrapmade.com/agriculture-bootstrap-website-template/
-* Updated: Aug 07 2024 with Bootstrap v5.3.3
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
 
-/*--------------------------------------------------------------
-# Font & Color Variables
-# Help: https://bootstrapmade.com/color-system/
---------------------------------------------------------------*/
-/*
-  Lemon Milk Medium (MARSNEV) — lisenziyanızla saxlanılan faylları buraya əlavə edin:
-  static/assets/fonts/LEMONMILK-Medium.woff2 və/və ya LEMONMILK-Medium.otf
-  (ZIP-də adı çox vaxt LEMONMILK-Medium.otf kimi olur; woff2 istəyəsən özünüz konvert edin.)
-*/
 @font-face {
   font-family: "Lemon Milk";
   font-style: normal;
@@ -3008,7 +2992,6 @@ section#hero.hero.section {
 
 .services-2 .service-item .service-item-contents .service-item-category {
   color: color-mix(in srgb, var(--contrast-color), transparent 20%);
-  text-transform: uppercase;
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   display: block;
