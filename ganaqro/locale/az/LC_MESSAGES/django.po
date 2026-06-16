@@ -181,9 +181,6 @@ msgstr "Русский"
 msgid "Send message"
 msgstr "Göndər"
 
-msgid "Sending..."
-msgstr "Göndərilir..."
-
 msgid "Something went wrong. Please try again."
 msgstr "Xəta baş verdi. Zəhmət olmasa yenidən cəhd edin."
 
