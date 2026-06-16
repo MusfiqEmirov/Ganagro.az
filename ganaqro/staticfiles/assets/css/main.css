@@ -3008,7 +3008,6 @@ section#hero.hero.section {
 
 .services-2 .service-item .service-item-contents .service-item-category {
   color: color-mix(in srgb, var(--contrast-color), transparent 20%);
-  text-transform: uppercase;
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   display: block;
