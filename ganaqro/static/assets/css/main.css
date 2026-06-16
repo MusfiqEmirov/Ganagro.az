@@ -2992,7 +2992,7 @@ section#hero.hero.section {
 
 .services-2 .service-item .service-item-contents .service-item-category {
   color: color-mix(in srgb, var(--contrast-color), transparent 20%);
-  font-size: 0.72rem;
+  font-size: 16px;
   letter-spacing: 0.08em;
   display: block;
   margin-bottom: 5px;
