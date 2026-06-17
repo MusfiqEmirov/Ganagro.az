@@ -31,6 +31,9 @@ msgstr "Блог"
 msgid "Bloqlar"
 msgstr "Блоги"
 
+msgid "Bütün suallar"
+msgstr "Все вопросы"
+
 msgid "Blog pagination"
 msgstr "Пагинация Блога"
 
@@ -76,6 +79,9 @@ msgstr "Английский"
 msgid "Explore %(category)s"
 msgstr "Смотреть: %(category)s"
 
+msgid "FAQ"
+msgstr "Вопросы и ответы"
+
 msgid "Follow us on social media"
 msgstr "Мы в соцсетях"
 
@@ -87,6 +93,9 @@ msgstr "Свяжитесь с нами"
 
 msgid "Get in touch with us"
 msgstr "Свяжитесь с нами"
+
+msgid "Hələ heç bir sual əlavə edilməyib."
+msgstr "Вопросы пока не добавлены."
 
 msgid "Home"
 msgstr "Главная"
@@ -114,6 +123,9 @@ msgstr "Меню"
 
 msgid "Mobile number"
 msgstr "Мобильный телефон"
+
+msgid "Məhsul və xidmətlərimiz haqqında ən çox verilən sualların cavablarını tapın."
+msgstr "Найдите ответы на самые частые вопросы о наших продуктах и услугах."
 
 msgid "News and articles from our team"
 msgstr "Новости и статьи нашей команды"
@@ -186,6 +198,9 @@ msgstr "Произошла ошибка. Попробуйте снова."
 
 msgid "Subject"
 msgstr "Тема"
+
+msgid "Tez-tez verilən suallar"
+msgstr "Часто задаваемые вопросы"
 
 msgid "Views"
 msgstr "Просмотры"

@@ -31,6 +31,9 @@ msgstr "Bloq"
 msgid "Bloqlar"
 msgstr "Bloqlar"
 
+msgid "Bütün suallar"
+msgstr "Bütün suallar"
+
 msgid "Blog pagination"
 msgstr "Bloq səhifələməsi"
 
@@ -76,6 +79,9 @@ msgstr "English"
 msgid "Explore %(category)s"
 msgstr "%(category)s üzrə bax"
 
+msgid "FAQ"
+msgstr "Sual-cavab"
+
 msgid "Follow us on social media"
 msgstr "Sosial şəbəkələrdə izləyin"
 
@@ -87,6 +93,9 @@ msgstr "Bizimlə əlaqə"
 
 msgid "Get in touch with us"
 msgstr "Bizimlə əlaqə saxlayın"
+
+msgid "Hələ heç bir sual əlavə edilməyib."
+msgstr "Hələ heç bir sual əlavə edilməyib."
 
 msgid "Home"
 msgstr "Ana Səhifə"
@@ -114,6 +123,9 @@ msgstr "Menyu"
 
 msgid "Mobile number"
 msgstr "Mobil nömrə"
+
+msgid "Məhsul və xidmətlərimiz haqqında ən çox verilən sualların cavablarını tapın."
+msgstr "Məhsul və xidmətlərimiz haqqında ən çox verilən sualların cavablarını tapın."
 
 msgid "News and articles from our team"
 msgstr "Komandamızdan xəbər və məqalələr"
@@ -186,6 +198,9 @@ msgstr "Xəta baş verdi. Zəhmət olmasa yenidən cəhd edin."
 
 msgid "Subject"
 msgstr "Mövzu"
+
+msgid "Tez-tez verilən suallar"
+msgstr "Tez-tez verilən suallar"
 
 msgid "Views"
 msgstr "Baxış"
