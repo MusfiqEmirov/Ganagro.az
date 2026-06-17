@@ -31,6 +31,9 @@ msgstr "Blog"
 msgid "Bloqlar"
 msgstr "Blogs"
 
+msgid "Bütün suallar"
+msgstr "All questions"
+
 msgid "Blog pagination"
 msgstr "Blog pagination"
 
@@ -76,6 +79,9 @@ msgstr "English"
 msgid "Explore %(category)s"
 msgstr "Explore %(category)s"
 
+msgid "FAQ"
+msgstr "FAQ"
+
 msgid "Follow us on social media"
 msgstr "Follow us on social media"
 
@@ -87,6 +93,9 @@ msgstr "Get in touch"
 
 msgid "Get in touch with us"
 msgstr "Get in touch with us"
+
+msgid "Hələ heç bir sual əlavə edilməyib."
+msgstr "No questions have been added yet."
 
 msgid "Home"
 msgstr "Home"
@@ -114,6 +123,9 @@ msgstr "Menu"
 
 msgid "Mobile number"
 msgstr "Mobile number"
+
+msgid "Məhsul və xidmətlərimiz haqqında ən çox verilən sualların cavablarını tapın."
+msgstr "Find answers to the most common questions about our products and services."
 
 msgid "News and articles from our team"
 msgstr "News and articles from our team"
@@ -186,6 +198,9 @@ msgstr "Something went wrong. Please try again."
 
 msgid "Subject"
 msgstr "Subject"
+
+msgid "Tez-tez verilən suallar"
+msgstr "Frequently asked questions"
 
 msgid "Views"
 msgstr "Views"
