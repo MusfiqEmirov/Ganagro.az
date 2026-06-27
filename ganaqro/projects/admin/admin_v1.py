@@ -452,7 +452,7 @@ class StatisticAdmin(AdminPageHelpMixin, admin.ModelAdmin):
                 'caption_one_en',
                 'caption_one_ru',
             ),
-            'description': _('Böyük rəqəm + istəyə görə ikon + altında qısa izah. Məs: 25 — İllik təcrübə'),
+            'description': _('Böyük rəqəm + istəyə görə ikon + altında qısa izah. Məs: 25 və ya 90+ — İllik təcrübə'),
         }),
         (_('2-ci statistika kartı'), {
             'fields': (

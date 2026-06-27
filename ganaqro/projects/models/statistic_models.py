@@ -4,21 +4,25 @@ from projects.constants.icon_choices import STATISTIC_ICON_CHOICES
 
 
 class Statistic(models.Model):
-    value_one = models.PositiveIntegerField(
+    value_one = models.CharField(
+        max_length=32,
         verbose_name='1-ci kart — böyük rəqəm',
-        help_text='Məsələn: 25. Ana səhifə və Haqqımızda səhifəsində sol tərəfdəki birinci rəqəm.',
+        help_text='Məsələn: 25 və ya 90+. Rəqəmdən sonra +, % və s. əlavə edə bilərsiniz.',
     )
-    value_two = models.PositiveIntegerField(
+    value_two = models.CharField(
+        max_length=32,
         verbose_name='2-ci kart — böyük rəqəm',
-        help_text='Məsələn: 150. İkinci statistika kartındakı rəqəm.',
+        help_text='Məsələn: 150 və ya 90+. Rəqəmdən sonra +, % və s. əlavə edə bilərsiniz.',
     )
-    value_three = models.PositiveIntegerField(
+    value_three = models.CharField(
+        max_length=32,
         verbose_name='3-cü kart — böyük rəqəm',
-        help_text='Məsələn: 500. Üçüncü statistika kartındakı rəqəm.',
+        help_text='Məsələn: 500 və ya 90+. Rəqəmdən sonra +, % və s. əlavə edə bilərsiniz.',
     )
-    value_four = models.PositiveIntegerField(
+    value_four = models.CharField(
+        max_length=32,
         verbose_name='4-cü kart — böyük rəqəm',
-        help_text='Məsələn: 1000. Dördüncü statistika kartındakı rəqəm.',
+        help_text='Məsələn: 1000 və ya 90+. Rəqəmdən sonra +, % və s. əlavə edə bilərsiniz.',
     )
     caption_one_az = models.CharField(
         max_length=255,
